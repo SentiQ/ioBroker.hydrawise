@@ -1,0 +1,100 @@
+{
+	"common": {
+		"name": "hydrawise",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"title": "Hydrawise",
+		"titleLang": {
+			"en": "Hydrawise",
+			"de": "Hydrawise",
+			"ru": "Hydrawise",
+			"pt": "Hydrawise",
+			"nl": "Hydrawise",
+			"fr": "Hydrawise",
+			"it": "Hydrawise",
+			"es": "Hydrawise",
+			"pl": "Hydrawise",
+			"zh-cn": "Hydrawise"
+		},
+		"desc": {
+			"en": "Adapter to control the Hydrawise irrigation control system",
+			"de": "Adapter to control the Hydrawise irrigation control system",
+			"ru": "Adapter to control the Hydrawise irrigation control system",
+			"pt": "Adapter to control the Hydrawise irrigation control system",
+			"nl": "Adapter to control the Hydrawise irrigation control system",
+			"fr": "Adapter to control the Hydrawise irrigation control system",
+			"it": "Adapter to control the Hydrawise irrigation control system",
+			"es": "Adapter to control the Hydrawise irrigation control system",
+			"pl": "Adapter to control the Hydrawise irrigation control system",
+			"zh-cn": "Adapter to control the Hydrawise irrigation control system"
+		},
+		"authors": ["aDabbelju <aike.wernicke@gmx.de>"],
+		"keywords": ["hydrawise", "hunter", "irrigation", "watering", "garden"],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "build/main.js",
+		"icon": "hydrawise.jpg",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/aDabbelju/ioBroker.hydrawise/main/admin/hydrawise.jpg",
+		"readme": "https://github.com/aDabbelju/ioBroker.hydrawise/blob/main/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "garden",
+		"compact": true,
+		"connectionType": "cloud",
+		"dataSource": "poll",
+		"adminUI": {
+			"config": "json"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=3.3.22"
+			}
+		],
+		"globalDependencies": [
+			{
+				"admin": ">=5.1.13"
+			}
+		]
+	},
+	"native": {
+		"apiKey": "[ENTER YOUR HYDRAWISE-API-KEY HERE]"
+	},
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "info",
+			"type": "channel",
+			"common": {
+				"name": "Information"
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "indicator.connected",
+				"name": "Device or service connected",
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		}
+	]
+}

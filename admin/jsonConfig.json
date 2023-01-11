@@ -1,0 +1,11 @@
+{
+	"i18n": true,
+	"type": "panel",
+	"items": {
+		"apiKey": {
+			"type": "text",
+			"label": "API-Key",
+			"newLine": true
+		}
+	}
+}
