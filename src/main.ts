@@ -5,6 +5,10 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
+const axios = require("axios");
+
+// Hydrawise REST-API URL
+var hydrawise_url = "https://app.hydrawise.com/api/v1/";
 
 // Load your modules here, e.g.:
 // import * as fs from "fs";
@@ -15,6 +19,7 @@ class Hydrawise extends utils.Adapter {
 			...options,
 			name: "hydrawise",
 		});
+
 		this.on("ready", this.onReady.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
 		// this.on("objectChange", this.onObjectChange.bind(this));
@@ -27,6 +32,20 @@ class Hydrawise extends utils.Adapter {
 	 */
 	private async onReady(): Promise<void> {
 		// Initialize your adapter here
+
+		// validate if apiKey is set
+		if (!this.config.apiKey) {
+			this.log.error("No API-Key definded!");
+		}
+
+		var url = hydrawise_url + "customerdetails.php";
+		axios.get(url, {
+			params: {
+				api_Key: this.config.apiKey,
+			},
+		});
+
+		//const customerDetails = await GetCustomerDetails(this.config.apiKey);
 
 		// Reset the connection indicator during startup
 		this.setState("info.connection", false, true);
