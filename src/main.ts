@@ -5,13 +5,14 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
-const axios = require("axios");
 
 // Hydrawise REST-API URL
-var hydrawise_url = "https://app.hydrawise.com/api/v1/";
+const hydrawise_url = "https://api.hydrawise.com";
+let nextpoll: any = null;
 
 // Load your modules here, e.g.:
 // import * as fs from "fs";
+import axios from "axios";
 
 class Hydrawise extends utils.Adapter {
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -36,68 +37,16 @@ class Hydrawise extends utils.Adapter {
 		// validate if apiKey is set
 		if (!this.config.apiKey) {
 			this.log.error("No API-Key definded!");
+		} else {
+			this.log.info("config apiKey: " + this.config.apiKey);
 		}
 
-		var url = hydrawise_url + "customerdetails.php";
-		axios.get(url, {
-			params: {
-				api_Key: this.config.apiKey,
-			},
-		});
-
-		//const customerDetails = await GetCustomerDetails(this.config.apiKey);
-
 		// Reset the connection indicator during startup
-		this.setState("info.connection", false, true);
+		this.setStateChangedAsync("info.connection", false, true);
 
-		// The adapters config (in the instance object everything under the attribute "native") is accessible via
-		// this.config:
-		this.log.info("config apiKey: " + this.config.apiKey);
+		// await this.GetCustomerDetails(this.config.apiKey);
 
-		/*
-		For every state in the system there has to be also an object of type state
-		Here a simple template for a boolean variable named "testVariable"
-		Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-		*/
-		await this.setObjectNotExistsAsync("testVariable", {
-			type: "state",
-			common: {
-				name: "testVariable",
-				type: "boolean",
-				role: "indicator",
-				read: true,
-				write: true,
-			},
-			native: {},
-		});
-
-		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
-		this.subscribeStates("testVariable");
-		// You can also add a subscription for multiple states. The following line watches all states starting with "lights."
-		// this.subscribeStates("lights.*");
-		// Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
-		// this.subscribeStates("*");
-
-		/*
-			setState examples
-			you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-		*/
-		// the variable testVariable is set to true as command (ack=false)
-		await this.setStateAsync("testVariable", true);
-
-		// same thing, but the value is flagged "ack"
-		// ack should be always set to true if the value is received from or acknowledged from the target system
-		await this.setStateAsync("testVariable", { val: true, ack: true });
-
-		// same thing, but the state is deleted after 30s (getState will return null afterwards)
-		await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
-
-		// examples for the checkPassword/checkGroup functions
-		let result = await this.checkPasswordAsync("admin", "iobroker");
-		this.log.info("check user admin pw iobroker: " + result);
-
-		result = await this.checkGroupAsync("admin", "admin");
-		this.log.info("check group user admin group admin: " + result);
+		await this.GetStatusSchedule(this.config.apiKey);
 	}
 
 	/**
@@ -161,6 +110,236 @@ class Hydrawise extends utils.Adapter {
 	// 		}
 	// 	}
 	// }
+
+	private async GetStatusSchedule(apiKey: string): Promise<void> {
+		return new Promise((resolve, reject) => {
+			this.log.debug("refreshing device state");
+
+			this.log.debug("re-creating refresh state timeout");
+
+			nextpoll =
+				nextpoll ||
+				this.setTimeout(() => {
+					nextpoll = null;
+					this.GetStatusSchedule(apiKey);
+				}, 60000);
+
+			this.buildRequest("statusschedule.php", "GET")
+				.then(async (response) => {
+					if (response.status === 200) {
+						const content = response.data;
+
+						this.setStateChangedAsync("info.connection", true, true);
+
+						for (const key in content) {
+							if (key !== "relays" && key !== "sensors") {
+								await this.setObjectNotExistsAsync(`schedule.${key}`, {
+									type: "state",
+									common: {
+										name: key,
+										type: key === "message" ? "string" : "number",
+										role: key === "message" ? "text" : "value",
+										read: true,
+										write: false,
+									},
+									native: {},
+								});
+
+								this.setStateChangedAsync(`schedule.${key}`, content[key], true);
+							}
+						}
+
+						for (const relay of content.relays) {
+							await this.setObjectNotExistsAsync(`schedule.${relay.name}`, {
+								type: "channel",
+								common: {
+									name: relay.name,
+								},
+								native: {},
+							});
+
+							for (const key in relay) {
+								await this.setObjectNotExistsAsync(`schedule.${relay.name}.${key}`, {
+									type: "state",
+									common: {
+										name: key,
+										type: key === "name" ? "string" : "number",
+										role: key === "name" ? "text" : "value",
+										read: true,
+										write: false,
+									},
+									native: {},
+								});
+
+								this.setStateChangedAsync(`schedule.${relay.name}.${key}`, relay[key], true);
+							}
+						}
+
+						// ToDo
+						// for (const sensor of content.sensors) {
+						// await this.setObjectNotExistsAsync(`schedule.${sensor.name}`, {
+						// 	type: "channel",
+						// 	common: {
+						// 		name: sensor.name,
+						// 	},
+						// 	native: {},
+						// });
+						// for (const key in sensor) {
+						// 	await this.setObjectNotExistsAsync(`schedule.${sensor.name}.${key}`, {
+						// 		type: "state",
+						// 		common: {
+						// 			name: key,
+						// 			type: key === "name" ? "string" : "number",
+						// 			role: key === "name" ? "text" : "value",
+						// 			read: true,
+						// 			write: false,
+						// 		},
+						// 		native: {},
+						// 	});
+						// 	this.setStateChangedAsync(`schedule.${sensor.name}.${key}`, sensor[key], true);
+						// }
+						// }
+					}
+
+					resolve(response.status);
+				})
+				.catch((error) => {
+					this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
+
+					this.setStateChangedAsync("info.connection", false, true);
+
+					reject(error);
+				});
+		});
+	}
+
+	private async GetCustomerDetails(apiKey: string): Promise<void> {
+		const url = hydrawise_url + "customerdetails.php";
+		try {
+			const customerDetails = await axios.get<CustomerDetails>(url, {
+				headers: {
+					Accept: "application/json",
+				},
+				params: {
+					api_key: apiKey,
+				},
+			});
+
+			this.log.info("customerDetails: " + JSON.stringify(customerDetails.data, null, 4));
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				this.log.error("error message: " + error.message);
+			} else {
+				this.log.error("unexpected error: " + error);
+			}
+		}
+	}
+
+	buildRequest(service: string, method: string, data?: any): Promise<any> {
+		return new Promise((resolve, reject) => {
+			const url = `/api/v1/${service}`;
+			let lastErrorCode = 0;
+
+			if (this.config.apiKey) {
+				if (data) {
+					this.log.debug(`sending "${method}" request to "${url}" with data: ${JSON.stringify(data)}`);
+				} else {
+					this.log.debug(`sending "${method}" request to "${url}" without data`);
+				}
+
+				axios({
+					method: method,
+					data: data,
+					baseURL: hydrawise_url,
+					url: url,
+					timeout: 3000,
+					responseType: "json",
+					params: {
+						api_key: this.config.apiKey,
+					},
+				})
+					.then((response) => {
+						this.log.debug(
+							`received ${response.status} response from "${url}" with content: ${JSON.stringify(
+								response.data,
+							)}`,
+						);
+
+						// no error - clear up reminder
+						lastErrorCode = 0;
+
+						resolve(response);
+					})
+					.catch((error) => {
+						if (error.response) {
+							// The request was made and the server responded with a status code
+
+							this.log.warn(
+								`received ${error.response.status} response from ${url} with content: ${JSON.stringify(
+									error.response.data,
+								)}`,
+							);
+						} else if (error.request) {
+							// The request was made but no response was received
+							// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+							// http.ClientRequest in node.js
+
+							// avoid spamming of the same error when stuck in a reconnection loop
+							if (error.code === lastErrorCode) {
+								this.log.debug(error.message);
+							} else {
+								this.log.info(`error ${error.code} from ${url}: ${error.message}`);
+								lastErrorCode = error.code;
+							}
+						} else {
+							// Something happened in setting up the request that triggered an Error
+							this.log.error(error.message);
+						}
+
+						reject(error);
+					});
+			} else {
+				reject("Device IP is not configured");
+			}
+		});
+	}
+}
+
+interface StatusSchedule {
+	message: string;
+	nextpoll: number;
+	time: number;
+	relays?: {
+		relay_id: number;
+		relay: number;
+		name: string;
+		timestr: string;
+		time: number;
+		run: string;
+	};
+	master: number;
+	master_timer: number;
+	sensors?: {
+		input: number;
+		type: number;
+		mode: number;
+		relay?: {
+			id: number;
+		};
+	};
+}
+
+interface CustomerDetails {
+	controller_id: number;
+	customer_id: number;
+	current_controller: string;
+	controller?: {
+		name: string;
+		last_contact: string;
+		serial_number: string;
+		controller_id: number;
+		status: string;
+	};
 }
 
 if (require.main !== module) {

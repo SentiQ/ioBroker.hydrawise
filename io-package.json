@@ -41,15 +41,15 @@
 			"pl": "Adapter to control the Hydrawise irrigation control system",
 			"zh-cn": "Adapter to control the Hydrawise irrigation control system"
 		},
-		"authors": ["aDabbelju <aike.wernicke@gmx.de>"],
+		"authors": ["SentiQ <fischer.yves@web.de>"],
 		"keywords": ["hydrawise", "hunter", "irrigation", "watering", "garden"],
 		"license": "MIT",
 		"platform": "Javascript/Node.js",
 		"main": "build/main.js",
 		"icon": "hydrawise.jpg",
 		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/aDabbelju/ioBroker.hydrawise/main/admin/hydrawise.jpg",
-		"readme": "https://github.com/aDabbelju/ioBroker.hydrawise/blob/main/README.md",
+		"extIcon": "https://raw.githubusercontent.com/SentiQ/ioBroker.hydrawise/main/admin/hydrawise.jpg",
+		"readme": "https://github.com/SentiQ/ioBroker.hydrawise/blob/main/README.md",
 		"loglevel": "info",
 		"mode": "daemon",
 		"type": "garden",
@@ -93,6 +93,46 @@
 				"read": true,
 				"write": false,
 				"def": false
+			},
+			"native": {}
+		},
+		{
+			"_id": "customer",
+			"type": "channel",
+			"common": {
+				"name": {
+					"en": "Controllers",
+					"de": "Controller",
+					"ru": "Контроллеры",
+					"pt": "Controladores",
+					"nl": "Controller",
+					"fr": "Contrôleurs",
+					"it": "Regolatori",
+					"es": "Controladores",
+					"pl": "Kontroler",
+					"uk": "Контролери",
+					"zh-cn": "主计长"
+				}
+			},
+			"native": {}
+		},
+		{
+			"_id": "schedule",
+			"type": "channel",
+			"common": {
+				"name": {
+					"en": "Schedule",
+					"de": "Zeitplan",
+					"ru": "Расписание",
+					"pt": "Programação",
+					"nl": "Schedel",
+					"fr": "Tableau",
+					"it": "Programma",
+					"es": "Cuadro",
+					"pl": "Schedule",
+					"uk": "Розклад",
+					"zh-cn": "附表"
+				}
 			},
 			"native": {}
 		}

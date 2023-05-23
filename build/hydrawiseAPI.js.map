@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../src/hydrawiseAPI.ts"],
-  "sourcesContent": ["const axios = require(\"axios\");\n\n// Hydrawise REST-API URL\nvar hydrawise_url = \"https://app.hydrawise.com/api/v1/\";\n\nclass hydrawiseAPI {\n\tprivate GetStatusSchedule(apiKey: string, controllerId: string) {}\n\n\tprivate SetZone(apiKey: string) {}\n}\n\nfunction GetCustomerDetails(apiKey: string) {\n\tvar url = hydrawise_url + \"customerdetails.php\";\n\taxios.get(url, {\n\t\tparams: {\n\t\t\tapi_Key: apiKey,\n\t\t},\n\t});\n}\n\ninterface CustomerDetails {\n\tcontroller_id: number;\n\tcustomer_id: number;\n\tcurrent_controller: string;\n\tcontroller?: {\n\t\tname: string;\n\t\tlast_contact: string;\n\t\tserial_number: string;\n\t\tcontroller_id: number;\n\t\tstatus: string;\n\t};\n}\n"],
-  "mappings": ";AAAA,MAAM,QAAQ,QAAQ,OAAO;AAG7B,IAAI,gBAAgB;AAEpB,MAAM,aAAa;AAAA,EACV,kBAAkB,QAAgB,cAAsB;AAAA,EAAC;AAAA,EAEzD,QAAQ,QAAgB;AAAA,EAAC;AAClC;AAEA,SAAS,mBAAmB,QAAgB;AAC3C,MAAI,MAAM,gBAAgB;AAC1B,QAAM,IAAI,KAAK;AAAA,IACd,QAAQ;AAAA,MACP,SAAS;AAAA,IACV;AAAA,EACD,CAAC;AACF;",
-  "names": []
-}
