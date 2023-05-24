@@ -19,6 +19,8 @@
 
 -   (SentiQ) Initial commit after refactoring code
 
+### **WORK IN PROGRESS**
+
 ## License
 
 MIT License
