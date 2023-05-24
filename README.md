@@ -11,6 +11,10 @@
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+
+-   (SentiQ) testing
+
 ### 0.0.3 (2023-05-24)
 
 -   (SentiQ) added zone controls and Ukrainian language
@@ -18,8 +22,6 @@
 ### 0.0.2 (2023-05-23)
 
 -   (SentiQ) Initial commit after refactoring code
-
-### **WORK IN PROGRESS**
 
 ## License
 
