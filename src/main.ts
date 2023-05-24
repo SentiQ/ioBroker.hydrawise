@@ -8,7 +8,9 @@ import * as utils from "@iobroker/adapter-core";
 
 // Hydrawise REST-API URL
 const hydrawise_url = "https://api.hydrawise.com";
-let nextpoll: any = null;
+let nextpollSchedule: any = null;
+let nextpollCustomer: any = null;
+const RELAYS: any = Object;
 
 // Load your modules here, e.g.:
 // import * as fs from "fs";
@@ -44,95 +46,68 @@ class Hydrawise extends utils.Adapter {
 		// Reset the connection indicator during startup
 		this.setStateChangedAsync("info.connection", false, true);
 
+		await this.GetStatusSchedule(this.config.apiKey);
+
 		// await this.GetCustomerDetails(this.config.apiKey);
 
-		await this.GetStatusSchedule(this.config.apiKey);
+		// Subscribe for changes
+		await this.subscribeStatesAsync("*");
 	}
-
-	/**
-	 * Is called when adapter shuts down - callback has to be called under any circumstances!
-	 */
-	private onUnload(callback: () => void): void {
-		try {
-			// Here you must clear all timeouts or intervals that may still be active
-			// clearTimeout(timeout1);
-			// clearTimeout(timeout2);
-			// ...
-			// clearInterval(interval1);
-
-			callback();
-		} catch (e) {
-			callback();
-		}
-	}
-
-	// If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.
-	// You also need to subscribe to the objects with `this.subscribeObjects`, similar to `this.subscribeStates`.
-	// /**
-	//  * Is called if a subscribed object changes
-	//  */
-	// private onObjectChange(id: string, obj: ioBroker.Object | null | undefined): void {
-	// 	if (obj) {
-	// 		// The object was changed
-	// 		this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
-	// 	} else {
-	// 		// The object was deleted
-	// 		this.log.info(`object ${id} deleted`);
-	// 	}
-	// }
-
-	/**
-	 * Is called if a subscribed state changes
-	 */
-	private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
-		if (state) {
-			// The state was changed
-			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-		} else {
-			// The state was deleted
-			this.log.info(`state ${id} deleted`);
-		}
-	}
-
-	// If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
-	// /**
-	//  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-	//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
-	//  */
-	// private onMessage(obj: ioBroker.Message): void {
-	// 	if (typeof obj === "object" && obj.message) {
-	// 		if (obj.command === "send") {
-	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info("send command");
-
-	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
-	// 		}
-	// 	}
-	// }
 
 	private async GetStatusSchedule(apiKey: string): Promise<void> {
 		return new Promise((resolve, reject) => {
-			this.log.debug("refreshing device state");
-
-			this.log.debug("re-creating refresh state timeout");
-
-			nextpoll =
-				nextpoll ||
+			nextpollSchedule =
+				nextpollSchedule ||
 				this.setTimeout(() => {
-					nextpoll = null;
+					nextpollSchedule = null;
 					this.GetStatusSchedule(apiKey);
 				}, 60000);
 
-			this.buildRequest("statusschedule.php", "GET")
+			this.buildRequest("statusschedule.php", { api_key: this.config.apiKey })
 				.then(async (response) => {
 					if (response.status === 200) {
 						const content = response.data;
 
 						this.setStateChangedAsync("info.connection", true, true);
 
+						await this.setObjectNotExistsAsync("schedule.stopall", {
+							type: "state",
+							common: {
+								name: "stopall",
+								type: "boolean",
+								role: "button",
+								read: false,
+								write: true,
+							},
+							native: {},
+						});
+
+						await this.setObjectNotExistsAsync("schedule.runall", {
+							type: "state",
+							common: {
+								name: "runall for x seconds",
+								type: "number",
+								role: "value",
+								read: false,
+								write: true,
+							},
+							native: {},
+						});
+
+						await this.setObjectNotExistsAsync("schedule.suspendall", {
+							type: "state",
+							common: {
+								name: "suspendall for x seconds",
+								type: "number",
+								role: "value",
+								read: false,
+								write: true,
+							},
+							native: {},
+						});
+
 						for (const key in content) {
-							if (key !== "relays" && key !== "sensors") {
+							if (key !== "relays" && key !== "sensors" && key !== "expanders") {
 								await this.setObjectNotExistsAsync(`schedule.${key}`, {
 									type: "state",
 									common: {
@@ -158,6 +133,8 @@ class Hydrawise extends utils.Adapter {
 								native: {},
 							});
 
+							RELAYS[relay.name] = relay.relay_id;
+
 							for (const key in relay) {
 								await this.setObjectNotExistsAsync(`schedule.${relay.name}.${key}`, {
 									type: "state",
@@ -173,32 +150,75 @@ class Hydrawise extends utils.Adapter {
 
 								this.setStateChangedAsync(`schedule.${relay.name}.${key}`, relay[key], true);
 							}
+
+							await this.setObjectNotExistsAsync(`schedule.${relay.name}.stopZone`, {
+								type: "state",
+								common: {
+									name: "stop zone",
+									type: "boolean",
+									role: "button",
+									read: false,
+									write: true,
+								},
+								native: {},
+							});
+
+							await this.setObjectNotExistsAsync(`schedule.${relay.name}.runZone`, {
+								type: "state",
+								common: {
+									name: "run zone for x seconds",
+									type: "number",
+									role: "value",
+									read: false,
+									write: true,
+								},
+								native: {},
+							});
+
+							await this.setObjectNotExistsAsync(`schedule.${relay.name}.suspendZone`, {
+								type: "state",
+								common: {
+									name: "suspend zone for x seconds",
+									type: "number",
+									role: "value",
+									read: false,
+									write: true,
+								},
+								native: {},
+							});
 						}
 
-						// ToDo
-						// for (const sensor of content.sensors) {
-						// await this.setObjectNotExistsAsync(`schedule.${sensor.name}`, {
-						// 	type: "channel",
-						// 	common: {
-						// 		name: sensor.name,
-						// 	},
-						// 	native: {},
-						// });
-						// for (const key in sensor) {
-						// 	await this.setObjectNotExistsAsync(`schedule.${sensor.name}.${key}`, {
-						// 		type: "state",
-						// 		common: {
-						// 			name: key,
-						// 			type: key === "name" ? "string" : "number",
-						// 			role: key === "name" ? "text" : "value",
-						// 			read: true,
-						// 			write: false,
-						// 		},
-						// 		native: {},
-						// 	});
-						// 	this.setStateChangedAsync(`schedule.${sensor.name}.${key}`, sensor[key], true);
-						// }
-						// }
+						for (const sensor of content.sensors) {
+							await this.setObjectNotExistsAsync(`schedule.sensors.${sensor.input}`, {
+								type: "channel",
+								common: {
+									name: "sensors",
+								},
+								native: {},
+							});
+
+							for (const key in sensor) {
+								if (key !== "relays") {
+									await this.setObjectNotExistsAsync(`schedule.sensors.${sensor.input}.${key}`, {
+										type: "state",
+										common: {
+											name: key,
+											type: "number",
+											role: "value",
+											read: true,
+											write: false,
+										},
+										native: {},
+									});
+
+									this.setStateChangedAsync(
+										`schedule.sensors.${sensor.input}.${key}`,
+										sensor[key],
+										true,
+									);
+								}
+							}
+						}
 					}
 
 					resolve(response.status);
@@ -214,49 +234,97 @@ class Hydrawise extends utils.Adapter {
 	}
 
 	private async GetCustomerDetails(apiKey: string): Promise<void> {
-		const url = hydrawise_url + "customerdetails.php";
-		try {
-			const customerDetails = await axios.get<CustomerDetails>(url, {
-				headers: {
-					Accept: "application/json",
-				},
-				params: {
-					api_key: apiKey,
-				},
-			});
+		return new Promise((resolve, reject) => {
+			nextpollCustomer =
+				nextpollCustomer ||
+				this.setTimeout(() => {
+					nextpollCustomer = null;
+					this.GetCustomerDetails(apiKey);
+				}, 60 * 5000);
 
-			this.log.info("customerDetails: " + JSON.stringify(customerDetails.data, null, 4));
-		} catch (error) {
-			if (axios.isAxiosError(error)) {
-				this.log.error("error message: " + error.message);
-			} else {
-				this.log.error("unexpected error: " + error);
-			}
-		}
+			this.buildRequest("customerdetails.php", { api_key: this.config.apiKey })
+				.then(async (response) => {
+					if (response.status === 200) {
+						const content = response.data;
+
+						this.setStateChangedAsync("info.connection", true, true);
+
+						for (const key in content) {
+							if (key !== "controllers") {
+								await this.setObjectNotExistsAsync(`customer.${key}`, {
+									type: "state",
+									common: {
+										name: key,
+										type: key === "message" ? "string" : "number",
+										role: key === "message" ? "text" : "value",
+										read: true,
+										write: false,
+									},
+									native: {},
+								});
+
+								this.setStateChangedAsync(`customer.${key}`, content[key], true);
+							}
+						}
+
+						for (const controller of content.controllers) {
+							await this.setObjectNotExistsAsync(`customer.controllers.${controller.name}`, {
+								type: "channel",
+								common: {
+									name: controller.name,
+								},
+								native: {},
+							});
+
+							for (const key in controller) {
+								await this.setObjectNotExistsAsync(`customer.controllers.${controller.name}.${key}`, {
+									type: "state",
+									common: {
+										name: key,
+										type: key !== "controller_id" ? "string" : "number",
+										role: key !== "controller_id" ? "text" : "value",
+										read: true,
+										write: false,
+									},
+									native: {},
+								});
+
+								this.setStateChangedAsync(
+									`customer.controllers.${controller.name}.${key}`,
+									controller[key],
+									true,
+								);
+							}
+						}
+					}
+
+					resolve(response.status);
+				})
+				.catch((error) => {
+					this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
+
+					this.setStateChangedAsync("info.connection", false, true);
+
+					reject(error);
+				});
+		});
 	}
 
-	buildRequest(service: string, method: string, data?: any): Promise<any> {
+	buildRequest(service: string, params: any): Promise<any> {
 		return new Promise((resolve, reject) => {
 			const url = `/api/v1/${service}`;
 			let lastErrorCode = 0;
 
-			if (this.config.apiKey) {
-				if (data) {
-					this.log.debug(`sending "${method}" request to "${url}" with data: ${JSON.stringify(data)}`);
-				} else {
-					this.log.debug(`sending "${method}" request to "${url}" without data`);
-				}
+			if (params.api_key) {
+				this.log.debug(`sending GET request to "${url}" with params: ${JSON.stringify(params)}`);
 
 				axios({
-					method: method,
-					data: data,
+					method: "GET",
 					baseURL: hydrawise_url,
 					url: url,
 					timeout: 3000,
 					responseType: "json",
-					params: {
-						api_key: this.config.apiKey,
-					},
+					params: params,
 				})
 					.then((response) => {
 						this.log.debug(
@@ -303,43 +371,93 @@ class Hydrawise extends utils.Adapter {
 			}
 		});
 	}
-}
 
-interface StatusSchedule {
-	message: string;
-	nextpoll: number;
-	time: number;
-	relays?: {
-		relay_id: number;
-		relay: number;
-		name: string;
-		timestr: string;
-		time: number;
-		run: string;
-	};
-	master: number;
-	master_timer: number;
-	sensors?: {
-		input: number;
-		type: number;
-		mode: number;
-		relay?: {
-			id: number;
-		};
-	};
-}
+	/**
+	 * Is called when adapter shuts down - callback has to be called under any circumstances!
+	 */
+	private onUnload(callback: () => void): void {
+		try {
+			clearTimeout(nextpollSchedule);
+			clearTimeout(nextpollCustomer);
 
-interface CustomerDetails {
-	controller_id: number;
-	customer_id: number;
-	current_controller: string;
-	controller?: {
-		name: string;
-		last_contact: string;
-		serial_number: string;
-		controller_id: number;
-		status: string;
-	};
+			callback();
+		} catch (e) {
+			callback();
+		}
+	}
+
+	/**
+	 * Is called if a subscribed state changes
+	 */
+	private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
+		if (state) {
+			console.log("state", state);
+
+			// The state was changed
+			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+
+			if (id.indexOf("stopall") !== -1) {
+				this.buildRequest("setzone.php", { api_key: this.config.apiKey, action: "stopall" });
+			} else if (id.indexOf("stop") !== -1) {
+				const relay = id.match(/.*schedule\.(.*)\.stopZone/);
+
+				if (relay && relay?.length > 1) {
+					this.buildRequest("setzone.php", {
+						api_key: this.config.apiKey,
+						action: "stop",
+						relay_id: RELAYS[relay[1]],
+					});
+				}
+			}
+			if (id.indexOf("runall") !== -1 && (state.val || state.val === 0)) {
+				this.buildRequest("setzone.php", {
+					api_key: this.config.apiKey,
+					action: "runall",
+					period_id: 999,
+					custom: state.val,
+				});
+			} else if (id.indexOf("run") !== -1 && (state.val || state.val === 0)) {
+				const relay = id.match(/.*schedule\.(.*)\.runZone/);
+
+				if (relay && relay?.length > 1) {
+					this.buildRequest("setzone.php", {
+						api_key: this.config.apiKey,
+						action: "run",
+						period_id: 999,
+						custom: state.val,
+						relay_id: RELAYS[relay[1]],
+					});
+				}
+			}
+
+			if (id.indexOf("suspendall") !== -1 && (state.val || state.val === 0)) {
+				const num = state.val as number;
+
+				this.buildRequest("setzone.php", {
+					api_key: this.config.apiKey,
+					action: "suspendall",
+					period_id: 999,
+					custom: Math.trunc((state.ts + num) / 1000),
+				});
+			} else if (id.indexOf("suspend") !== -1 && (state.val || state.val === 0)) {
+				const num = state.val as number;
+				const relay = id.match(/.*schedule\.(.*)\.suspendZone/);
+
+				if (relay && relay?.length > 1) {
+					this.buildRequest("setzone.php", {
+						api_key: this.config.apiKey,
+						action: "suspend",
+						period_id: 999,
+						custom: Math.trunc((state.ts + num) / 1000),
+						relay_id: RELAYS[relay[1]],
+					});
+				}
+			}
+		} else {
+			// The state was deleted
+			this.log.info(`state ${id} deleted`);
+		}
+	}
 }
 
 if (require.main !== module) {

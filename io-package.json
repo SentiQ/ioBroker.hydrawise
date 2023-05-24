@@ -1,8 +1,34 @@
 {
 	"common": {
 		"name": "hydrawise",
-		"version": "0.0.1",
+		"version": "0.0.3",
 		"news": {
+			"0.0.3": {
+				"en": "added zone controls and Ukrainian language",
+				"de": "zusätzliche zonensteuerung",
+				"ru": "добавленный контроль зоны",
+				"pt": "controles de zona adicionados",
+				"nl": "vertaling:",
+				"fr": "contrôles des zones ajoutées",
+				"it": "comandi di zona aggiunti",
+				"es": "controles de zonas",
+				"pl": "kontrola strefy",
+				"uk": "додано контроль зони",
+				"zh-cn": "附加区管制"
+			},
+			"0.0.2": {
+				"en": "Refactoring",
+				"de": "Herstellung",
+				"ru": "Рефакторинг",
+				"pt": "Refactoring",
+				"nl": "Refactor",
+				"fr": "Refactoring",
+				"it": "Refactoring",
+				"es": "Refactoring",
+				"pl": "Refaktor",
+				"uk": "Рефакторинг",
+				"zh-cn": "评 注"
+			},
 			"0.0.1": {
 				"en": "initial release",
 				"de": "Erstveröffentlichung",
@@ -13,10 +39,10 @@
 				"it": "Versione iniziale",
 				"es": "Versión inicial",
 				"pl": "Pierwsze wydanie",
+				"uk": "початковий реліз",
 				"zh-cn": "首次出版"
 			}
 		},
-		"title": "Hydrawise",
 		"titleLang": {
 			"en": "Hydrawise",
 			"de": "Hydrawise",
@@ -27,6 +53,7 @@
 			"it": "Hydrawise",
 			"es": "Hydrawise",
 			"pl": "Hydrawise",
+			"uk": "Hydrawise",
 			"zh-cn": "Hydrawise"
 		},
 		"desc": {
@@ -39,6 +66,7 @@
 			"it": "Adapter to control the Hydrawise irrigation control system",
 			"es": "Adapter to control the Hydrawise irrigation control system",
 			"pl": "Adapter to control the Hydrawise irrigation control system",
+			"uk": "Adapter to control the Hydrawise irrigation control system",
 			"zh-cn": "Adapter to control the Hydrawise irrigation control system"
 		},
 		"authors": ["SentiQ <fischer.yves@web.de>"],
