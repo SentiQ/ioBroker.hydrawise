@@ -10,6 +10,11 @@
 [![NPM](https://nodei.co/npm/iobroker.hydrawise.png?downloads=true)](https://nodei.co/npm/iobroker.hydrawise/)
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+
+-   (SentiQ) improving log messages
+
 ### 0.0.4 (2023-05-24)
 
 -   (SentiQ) testing
