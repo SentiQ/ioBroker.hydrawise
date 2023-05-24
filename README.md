@@ -10,9 +10,14 @@
 [![NPM](https://nodei.co/npm/iobroker.hydrawise.png?downloads=true)](https://nodei.co/npm/iobroker.hydrawise/)
 
 ## Changelog
-### 0.0.6 (2023-05-24)
+
+### **WORK IN PROGRESS**
 
 -   (SentiQ) improving log messages
+
+### 0.0.6 (2023-05-24)
+
+-   (SentiQ) lowered min node version to 14.5.0
 
 ### 0.0.5 (2023-05-24)
 
