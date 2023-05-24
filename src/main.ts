@@ -5,16 +5,12 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
+import axios from "axios";
 
-// Hydrawise REST-API URL
 const hydrawise_url = "https://api.hydrawise.com";
 let nextpollSchedule: any = null;
 let nextpollCustomer: any = null;
 const RELAYS: any = Object;
-
-// Load your modules here, e.g.:
-// import * as fs from "fs";
-import axios from "axios";
 
 class Hydrawise extends utils.Adapter {
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -25,33 +21,23 @@ class Hydrawise extends utils.Adapter {
 
 		this.on("ready", this.onReady.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
-		// this.on("objectChange", this.onObjectChange.bind(this));
-		// this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
 	}
 
-	/**
-	 * Is called when databases are connected and adapter received configuration.
-	 */
 	private async onReady(): Promise<void> {
-		// Initialize your adapter here
-
-		// validate if apiKey is set
 		if (!this.config.apiKey) {
 			this.log.error("No API-Key definded!");
 		} else {
 			this.log.info("config apiKey: " + this.config.apiKey);
+
+			this.setStateChangedAsync("info.connection", false, true);
+
+			await this.GetStatusSchedule(this.config.apiKey);
+
+			await this.GetCustomerDetails(this.config.apiKey);
+
+			await this.subscribeStatesAsync("*");
 		}
-
-		// Reset the connection indicator during startup
-		this.setStateChangedAsync("info.connection", false, true);
-
-		await this.GetStatusSchedule(this.config.apiKey);
-
-		// await this.GetCustomerDetails(this.config.apiKey);
-
-		// Subscribe for changes
-		await this.subscribeStatesAsync("*");
 	}
 
 	private async GetStatusSchedule(apiKey: string): Promise<void> {

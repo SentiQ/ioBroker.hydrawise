@@ -38,10 +38,11 @@ class Hydrawise extends utils.Adapter {
       this.log.error("No API-Key definded!");
     } else {
       this.log.info("config apiKey: " + this.config.apiKey);
+      this.setStateChangedAsync("info.connection", false, true);
+      await this.GetStatusSchedule(this.config.apiKey);
+      await this.GetCustomerDetails(this.config.apiKey);
+      await this.subscribeStatesAsync("*");
     }
-    this.setStateChangedAsync("info.connection", false, true);
-    await this.GetStatusSchedule(this.config.apiKey);
-    await this.subscribeStatesAsync("*");
   }
   async GetStatusSchedule(apiKey) {
     return new Promise((resolve, reject) => {
