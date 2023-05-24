@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "news": {
+      "0.0.7": {
+        "en": "improving log messages",
+        "de": "verbesserung der log-nachrichten",
+        "ru": "улучшение лог-сообщений",
+        "pt": "melhorar as mensagens de log",
+        "nl": "het verbeteren van logberichten",
+        "fr": "améliorer les messages journaux",
+        "it": "migliorare i messaggi di log",
+        "es": "mejorar los mensajes de registro",
+        "pl": "udoskonalać",
+        "uk": "поліпшення повідомлень журналу",
+        "zh-cn": "b. 改进信息"
+      },
       "0.0.6": {
         "en": "improving log messages",
         "de": "verbesserung der log-nachrichten",
