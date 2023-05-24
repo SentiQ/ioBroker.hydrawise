@@ -25,7 +25,7 @@
 			"key": "apiKey",
 			"label": "API-Key",
 			"inputType": "text",
-			"defaultValue": "[ENTER YOUR HYDRAWISE-API-KEY HERE]"
+			"defaultValue": ""
 		}
 	],
 	"language": "TypeScript",
