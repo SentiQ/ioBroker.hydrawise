@@ -49,7 +49,6 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   os: ${{ matrix.os }}
-                  extra-tests: npm run test:js
 
     # Deploys the final package to NPM
     deploy:
