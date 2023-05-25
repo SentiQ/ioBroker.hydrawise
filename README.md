@@ -11,9 +11,13 @@
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+
+-   (SentiQ) added more translations
+
 ### 0.0.8 (2023-05-25)
 
--   (SentiQ) improving log messages
+-   (SentiQ) improved log messages
 
 ### 0.0.7 (2023-05-25)
 
