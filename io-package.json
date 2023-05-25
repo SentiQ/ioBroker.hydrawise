@@ -1,220 +1,229 @@
 {
-	"common": {
-		"name": "hydrawise",
-		"version": "0.0.7",
-		"news": {
-			"0.0.7": {
-				"en": "improving log messages",
-				"de": "verbesserung der log-nachrichten",
-				"ru": "улучшение лог-сообщений",
-				"pt": "melhorar as mensagens de log",
-				"nl": "het verbeteren van logberichten",
-				"fr": "améliorer les messages journaux",
-				"it": "migliorare i messaggi di log",
-				"es": "mejorar los mensajes de registro",
-				"pl": "udoskonalać",
-				"uk": "поліпшення повідомлень журналу",
-				"zh-cn": "b. 改进信息"
-			},
-			"0.0.6": {
-				"en": "improving log messages",
-				"de": "verbesserung der log-nachrichten",
-				"ru": "улучшение лог-сообщений",
-				"pt": "melhorar as mensagens de log",
-				"nl": "het verbeteren van logberichten",
-				"fr": "améliorer les messages journaux",
-				"it": "migliorare i messaggi di log",
-				"es": "mejorar los mensajes de registro",
-				"pl": "udoskonalać",
-				"uk": "поліпшення повідомлень журналу",
-				"zh-cn": "b. 改进信息"
-			},
-			"0.0.5": {
-				"en": "improving log messages",
-				"de": "verbesserung der log-nachrichten",
-				"ru": "улучшение лог-сообщений",
-				"pt": "melhorar as mensagens de log",
-				"nl": "het verbeteren van logberichten",
-				"fr": "améliorer les messages journaux",
-				"it": "migliorare i messaggi di log",
-				"es": "mejorar los mensajes de registro",
-				"pl": "udoskonalać",
-				"uk": "поліпшення повідомлень журналу",
-				"zh-cn": "b. 改进信息"
-			},
-			"0.0.4": {
-				"en": "testing",
-				"de": "prüfverfahren",
-				"ru": "тестирование",
-				"pt": "testes",
-				"nl": "testen",
-				"fr": "essais",
-				"it": "test di prova",
-				"es": "pruebas",
-				"pl": "testować",
-				"uk": "тестування",
-				"zh-cn": "试验"
-			},
-			"0.0.3": {
-				"en": "added zone controls and Ukrainian language",
-				"de": "zusätzliche zonensteuerung",
-				"ru": "добавленный контроль зоны",
-				"pt": "controles de zona adicionados",
-				"nl": "vertaling:",
-				"fr": "contrôles des zones ajoutées",
-				"it": "comandi di zona aggiunti",
-				"es": "controles de zonas",
-				"pl": "kontrola strefy",
-				"uk": "додано контроль зони",
-				"zh-cn": "附加区管制"
-			},
-			"0.0.2": {
-				"en": "Refactoring",
-				"de": "Herstellung",
-				"ru": "Рефакторинг",
-				"pt": "Refactoring",
-				"nl": "Refactor",
-				"fr": "Refactoring",
-				"it": "Refactoring",
-				"es": "Refactoring",
-				"pl": "Refaktor",
-				"uk": "Рефакторинг",
-				"zh-cn": "评 注"
-			},
-			"0.0.1": {
-				"en": "initial release",
-				"de": "Erstveröffentlichung",
-				"ru": "Начальная версия",
-				"pt": "lançamento inicial",
-				"nl": "Eerste uitgave",
-				"fr": "Première version",
-				"it": "Versione iniziale",
-				"es": "Versión inicial",
-				"pl": "Pierwsze wydanie",
-				"uk": "початковий реліз",
-				"zh-cn": "首次出版"
-			}
-		},
-		"titleLang": {
-			"en": "Hydrawise",
-			"de": "Hydrawise",
-			"ru": "Hydrawise",
-			"pt": "Hydrawise",
-			"nl": "Hydrawise",
-			"fr": "Hydrawise",
-			"it": "Hydrawise",
-			"es": "Hydrawise",
-			"pl": "Hydrawise",
-			"uk": "Hydrawise",
-			"zh-cn": "Hydrawise"
-		},
-		"desc": {
-			"en": "Adapter to control the Hydrawise irrigation control system",
-			"de": "Adapter to control the Hydrawise irrigation control system",
-			"ru": "Adapter to control the Hydrawise irrigation control system",
-			"pt": "Adapter to control the Hydrawise irrigation control system",
-			"nl": "Adapter to control the Hydrawise irrigation control system",
-			"fr": "Adapter to control the Hydrawise irrigation control system",
-			"it": "Adapter to control the Hydrawise irrigation control system",
-			"es": "Adapter to control the Hydrawise irrigation control system",
-			"pl": "Adapter to control the Hydrawise irrigation control system",
-			"uk": "Adapter to control the Hydrawise irrigation control system",
-			"zh-cn": "Adapter to control the Hydrawise irrigation control system"
-		},
-		"authors": ["aDabbelju <aike.wernicke@gmx.de>", "SentiQ <fischer.yves@web.de>"],
-		"keywords": ["hydrawise", "hunter", "irrigation", "watering", "garden"],
-		"license": "MIT",
-		"platform": "Javascript/Node.js",
-		"main": "build/main.js",
-		"icon": "hydrawise.jpg",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/aDabbelju/ioBroker.hydrawise/main/admin/hydrawise.jpg",
-		"readme": "https://github.com/aDabbelju/ioBroker.hydrawise/blob/main/README.md",
-		"loglevel": "info",
-		"mode": "daemon",
-		"type": "garden",
-		"compact": true,
-		"connectionType": "cloud",
-		"dataSource": "poll",
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=3.3.22"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=5.1.13"
-			}
-		]
-	},
-	"native": {
-		"apiKey": ""
-	},
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "customer",
-			"type": "channel",
-			"common": {
-				"name": {
-					"en": "Controllers",
-					"de": "Controller",
-					"ru": "Контроллеры",
-					"pt": "Controladores",
-					"nl": "Controller",
-					"fr": "Contrôleurs",
-					"it": "Regolatori",
-					"es": "Controladores",
-					"pl": "Kontroler",
-					"uk": "Контролери",
-					"zh-cn": "主计长"
-				}
-			},
-			"native": {}
-		},
-		{
-			"_id": "schedule",
-			"type": "channel",
-			"common": {
-				"name": {
-					"en": "Schedule",
-					"de": "Zeitplan",
-					"ru": "Расписание",
-					"pt": "Programação",
-					"nl": "Schedel",
-					"fr": "Tableau",
-					"it": "Programma",
-					"es": "Cuadro",
-					"pl": "Schedule",
-					"uk": "Розклад",
-					"zh-cn": "附表"
-				}
-			},
-			"native": {}
-		}
-	]
+  "common": {
+    "name": "hydrawise",
+    "version": "0.0.8",
+    "news": {
+      "0.0.8": {
+        "en": "improving log messages",
+        "de": "verbesserung der log-nachrichten",
+        "ru": "улучшение лог-сообщений",
+        "pt": "melhorar as mensagens de log",
+        "nl": "het verbeteren van logberichten",
+        "fr": "améliorer les messages journaux",
+        "it": "migliorare i messaggi di log",
+        "es": "mejorar los mensajes de registro",
+        "pl": "udoskonalać",
+        "uk": "поліпшення повідомлень журналу",
+        "zh-cn": "b. 改进信息"
+      },
+      "0.0.7": {
+        "en": "improving log messages",
+        "de": "verbesserung der log-nachrichten",
+        "ru": "улучшение лог-сообщений",
+        "pt": "melhorar as mensagens de log",
+        "nl": "het verbeteren van logberichten",
+        "fr": "améliorer les messages journaux",
+        "it": "migliorare i messaggi di log",
+        "es": "mejorar los mensajes de registro",
+        "pl": "udoskonalać",
+        "uk": "поліпшення повідомлень журналу",
+        "zh-cn": "b. 改进信息"
+      },
+      "0.0.6": {
+        "en": "improving log messages",
+        "de": "verbesserung der log-nachrichten",
+        "ru": "улучшение лог-сообщений",
+        "pt": "melhorar as mensagens de log",
+        "nl": "het verbeteren van logberichten",
+        "fr": "améliorer les messages journaux",
+        "it": "migliorare i messaggi di log",
+        "es": "mejorar los mensajes de registro",
+        "pl": "udoskonalać",
+        "uk": "поліпшення повідомлень журналу",
+        "zh-cn": "b. 改进信息"
+      },
+      "0.0.5": {
+        "en": "improving log messages",
+        "de": "verbesserung der log-nachrichten",
+        "ru": "улучшение лог-сообщений",
+        "pt": "melhorar as mensagens de log",
+        "nl": "het verbeteren van logberichten",
+        "fr": "améliorer les messages journaux",
+        "it": "migliorare i messaggi di log",
+        "es": "mejorar los mensajes de registro",
+        "pl": "udoskonalać",
+        "uk": "поліпшення повідомлень журналу",
+        "zh-cn": "b. 改进信息"
+      },
+      "0.0.4": {
+        "en": "testing",
+        "de": "prüfverfahren",
+        "ru": "тестирование",
+        "pt": "testes",
+        "nl": "testen",
+        "fr": "essais",
+        "it": "test di prova",
+        "es": "pruebas",
+        "pl": "testować",
+        "uk": "тестування",
+        "zh-cn": "试验"
+      },
+      "0.0.3": {
+        "en": "added zone controls and Ukrainian language",
+        "de": "zusätzliche zonensteuerung",
+        "ru": "добавленный контроль зоны",
+        "pt": "controles de zona adicionados",
+        "nl": "vertaling:",
+        "fr": "contrôles des zones ajoutées",
+        "it": "comandi di zona aggiunti",
+        "es": "controles de zonas",
+        "pl": "kontrola strefy",
+        "uk": "додано контроль зони",
+        "zh-cn": "附加区管制"
+      },
+      "0.0.2": {
+        "en": "Refactoring",
+        "de": "Herstellung",
+        "ru": "Рефакторинг",
+        "pt": "Refactoring",
+        "nl": "Refactor",
+        "fr": "Refactoring",
+        "it": "Refactoring",
+        "es": "Refactoring",
+        "pl": "Refaktor",
+        "uk": "Рефакторинг",
+        "zh-cn": "评 注"
+      }
+    },
+    "titleLang": {
+      "en": "Hydrawise",
+      "de": "Hydrawise",
+      "ru": "Hydrawise",
+      "pt": "Hydrawise",
+      "nl": "Hydrawise",
+      "fr": "Hydrawise",
+      "it": "Hydrawise",
+      "es": "Hydrawise",
+      "pl": "Hydrawise",
+      "uk": "Hydrawise",
+      "zh-cn": "Hydrawise"
+    },
+    "desc": {
+      "en": "Adapter to control the Hydrawise irrigation control system",
+      "de": "Adapter to control the Hydrawise irrigation control system",
+      "ru": "Adapter to control the Hydrawise irrigation control system",
+      "pt": "Adapter to control the Hydrawise irrigation control system",
+      "nl": "Adapter to control the Hydrawise irrigation control system",
+      "fr": "Adapter to control the Hydrawise irrigation control system",
+      "it": "Adapter to control the Hydrawise irrigation control system",
+      "es": "Adapter to control the Hydrawise irrigation control system",
+      "pl": "Adapter to control the Hydrawise irrigation control system",
+      "uk": "Adapter to control the Hydrawise irrigation control system",
+      "zh-cn": "Adapter to control the Hydrawise irrigation control system"
+    },
+    "authors": [
+      "aDabbelju <aike.wernicke@gmx.de>",
+      "SentiQ <fischer.yves@web.de>"
+    ],
+    "keywords": [
+      "hydrawise",
+      "hunter",
+      "irrigation",
+      "watering",
+      "garden"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "build/main.js",
+    "icon": "hydrawise.jpg",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/aDabbelju/ioBroker.hydrawise/main/admin/hydrawise.jpg",
+    "readme": "https://github.com/aDabbelju/ioBroker.hydrawise/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "garden",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.22"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.13"
+      }
+    ]
+  },
+  "native": {
+    "apiKey": ""
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "customer",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Controllers",
+          "de": "Controller",
+          "ru": "Контроллеры",
+          "pt": "Controladores",
+          "nl": "Controller",
+          "fr": "Contrôleurs",
+          "it": "Regolatori",
+          "es": "Controladores",
+          "pl": "Kontroler",
+          "uk": "Контролери",
+          "zh-cn": "主计长"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "schedule",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Schedule",
+          "de": "Zeitplan",
+          "ru": "Расписание",
+          "pt": "Programação",
+          "nl": "Schedel",
+          "fr": "Tableau",
+          "it": "Programma",
+          "es": "Cuadro",
+          "pl": "Schedule",
+          "uk": "Розклад",
+          "zh-cn": "附表"
+        }
+      },
+      "native": {}
+    }
+  ]
 }
