@@ -10,6 +10,7 @@
 [![NPM](https://nodei.co/npm/iobroker.hydrawise.png?downloads=true)](https://nodei.co/npm/iobroker.hydrawise/)
 
 ## Changelog
+
 ### 0.0.8 (2023-05-25)
 
 -   (SentiQ) improving log messages
@@ -46,7 +47,7 @@
 
 MIT License
 
-Copyright (c) 2023 aDabbelju <aike.wernicke@gmx.de>
+Copyright (c) 2023 SentiQ <fischer.yves@web.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

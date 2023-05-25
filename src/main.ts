@@ -59,7 +59,19 @@ class Hydrawise extends utils.Adapter {
 						await this.setObjectNotExistsAsync("schedule.stopall", {
 							type: "state",
 							common: {
-								name: "stopall",
+								name: {
+									en: "stop all zones",
+									de: "alle Zonen stoppen",
+									ru: "остановить все зоны",
+									pt: "parar todas as zonas",
+									nl: "stop alle zones",
+									fr: "arrêter toutes les zones",
+									it: "fermare tutte le zone",
+									es: "detener todas las zonas",
+									pl: "zatrzymują wszystkie strefy",
+									uk: "зупинити всі зони",
+									"zh-cn": "停止所有地区",
+								},
 								type: "boolean",
 								role: "button",
 								read: false,
@@ -71,9 +83,22 @@ class Hydrawise extends utils.Adapter {
 						await this.setObjectNotExistsAsync("schedule.runall", {
 							type: "state",
 							common: {
-								name: "runall for x seconds",
+								name: {
+									en: "run all zones for x seconds",
+									de: "alle Zonen für x Sekunden ausführen",
+									ru: "запустить все зоны за x секунды",
+									pt: "executar todas as zonas por x segundos",
+									nl: "ren alle zones voor x seconden",
+									fr: "exécuter toutes les zones pendant x secondes",
+									it: "eseguire tutte le zone per x secondi",
+									es: "ejecutar todas las zonas durante x segundos",
+									pl: "wszystkie strefy startują dla x sekundy",
+									uk: "запустити всі зони для x секунд",
+									"zh-cn": "跑道区",
+								},
 								type: "number",
 								role: "value",
+								unit: "seconds",
 								read: false,
 								write: true,
 							},
@@ -83,7 +108,19 @@ class Hydrawise extends utils.Adapter {
 						await this.setObjectNotExistsAsync("schedule.suspendall", {
 							type: "state",
 							common: {
-								name: "suspendall for x seconds",
+								name: {
+									en: "suspend all zones for x seconds",
+									de: "alle Zonen für x Sekunden aussetzen",
+									ru: "приостановить все зоны за x секунды",
+									pt: "suspender todas as zonas por x segundos",
+									nl: "vertaling:",
+									fr: "suspendre toutes les zones pendant x secondes",
+									it: "sospendere tutte le zone per x secondi",
+									es: "suspender todas las zonas durante x segundos",
+									pl: "wszystkie strefy zawieszenia dla x sekundy",
+									uk: "призупинити всі зони на x секунд",
+									"zh-cn": "停止所有×二区",
+								},
 								type: "number",
 								role: "value",
 								read: false,
@@ -140,7 +177,19 @@ class Hydrawise extends utils.Adapter {
 							await this.setObjectNotExistsAsync(`schedule.${relay.name}.stopZone`, {
 								type: "state",
 								common: {
-									name: "stop zone",
+									name: {
+										en: "stop zone",
+										de: "Zone stoppen",
+										ru: "зона остановки",
+										pt: "zona de paragem",
+										nl: "stop zone",
+										fr: "zone d ' arrêt",
+										it: "zona di sosta",
+										es: "zona de parada",
+										pl: "strefa stopu",
+										uk: "зона зупинки",
+										"zh-cn": "停止地区",
+									},
 									type: "boolean",
 									role: "button",
 									read: false,
@@ -152,7 +201,19 @@ class Hydrawise extends utils.Adapter {
 							await this.setObjectNotExistsAsync(`schedule.${relay.name}.runZone`, {
 								type: "state",
 								common: {
-									name: "run zone for x seconds",
+									name: {
+										en: "run zone for x seconds",
+										de: "Zone für x Sekunden starten",
+										ru: "запустить зону за x секунды",
+										pt: "zona de execução por x segundos",
+										nl: "ren zone voor x seconden",
+										fr: "zone de course pour x secondes",
+										it: "zona di corsa per x secondi",
+										es: "zona de ejecución por x segundos",
+										pl: "strefa x sekundy",
+										uk: "зона запуску для x секунд",
+										"zh-cn": "×二区",
+									},
 									type: "number",
 									role: "value",
 									read: false,
@@ -164,7 +225,19 @@ class Hydrawise extends utils.Adapter {
 							await this.setObjectNotExistsAsync(`schedule.${relay.name}.suspendZone`, {
 								type: "state",
 								common: {
-									name: "suspend zone for x seconds",
+									name: {
+										en: "suspend zone for x seconds",
+										de: "Zone für x Sekunden aussetzen",
+										ru: "приостановить зону на x секунды",
+										pt: "zona de suspensão por x segundos",
+										nl: "quality over quantity (qoq) releases vertaling:",
+										fr: "zone de suspension pour x secondes",
+										it: "zona di sospensione per x secondi",
+										es: "zona de suspensión por x segundos",
+										pl: "strefa zawiesła na x sekundy",
+										uk: "зона підвіски для x секунд",
+										"zh-cn": "停止x二区",
+									},
 									type: "number",
 									role: "value",
 									read: false,
@@ -377,11 +450,6 @@ class Hydrawise extends utils.Adapter {
 	 */
 	private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
 		if (state) {
-			console.log("state", state);
-
-			// The state was changed
-			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-
 			if (id.indexOf("stopall") !== -1) {
 				this.buildRequest("setzone.php", { api_key: this.config.apiKey, action: "stopall" });
 			} else if (id.indexOf("stop") !== -1) {
