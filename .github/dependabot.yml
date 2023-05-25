@@ -8,6 +8,7 @@ updates:
           timezone: Europe/Berlin
       open-pull-requests-limit: 5
       assignees:
+          - aDabbelju
           - SentiQ
       versioning-strategy: increase
 
@@ -19,4 +20,5 @@ updates:
           timezone: Europe/Berlin
       open-pull-requests-limit: 5
       assignees:
+          - aDabbelju
           - SentiQ
