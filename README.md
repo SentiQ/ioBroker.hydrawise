@@ -10,6 +10,16 @@
 [![NPM](https://nodei.co/npm/iobroker.hydrawise.png?downloads=true)](https://nodei.co/npm/iobroker.hydrawise/)
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+
+-   (SentiQ) removing debug outputs
+
+### 0.0.9 (2023-06-27)
+
+-   (SentiQ) fixed adapter crash
+-   (SentiQ) changed value of `timestr` to date string format
+
 ### 0.0.9 (2023-05-25)
 
 -   (SentiQ) added more translations
