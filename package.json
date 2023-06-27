@@ -1,6 +1,6 @@
 {
   "name": "iobroker.hydrawise",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Adapter to control the Hydrawise irrigation control system",
   "author": {
     "name": "SentiQ",

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "news": {
+      "0.0.10": {
+        "en": "fixed adapter crash\nchanged value of `timestr` to date string format",
+        "de": "fester adapterabsturz\ngeänderter wert von timestr zu date string format",
+        "ru": "фиксированный адаптер аварии\nизмененное значение timestr к формату строк",
+        "pt": "travamento do adaptador fixo\nvalor alterado de timestr para formato de cadeia de data",
+        "nl": "vertaling:\nveranderde waarde van tijdstip om te daten",
+        "fr": "crash de l'adaptateur fixe\nvaleur modifiée de timestr to date chaîne format",
+        "it": "arresto dell'adattatore fisso\nvalore cambiato di timestr in formato stringa data",
+        "es": "choque de adaptador fijo\ncambio de valor del formato de la cadena de tiempo a la fecha",
+        "pl": "adaptacja adaptatora\nzmieniona wartość czasu do daty formatu tekstowego",
+        "uk": "фіксований аварійний адаптер\nзмінено значення таймера до формата рядка",
+        "zh-cn": "b. 固定适应器\n迄今格式的变动"
+      },
       "0.0.9": {
         "en": "added more translations",
         "de": "weitere übersetzungen",
@@ -80,19 +93,6 @@
         "pl": "testować",
         "uk": "тестування",
         "zh-cn": "试验"
-      },
-      "0.0.3": {
-        "en": "added zone controls and Ukrainian language",
-        "de": "zusätzliche zonensteuerung",
-        "ru": "добавленный контроль зоны",
-        "pt": "controles de zona adicionados",
-        "nl": "vertaling:",
-        "fr": "contrôles des zones ajoutées",
-        "it": "comandi di zona aggiunti",
-        "es": "controles de zonas",
-        "pl": "kontrola strefy",
-        "uk": "додано контроль зони",
-        "zh-cn": "附加区管制"
       }
     },
     "titleLang": {
