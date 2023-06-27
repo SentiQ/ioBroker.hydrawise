@@ -15,7 +15,7 @@
 
 -   (SentiQ) removing debug outputs
 
-### 0.0.9 (2023-06-27)
+### 0.0.10 (2023-06-27)
 
 -   (SentiQ) fixed adapter crash
 -   (SentiQ) changed value of `timestr` to date string format
