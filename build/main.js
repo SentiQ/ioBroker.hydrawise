@@ -141,29 +141,34 @@ class Hydrawise extends utils.Adapter {
             }
           }
           for (const relay of content.relays) {
-            await this.setObjectNotExistsAsync(`schedule.${relay.name}`, {
+            await this.setObjectNotExistsAsync(`schedule.${relay.relay}`, {
               type: "channel",
               common: {
-                name: relay.name
+                name: relay.relay
               },
               native: {}
             });
-            RELAYS[relay.name] = relay.relay_id;
+            RELAYS[relay.relay] = relay.relay_id;
             for (const key in relay) {
-              await this.setObjectNotExistsAsync(`schedule.${relay.name}.${key}`, {
+              await this.setObjectNotExistsAsync(`schedule.${relay.relay}.${key}`, {
                 type: "state",
                 common: {
                   name: key,
-                  type: key === "name" ? "string" : "number",
-                  role: key === "name" ? "text" : "value",
+                  type: key === "name" || key === "timestr" ? "string" : "number",
+                  role: key === "name" || key === "timestr" ? "text" : "value",
                   read: true,
                   write: false
                 },
                 native: {}
               });
-              this.setStateChangedAsync(`schedule.${relay.name}.${key}`, relay[key], true);
+              if (key === "timestr") {
+                const t = new Date();
+                t.setSeconds(t.getSeconds() + relay.time);
+                relay[key] = t.toString();
+              }
+              this.setStateChangedAsync(`schedule.${relay.relay}.${key}`, relay[key], true);
             }
-            await this.setObjectNotExistsAsync(`schedule.${relay.name}.stopZone`, {
+            await this.setObjectNotExistsAsync(`schedule.${relay.relay}.stopZone`, {
               type: "state",
               common: {
                 name: {
@@ -186,7 +191,7 @@ class Hydrawise extends utils.Adapter {
               },
               native: {}
             });
-            await this.setObjectNotExistsAsync(`schedule.${relay.name}.runZone`, {
+            await this.setObjectNotExistsAsync(`schedule.${relay.relay}.runZone`, {
               type: "state",
               common: {
                 name: {
@@ -209,7 +214,7 @@ class Hydrawise extends utils.Adapter {
               },
               native: {}
             });
-            await this.setObjectNotExistsAsync(`schedule.${relay.name}.suspendZone`, {
+            await this.setObjectNotExistsAsync(`schedule.${relay.relay}.suspendZone`, {
               type: "state",
               common: {
                 name: {
@@ -265,9 +270,16 @@ class Hydrawise extends utils.Adapter {
         }
         resolve(response.status);
       }).catch((error) => {
-        this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
-        this.setStateChangedAsync("info.connection", false, true);
-        reject(error);
+        if (error.response.status === 429) {
+          nextpollSchedule = nextpollSchedule || this.setTimeout(() => {
+            nextpollSchedule = null;
+            this.GetStatusSchedule(apiKey);
+          }, 60 * 5e3);
+        } else {
+          this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
+          this.setStateChangedAsync("info.connection", false, true);
+          reject(error);
+        }
       });
     });
   }
@@ -327,9 +339,16 @@ class Hydrawise extends utils.Adapter {
         }
         resolve(response.status);
       }).catch((error) => {
-        this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
-        this.setStateChangedAsync("info.connection", false, true);
-        reject(error);
+        if (error.response.status === 429) {
+          nextpollCustomer = nextpollCustomer || this.setTimeout(() => {
+            nextpollCustomer = null;
+            this.GetCustomerDetails(apiKey);
+          }, 60 * 5e3);
+        } else {
+          this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
+          this.setStateChangedAsync("info.connection", false, true);
+          reject(error);
+        }
       });
     });
   }
@@ -338,7 +357,6 @@ class Hydrawise extends utils.Adapter {
       const url = `/api/v1/${service}`;
       let lastErrorCode = 0;
       if (params.api_key) {
-        this.log.debug(`sending GET request to "${url}" with params: ${JSON.stringify(params)}`);
         (0, import_axios.default)({
           method: "GET",
           baseURL: hydrawise_url,
@@ -347,11 +365,6 @@ class Hydrawise extends utils.Adapter {
           responseType: "json",
           params
         }).then((response) => {
-          this.log.debug(
-            `received ${response.status} response from "${url}" with content: ${JSON.stringify(
-              response.data
-            )}`
-          );
           lastErrorCode = 0;
           resolve(response);
         }).catch((error) => {
