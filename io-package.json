@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "news": {
+      "0.0.11": {
+        "en": "raised timeouts\nfixed types",
+        "de": "erhöhte timeouts\nfeste typen",
+        "ru": "поднятые таймеры\nфиксированные типы",
+        "pt": "timeouts levantados\ntipos fixos",
+        "nl": "verhoogde time-outs\ngerepareerde types",
+        "fr": "des délais élevés\ntypes fixes",
+        "it": "aumento dei timeout\ntipi fissi",
+        "es": "cronologías elevadas\ntipos fijos",
+        "pl": "podwyższony czas\ntyp maszynowy",
+        "uk": "підняті час\nфіксовані види",
+        "zh-cn": "d. 提出的时间安排\n固定类型"
+      },
       "0.0.10": {
         "en": "fixed adapter crash\nchanged value of `timestr` to date string format",
         "de": "fester adapterabsturz\ngeänderter wert von timestr zu date string format",
@@ -80,19 +93,6 @@
         "pl": "udoskonalać",
         "uk": "поліпшення повідомлень журналу",
         "zh-cn": "b. 改进信息"
-      },
-      "0.0.4": {
-        "en": "testing",
-        "de": "prüfverfahren",
-        "ru": "тестирование",
-        "pt": "testes",
-        "nl": "testen",
-        "fr": "essais",
-        "it": "test di prova",
-        "es": "pruebas",
-        "pl": "testować",
-        "uk": "тестування",
-        "zh-cn": "试验"
       }
     },
     "titleLang": {
