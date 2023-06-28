@@ -49,7 +49,7 @@ class Hydrawise extends utils.Adapter {
       nextpollSchedule = nextpollSchedule || this.setTimeout(() => {
         nextpollSchedule = null;
         this.GetStatusSchedule(apiKey);
-      }, 6e4);
+      }, 5 * 60 * 1e3);
       this.buildRequest("statusschedule.php", { api_key: this.config.apiKey }).then(async (response) => {
         if (response.status === 200) {
           const content = response.data;
@@ -141,10 +141,11 @@ class Hydrawise extends utils.Adapter {
             }
           }
           for (const relay of content.relays) {
+            const name = relay.relay;
             await this.setObjectNotExistsAsync(`schedule.${relay.relay}`, {
               type: "channel",
               common: {
-                name: relay.relay
+                name: name.toString()
               },
               native: {}
             });
@@ -274,7 +275,7 @@ class Hydrawise extends utils.Adapter {
           nextpollSchedule = nextpollSchedule || this.setTimeout(() => {
             nextpollSchedule = null;
             this.GetStatusSchedule(apiKey);
-          }, 60 * 5e3);
+          }, 5 * 60 * 1e3);
         } else {
           this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
           this.setStateChangedAsync("info.connection", false, true);
@@ -288,7 +289,7 @@ class Hydrawise extends utils.Adapter {
       nextpollCustomer = nextpollCustomer || this.setTimeout(() => {
         nextpollCustomer = null;
         this.GetCustomerDetails(apiKey);
-      }, 60 * 5e3);
+      }, 5 * 60 * 1e3);
       this.buildRequest("customerdetails.php", { api_key: this.config.apiKey }).then(async (response) => {
         if (response.status === 200) {
           const content = response.data;
@@ -299,8 +300,8 @@ class Hydrawise extends utils.Adapter {
                 type: "state",
                 common: {
                   name: key,
-                  type: key === "message" ? "string" : "number",
-                  role: key === "message" ? "text" : "value",
+                  type: key === "message" || key === "current_controller" ? "string" : "number",
+                  role: key === "message" || key === "current_controller" ? "text" : "value",
                   read: true,
                   write: false
                 },
@@ -322,8 +323,8 @@ class Hydrawise extends utils.Adapter {
                 type: "state",
                 common: {
                   name: key,
-                  type: key !== "controller_id" ? "string" : "number",
-                  role: key !== "controller_id" ? "text" : "value",
+                  type: key !== "controller_id" && key !== "last_contact" ? "string" : "number",
+                  role: key !== "controller_id" && key !== "last_contact" ? "text" : "value",
                   read: true,
                   write: false
                 },
@@ -343,7 +344,7 @@ class Hydrawise extends utils.Adapter {
           nextpollCustomer = nextpollCustomer || this.setTimeout(() => {
             nextpollCustomer = null;
             this.GetCustomerDetails(apiKey);
-          }, 60 * 5e3);
+          }, 5 * 60 * 1e3);
         } else {
           this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
           this.setStateChangedAsync("info.connection", false, true);
@@ -361,7 +362,7 @@ class Hydrawise extends utils.Adapter {
           method: "GET",
           baseURL: hydrawise_url,
           url,
-          timeout: 3e3,
+          timeout: 3e4,
           responseType: "json",
           params
         }).then((response) => {

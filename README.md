@@ -10,6 +10,12 @@
 [![NPM](https://nodei.co/npm/iobroker.hydrawise.png?downloads=true)](https://nodei.co/npm/iobroker.hydrawise/)
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+
+-   (SentiQ) raised timeouts
+-   (SentiQ) fixed types
+
 ### 0.0.10 (2023-06-27)
 
 -   (SentiQ) fixed adapter crash
