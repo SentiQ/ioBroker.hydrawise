@@ -11,7 +11,7 @@
 
 ## Changelog
 
-### **WORK IN PROGRESS**
+### 0.0.12 (2023-06-29)
 
 -   (SentiQ) changed value of `last_contact` to date string format
 
