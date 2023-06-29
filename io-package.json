@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "news": {
+      "0.0.12": {
+        "en": "changed value of `last_contact` to date string format",
+        "de": "geänderter wert von last_contact to date string format",
+        "ru": "измененное значение last_contact к формату строк",
+        "pt": "valor alterado de last_contact para formato de cadeia de data",
+        "nl": "veranderde waarde van het laatstecontact met string format",
+        "fr": "valeur modifiée de last_contact à date chaîne format",
+        "it": "valore modificato di last_contact al formato stringa data",
+        "es": "cambio de valor de última_contacto a formato de cadena fecha",
+        "pl": "zmieniona wartość ostatniej kontaktu do daty formatu tekstowego",
+        "uk": "змінено значення останнього_контакту до формату рядка",
+        "zh-cn": "a. 修改了最后表格的价值"
+      },
       "0.0.11": {
         "en": "raised timeouts\nfixed types",
         "de": "erhöhte timeouts\nfeste typen",
@@ -69,19 +82,6 @@
         "zh-cn": "b. 改进信息"
       },
       "0.0.6": {
-        "en": "improving log messages",
-        "de": "verbesserung der log-nachrichten",
-        "ru": "улучшение лог-сообщений",
-        "pt": "melhorar as mensagens de log",
-        "nl": "het verbeteren van logberichten",
-        "fr": "améliorer les messages journaux",
-        "it": "migliorare i messaggi di log",
-        "es": "mejorar los mensajes de registro",
-        "pl": "udoskonalać",
-        "uk": "поліпшення повідомлень журналу",
-        "zh-cn": "b. 改进信息"
-      },
-      "0.0.5": {
         "en": "improving log messages",
         "de": "verbesserung der log-nachrichten",
         "ru": "улучшение лог-сообщений",
