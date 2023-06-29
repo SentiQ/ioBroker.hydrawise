@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "news": {
+      "0.0.14": {
+        "en": "fixing version",
+        "de": "befestigungsversion",
+        "ru": "исправление версии",
+        "pt": "versão de fixação",
+        "nl": "vertaling:",
+        "fr": "correction de la version",
+        "it": "versione di fissaggio",
+        "es": "versión de fijación",
+        "pl": "poprawiona wersja",
+        "uk": "версія фіксації",
+        "zh-cn": "f 定本"
+      },
       "0.0.13": {
         "en": "fixing version",
         "de": "befestigungsversion",
@@ -69,19 +82,6 @@
         "zh-cn": "增加的翻译"
       },
       "0.0.8": {
-        "en": "improving log messages",
-        "de": "verbesserung der log-nachrichten",
-        "ru": "улучшение лог-сообщений",
-        "pt": "melhorar as mensagens de log",
-        "nl": "het verbeteren van logberichten",
-        "fr": "améliorer les messages journaux",
-        "it": "migliorare i messaggi di log",
-        "es": "mejorar los mensajes de registro",
-        "pl": "udoskonalać",
-        "uk": "поліпшення повідомлень журналу",
-        "zh-cn": "b. 改进信息"
-      },
-      "0.0.7": {
         "en": "improving log messages",
         "de": "verbesserung der log-nachrichten",
         "ru": "улучшение лог-сообщений",
