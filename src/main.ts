@@ -356,13 +356,18 @@ class Hydrawise extends utils.Adapter {
 									type: "state",
 									common: {
 										name: key,
-										type: key !== "controller_id" && key !== "last_contact" ? "string" : "number",
-										role: key !== "controller_id" && key !== "last_contact" ? "text" : "value",
+										type: key !== "controller_id" ? "string" : "number",
+										role: key !== "controller_id" ? "text" : "value",
 										read: true,
 										write: false,
 									},
 									native: {},
 								});
+
+								if (key === "last_contact") {
+									const t = new Date(controller[key] * 1000);
+									controller[key] = t.toString();
+								}
 
 								this.setStateChangedAsync(
 									`customer.controllers.${controller.name}.${key}`,

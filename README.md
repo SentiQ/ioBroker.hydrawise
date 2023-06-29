@@ -10,6 +10,11 @@
 [![NPM](https://nodei.co/npm/iobroker.hydrawise.png?downloads=true)](https://nodei.co/npm/iobroker.hydrawise/)
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+
+-   (SentiQ) changed value of `last_contact` to date string format
+
 ### 0.0.11 (2023-06-28)
 
 -   (SentiQ) raised timeouts
