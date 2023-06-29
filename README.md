@@ -10,8 +10,7 @@
 [![NPM](https://nodei.co/npm/iobroker.hydrawise.png?downloads=true)](https://nodei.co/npm/iobroker.hydrawise/)
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 0.0.15 (2023-06-29)
 
 -   (SentiQ) updated dependencies
 
