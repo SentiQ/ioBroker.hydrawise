@@ -80,7 +80,7 @@
     "test": "npm run test:ts && npm run test:package",
     "check": "tsc --noEmit",
     "coverage": "nyc npm run test:ts",
-    "lint": "eslint --ext .ts src/",
+    "lint": "eslint --ext .ts src/ --fix",
     "translate": "translate-adapter",
     "release": "release-script patch --yes",
     "release-minor": "release-script minor --yes",

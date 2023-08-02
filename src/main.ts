@@ -44,10 +44,13 @@ class Hydrawise extends utils.Adapter {
 		return new Promise((resolve, reject) => {
 			nextpollSchedule =
 				nextpollSchedule ||
-				this.setTimeout(() => {
-					nextpollSchedule = null;
-					this.GetStatusSchedule(apiKey);
-				}, 5 * 60 * 1000);
+				this.setTimeout(
+					() => {
+						nextpollSchedule = null;
+						this.GetStatusSchedule(apiKey);
+					},
+					5 * 60 * 1000,
+				);
 
 			this.buildRequest("statusschedule.php", { api_key: this.config.apiKey })
 				.then(async (response) => {
@@ -299,10 +302,13 @@ class Hydrawise extends utils.Adapter {
 					if (error.response.status === 429) {
 						nextpollSchedule =
 							nextpollSchedule ||
-							this.setTimeout(() => {
-								nextpollSchedule = null;
-								this.GetStatusSchedule(apiKey);
-							}, 5 * 60 * 1000);
+							this.setTimeout(
+								() => {
+									nextpollSchedule = null;
+									this.GetStatusSchedule(apiKey);
+								},
+								5 * 60 * 1000,
+							);
 					} else {
 						this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
 
@@ -318,10 +324,13 @@ class Hydrawise extends utils.Adapter {
 		return new Promise((resolve, reject) => {
 			nextpollCustomer =
 				nextpollCustomer ||
-				this.setTimeout(() => {
-					nextpollCustomer = null;
-					this.GetCustomerDetails(apiKey);
-				}, 5 * 60 * 1000);
+				this.setTimeout(
+					() => {
+						nextpollCustomer = null;
+						this.GetCustomerDetails(apiKey);
+					},
+					5 * 60 * 1000,
+				);
 
 			this.buildRequest("customerdetails.php", { api_key: this.config.apiKey })
 				.then(async (response) => {
@@ -394,10 +403,13 @@ class Hydrawise extends utils.Adapter {
 					if (error.response.status === 429) {
 						nextpollCustomer =
 							nextpollCustomer ||
-							this.setTimeout(() => {
-								nextpollCustomer = null;
-								this.GetCustomerDetails(apiKey);
-							}, 5 * 60 * 1000);
+							this.setTimeout(
+								() => {
+									nextpollCustomer = null;
+									this.GetCustomerDetails(apiKey);
+								},
+								5 * 60 * 1000,
+							);
 					} else {
 						this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
 

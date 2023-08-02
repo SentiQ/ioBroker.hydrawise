@@ -46,10 +46,13 @@ class Hydrawise extends utils.Adapter {
   }
   async GetStatusSchedule(apiKey) {
     return new Promise((resolve, reject) => {
-      nextpollSchedule = nextpollSchedule || this.setTimeout(() => {
-        nextpollSchedule = null;
-        this.GetStatusSchedule(apiKey);
-      }, 5 * 60 * 1e3);
+      nextpollSchedule = nextpollSchedule || this.setTimeout(
+        () => {
+          nextpollSchedule = null;
+          this.GetStatusSchedule(apiKey);
+        },
+        5 * 60 * 1e3
+      );
       this.buildRequest("statusschedule.php", { api_key: this.config.apiKey }).then(async (response) => {
         if (response.status === 200) {
           const content = response.data;
@@ -275,10 +278,13 @@ class Hydrawise extends utils.Adapter {
         }
       }).catch((error) => {
         if (error.response.status === 429) {
-          nextpollSchedule = nextpollSchedule || this.setTimeout(() => {
-            nextpollSchedule = null;
-            this.GetStatusSchedule(apiKey);
-          }, 5 * 60 * 1e3);
+          nextpollSchedule = nextpollSchedule || this.setTimeout(
+            () => {
+              nextpollSchedule = null;
+              this.GetStatusSchedule(apiKey);
+            },
+            5 * 60 * 1e3
+          );
         } else {
           this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
           this.setStateChangedAsync("info.connection", false, true);
@@ -289,10 +295,13 @@ class Hydrawise extends utils.Adapter {
   }
   async GetCustomerDetails(apiKey) {
     return new Promise((resolve, reject) => {
-      nextpollCustomer = nextpollCustomer || this.setTimeout(() => {
-        nextpollCustomer = null;
-        this.GetCustomerDetails(apiKey);
-      }, 5 * 60 * 1e3);
+      nextpollCustomer = nextpollCustomer || this.setTimeout(
+        () => {
+          nextpollCustomer = null;
+          this.GetCustomerDetails(apiKey);
+        },
+        5 * 60 * 1e3
+      );
       this.buildRequest("customerdetails.php", { api_key: this.config.apiKey }).then(async (response) => {
         if (response.status === 200) {
           const content = response.data;
@@ -350,10 +359,13 @@ class Hydrawise extends utils.Adapter {
         resolve(response.status);
       }).catch((error) => {
         if (error.response.status === 429) {
-          nextpollCustomer = nextpollCustomer || this.setTimeout(() => {
-            nextpollCustomer = null;
-            this.GetCustomerDetails(apiKey);
-          }, 5 * 60 * 1e3);
+          nextpollCustomer = nextpollCustomer || this.setTimeout(
+            () => {
+              nextpollCustomer = null;
+              this.GetCustomerDetails(apiKey);
+            },
+            5 * 60 * 1e3
+          );
         } else {
           this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
           this.setStateChangedAsync("info.connection", false, true);
