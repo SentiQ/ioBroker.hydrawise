@@ -124,7 +124,8 @@ class Hydrawise extends utils.Adapter {
             },
             native: {}
           });
-          for (const key in content) {
+          for (let key in content) {
+            key = this.name2id(key);
             if (key !== "relays" && key !== "sensors" && key !== "expanders") {
               await this.setObjectNotExistsAsync(`schedule.${key}`, {
                 type: "state",
@@ -150,7 +151,8 @@ class Hydrawise extends utils.Adapter {
               native: {}
             });
             RELAYS[relay.relay] = relay.relay_id;
-            for (const key in relay) {
+            for (let key in relay) {
+              key = this.name2id(key);
               await this.setObjectNotExistsAsync(`schedule.${relay.relay}.${key}`, {
                 type: "state",
                 common: {
@@ -247,8 +249,9 @@ class Hydrawise extends utils.Adapter {
               },
               native: {}
             });
-            for (const key in sensor) {
+            for (let key in sensor) {
               if (key !== "relays") {
+                key = this.name2id(key);
                 await this.setObjectNotExistsAsync(`schedule.sensors.${sensor.input}.${key}`, {
                   type: "state",
                   common: {
@@ -268,8 +271,8 @@ class Hydrawise extends utils.Adapter {
               }
             }
           }
+          resolve(response.status);
         }
-        resolve(response.status);
       }).catch((error) => {
         if (error.response.status === 429) {
           nextpollSchedule = nextpollSchedule || this.setTimeout(() => {
@@ -294,8 +297,9 @@ class Hydrawise extends utils.Adapter {
         if (response.status === 200) {
           const content = response.data;
           this.setStateChangedAsync("info.connection", true, true);
-          for (const key in content) {
+          for (let key in content) {
             if (key !== "controllers") {
+              key = this.name2id(key);
               await this.setObjectNotExistsAsync(`customer.${key}`, {
                 type: "state",
                 common: {
@@ -318,7 +322,8 @@ class Hydrawise extends utils.Adapter {
               },
               native: {}
             });
-            for (const key in controller) {
+            for (let key in controller) {
+              key = this.name2id(key);
               await this.setObjectNotExistsAsync(`customer.controllers.${controller.name}.${key}`, {
                 type: "state",
                 common: {
@@ -462,6 +467,9 @@ class Hydrawise extends utils.Adapter {
     } else {
       this.log.info(`state ${id} deleted`);
     }
+  }
+  name2id(pName) {
+    return (pName || "").replace(this.FORBIDDEN_CHARS, "_");
   }
 }
 if (require.main !== module) {
