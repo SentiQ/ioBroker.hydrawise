@@ -2,14 +2,46 @@
 
 # ioBroker.hydrawise
 
-[![NPM version](https://img.shields.io/npm/v/iobroker.hydrawise.svg)](https://www.npmjs.com/package/iobroker.hydrawise)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.hydrawise.svg)](https://www.npmjs.com/package/iobroker.hydrawise)
-![Number of Installations](https://iobroker.live/badges/hydrawise-installed.svg)
-![Current version in stable repository](https://iobroker.live/badges/hydrawise-stable.svg)
+[![NPM version](https://img.shields.io/npm/v/iobroker.hydrawise.svg?style=flat-square)](https://www.npmjs.com/package/iobroker.hydrawise)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.hydrawise.svg?label=npm%20downloads&style=flat-square)](https://www.npmjs.com/package/iobroker.hydrawise)
+![node-lts](https://img.shields.io/node/v-lts/iobroker.hydrawise?style=flat-square)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/iobroker.hydrawise?label=npm%20dependencies&style=flat-square)
 
-[![NPM](https://nodei.co/npm/iobroker.hydrawise.png?downloads=true)](https://nodei.co/npm/iobroker.hydrawise/)
+![GitHub](https://img.shields.io/github/license/sentiq/iobroker.hydrawise?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/sentiq/iobroker.hydrawise?logo=github&style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/sentiq/iobroker.hydrawise?logo=github&style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/sentiq/iobroker.hydrawise?logo=github&style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/sentiq/iobroker.hydrawise?logo=github&style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/sentiq/iobroker.hydrawise/test-and-release.yml?branch=master&logo=github&style=flat-square)
+
+## Versions
+
+![Beta](https://img.shields.io/npm/v/iobroker.hydrawise.svg?color=red&label=beta)
+![Stable](http://iobroker.live/badges/hydrawise-stable.svg)
+![Installed](http://iobroker.live/badges/hydrawise-installed.svg)
+
+Integrate your Hydrawise controller into iobroker.
+You can see all controller information, schedules and sensors. It is also possible to suspend planned watering by x seconds.
+
+## Documentation
+
+-   log into https://app.hydrawise.com/config/account-details
+-   generate API Key by clicking "Generate API Key" under "Account Settings"
+-   paste key into adapter settings
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+
+-   (SentiQ) added more information to README
+-   (SentiQ) encrypted apiKey
+-   (SentiQ) removed logging of apiKey
+-   (SentiQ) added filtering of invalid characters in ids
+-   (SentiQ) added check of ack flag
+-   (SentiQ) fixed roles
+-   (SentiQ) fixed error message
+-   (SentiQ) removed usage of clearTimeout
+
 ### 0.0.15 (2023-06-29)
 
 -   (SentiQ) updated dependencies

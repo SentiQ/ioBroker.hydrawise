@@ -28,8 +28,6 @@ class Hydrawise extends utils.Adapter {
 		if (!this.config.apiKey) {
 			this.log.error("No API-Key definded!");
 		} else {
-			this.log.info("config apiKey: " + this.config.apiKey);
-
 			this.setStateChangedAsync("info.connection", false, true);
 
 			await this.GetStatusSchedule(this.config.apiKey);
@@ -76,7 +74,7 @@ class Hydrawise extends utils.Adapter {
 									"zh-cn": "停止所有地区",
 								},
 								type: "boolean",
-								role: "button",
+								role: "button.start",
 								read: false,
 								write: true,
 							},
@@ -100,9 +98,9 @@ class Hydrawise extends utils.Adapter {
 									"zh-cn": "跑道区",
 								},
 								type: "number",
-								role: "value",
+								role: "level",
 								unit: "seconds",
-								read: false,
+								read: true,
 								write: true,
 							},
 							native: {},
@@ -125,8 +123,8 @@ class Hydrawise extends utils.Adapter {
 									"zh-cn": "停止所有×二区",
 								},
 								type: "number",
-								role: "value",
-								read: false,
+								role: "level",
+								read: true,
 								write: true,
 							},
 							native: {},
@@ -205,7 +203,7 @@ class Hydrawise extends utils.Adapter {
 										"zh-cn": "停止地区",
 									},
 									type: "boolean",
-									role: "button",
+									role: "button.start",
 									read: false,
 									write: true,
 								},
@@ -229,8 +227,8 @@ class Hydrawise extends utils.Adapter {
 										"zh-cn": "×二区",
 									},
 									type: "number",
-									role: "value",
-									read: false,
+									role: "level",
+									read: true,
 									write: true,
 								},
 								native: {},
@@ -253,8 +251,8 @@ class Hydrawise extends utils.Adapter {
 										"zh-cn": "停止x二区",
 									},
 									type: "number",
-									role: "value",
-									read: false,
+									role: "level",
+									read: true,
 									write: true,
 								},
 								native: {},
@@ -294,12 +292,12 @@ class Hydrawise extends utils.Adapter {
 								}
 							}
 						}
-
-						resolve(response.status);
 					}
+
+					resolve(response.status);
 				})
 				.catch((error) => {
-					if (error.response.status === 429) {
+					if (error.response?.status === 429) {
 						nextpollSchedule =
 							nextpollSchedule ||
 							this.setTimeout(
@@ -470,7 +468,7 @@ class Hydrawise extends utils.Adapter {
 						reject(error);
 					});
 			} else {
-				reject("Device IP is not configured");
+				reject("API key is not configured");
 			}
 		});
 	}
@@ -480,8 +478,8 @@ class Hydrawise extends utils.Adapter {
 	 */
 	private onUnload(callback: () => void): void {
 		try {
-			clearTimeout(nextpollSchedule);
-			clearTimeout(nextpollCustomer);
+			this.clearInterval(nextpollSchedule);
+			this.clearInterval(nextpollCustomer);
 
 			callback();
 		} catch (e) {
@@ -493,7 +491,7 @@ class Hydrawise extends utils.Adapter {
 	 * Is called if a subscribed state changes
 	 */
 	private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
-		if (state) {
+		if (state && !state.ack) {
 			if (id.indexOf("stopall") !== -1) {
 				this.buildRequest("setzone.php", { api_key: this.config.apiKey, action: "stopall" });
 			} else if (id.indexOf("stop") !== -1) {

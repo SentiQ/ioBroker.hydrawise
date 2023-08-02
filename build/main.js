@@ -37,7 +37,6 @@ class Hydrawise extends utils.Adapter {
     if (!this.config.apiKey) {
       this.log.error("No API-Key definded!");
     } else {
-      this.log.info("config apiKey: " + this.config.apiKey);
       this.setStateChangedAsync("info.connection", false, true);
       await this.GetStatusSchedule(this.config.apiKey);
       await this.GetCustomerDetails(this.config.apiKey);
@@ -74,7 +73,7 @@ class Hydrawise extends utils.Adapter {
                 "zh-cn": "\u505C\u6B62\u6240\u6709\u5730\u533A"
               },
               type: "boolean",
-              role: "button",
+              role: "button.start",
               read: false,
               write: true
             },
@@ -97,9 +96,9 @@ class Hydrawise extends utils.Adapter {
                 "zh-cn": "\u8DD1\u9053\u533A"
               },
               type: "number",
-              role: "value",
+              role: "level",
               unit: "seconds",
-              read: false,
+              read: true,
               write: true
             },
             native: {}
@@ -121,8 +120,8 @@ class Hydrawise extends utils.Adapter {
                 "zh-cn": "\u505C\u6B62\u6240\u6709\xD7\u4E8C\u533A"
               },
               type: "number",
-              role: "value",
-              read: false,
+              role: "level",
+              read: true,
               write: true
             },
             native: {}
@@ -191,7 +190,7 @@ class Hydrawise extends utils.Adapter {
                   "zh-cn": "\u505C\u6B62\u5730\u533A"
                 },
                 type: "boolean",
-                role: "button",
+                role: "button.start",
                 read: false,
                 write: true
               },
@@ -214,8 +213,8 @@ class Hydrawise extends utils.Adapter {
                   "zh-cn": "\xD7\u4E8C\u533A"
                 },
                 type: "number",
-                role: "value",
-                read: false,
+                role: "level",
+                read: true,
                 write: true
               },
               native: {}
@@ -237,8 +236,8 @@ class Hydrawise extends utils.Adapter {
                   "zh-cn": "\u505C\u6B62x\u4E8C\u533A"
                 },
                 type: "number",
-                role: "value",
-                read: false,
+                role: "level",
+                read: true,
                 write: true
               },
               native: {}
@@ -274,10 +273,11 @@ class Hydrawise extends utils.Adapter {
               }
             }
           }
-          resolve(response.status);
         }
+        resolve(response.status);
       }).catch((error) => {
-        if (error.response.status === 429) {
+        var _a;
+        if (((_a = error.response) == null ? void 0 : _a.status) === 429) {
           nextpollSchedule = nextpollSchedule || this.setTimeout(
             () => {
               nextpollSchedule = null;
@@ -409,21 +409,21 @@ class Hydrawise extends utils.Adapter {
           reject(error);
         });
       } else {
-        reject("Device IP is not configured");
+        reject("API key is not configured");
       }
     });
   }
   onUnload(callback) {
     try {
-      clearTimeout(nextpollSchedule);
-      clearTimeout(nextpollCustomer);
+      this.clearInterval(nextpollSchedule);
+      this.clearInterval(nextpollCustomer);
       callback();
     } catch (e) {
       callback();
     }
   }
   onStateChange(id, state) {
-    if (state) {
+    if (state && !state.ack) {
       if (id.indexOf("stopall") !== -1) {
         this.buildRequest("setzone.php", { api_key: this.config.apiKey, action: "stopall" });
       } else if (id.indexOf("stop") !== -1) {
