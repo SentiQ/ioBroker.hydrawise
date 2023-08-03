@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "news": {
+      "0.0.17": {
+        "en": "fixed adapter crash",
+        "de": "fester adapterabsturz",
+        "ru": "фиксированный адаптер аварии",
+        "pt": "travamento do adaptador fixo",
+        "nl": "vertaling:",
+        "fr": "crash de l'adaptateur fixe",
+        "it": "arresto dell'adattatore fisso",
+        "es": "choque de adaptador fijo",
+        "pl": "adaptacja adaptatora",
+        "uk": "фіксований аварійний адаптер",
+        "zh-cn": "b. 固定适应器"
+      },
       "0.0.16": {
         "en": "added more information to README\nencrypted apiKey\nremoved logging of apiKey\nadded filtering of invalid characters in ids\nadded check of ack flag\nfixed roles\nfixed error message\nremoved usage of clearTimeout",
         "de": "weitere Informationen zu README\nverschlüsselt api Schlüssel\nentfernte Protokollierung von api Schlüssel\nfiltern von ungültigen zeichen in ids\nzusätzlicher check von ack flag\nfeste rollen\nfeste fehlermeldung\nentfernte Verwendung von klar Zeit",
@@ -80,19 +93,6 @@
         "pl": "podwyższony czas\ntyp maszynowy",
         "uk": "підняті час\nфіксовані види",
         "zh-cn": "d. 提出的时间安排\n固定类型"
-      },
-      "0.0.10": {
-        "en": "fixed adapter crash\nchanged value of `timestr` to date string format",
-        "de": "fester adapterabsturz\ngeänderter wert von timestr zu date string format",
-        "ru": "фиксированный адаптер аварии\nизмененное значение timestr к формату строк",
-        "pt": "travamento do adaptador fixo\nvalor alterado de timestr para formato de cadeia de data",
-        "nl": "vertaling:\nveranderde waarde van tijdstip om te daten",
-        "fr": "crash de l'adaptateur fixe\nvaleur modifiée de timestr to date chaîne format",
-        "it": "arresto dell'adattatore fisso\nvalore cambiato di timestr in formato stringa data",
-        "es": "choque de adaptador fijo\ncambio de valor del formato de la cadena de tiempo a la fecha",
-        "pl": "adaptacja adaptatora\nzmieniona wartość czasu do daty formatu tekstowego",
-        "uk": "фіксований аварійний адаптер\nзмінено значення таймера до формата рядка",
-        "zh-cn": "b. 固定适应器\n迄今格式的变动"
       }
     },
     "titleLang": {
