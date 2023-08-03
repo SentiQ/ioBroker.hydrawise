@@ -30,6 +30,11 @@ You can see all controller information, schedules and sensors. It is also possib
 -   paste key into adapter settings
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+
+-   (SentiQ) fixed adapter crash
+
 ### 0.0.16 (2023-08-02)
 
 -   (SentiQ) added more information to README
