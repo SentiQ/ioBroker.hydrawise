@@ -358,7 +358,7 @@ class Hydrawise extends utils.Adapter {
         }
         resolve(response.status);
       }).catch((error) => {
-        if (error.response.status === 429) {
+        if (error.response?.status === 429) {
           nextpollCustomer = nextpollCustomer || this.setTimeout(
             () => {
               nextpollCustomer = null;
