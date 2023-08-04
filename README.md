@@ -30,6 +30,11 @@ You can see all controller information, schedules and sensors. It is also possib
 -   paste key into adapter settings
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+
+-   (SentiQ) raised API timeout
+
 ### 0.0.17 (2023-08-03)
 
 -   (SentiQ) fixed adapter crash

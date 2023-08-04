@@ -52,7 +52,7 @@ class Hydrawise extends utils.Adapter {
 
 			this.buildRequest("statusschedule.php", { api_key: this.config.apiKey })
 				.then(async (response) => {
-					if (response.status === 200) {
+					if (response?.status === 200) {
 						const content = response.data;
 
 						this.setStateChangedAsync("info.connection", true, true);
@@ -332,7 +332,7 @@ class Hydrawise extends utils.Adapter {
 
 			this.buildRequest("customerdetails.php", { api_key: this.config.apiKey })
 				.then(async (response) => {
-					if (response.status === 200) {
+					if (response?.status === 200) {
 						const content = response.data;
 
 						this.setStateChangedAsync("info.connection", true, true);
@@ -398,7 +398,7 @@ class Hydrawise extends utils.Adapter {
 					resolve(response.status);
 				})
 				.catch((error) => {
-					if (error.response.status === 429) {
+					if (error.response?.status === 429) {
 						nextpollCustomer =
 							nextpollCustomer ||
 							this.setTimeout(
@@ -429,7 +429,7 @@ class Hydrawise extends utils.Adapter {
 					method: "GET",
 					baseURL: hydrawise_url,
 					url: url,
-					timeout: 30000,
+					timeout: 60000,
 					responseType: "json",
 					params: params,
 				})
