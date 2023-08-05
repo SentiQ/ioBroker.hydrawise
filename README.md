@@ -29,11 +29,19 @@ You can see all controller information, schedules and sensors. It is also possib
 -   generate API Key by clicking "Generate API Key" under "Account Settings"
 -   paste key into adapter settings
 
+> **Note**  
+> After updating from 0.0.15 you have to re-enter your API key
+
 ## Changelog
+
+<!--
+    Placeholder for the next version (at the beginning of the line):
+    ### **WORK IN PROGRESS**
+-->
 
 ### **WORK IN PROGRESS**
 
--   (SentiQ) raised API timeout
+-   (SentiQ) fixed timeout
 
 ### 0.0.17 (2023-08-03)
 

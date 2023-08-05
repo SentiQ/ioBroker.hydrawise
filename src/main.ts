@@ -429,7 +429,7 @@ class Hydrawise extends utils.Adapter {
 					method: "GET",
 					baseURL: hydrawise_url,
 					url: url,
-					timeout: 60000,
+					timeout: 30000,
 					responseType: "json",
 					params: params,
 				})
@@ -478,8 +478,8 @@ class Hydrawise extends utils.Adapter {
 	 */
 	private onUnload(callback: () => void): void {
 		try {
-			this.clearInterval(nextpollSchedule);
-			this.clearInterval(nextpollCustomer);
+			this.clearTimeout(nextpollSchedule);
+			this.clearTimeout(nextpollCustomer);
 
 			callback();
 		} catch (e) {
@@ -549,9 +549,6 @@ class Hydrawise extends utils.Adapter {
 					});
 				}
 			}
-		} else {
-			// The state was deleted
-			this.log.info(`state ${id} deleted`);
 		}
 	}
 
