@@ -73,7 +73,7 @@ class Hydrawise extends utils.Adapter {
                 "zh-cn": "\u505C\u6B62\u6240\u6709\u5730\u533A"
               },
               type: "boolean",
-              role: "button.start",
+              role: "button.stop",
               read: false,
               write: true
             },
@@ -190,7 +190,7 @@ class Hydrawise extends utils.Adapter {
                   "zh-cn": "\u505C\u6B62\u5730\u533A"
                 },
                 type: "boolean",
-                role: "button.start",
+                role: "button.stop",
                 read: false,
                 write: true
               },
