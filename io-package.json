@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "news": {
+      "0.0.18": {
+        "en": "fixed timeout",
+        "de": "feste zeit",
+        "ru": "фиксированный timeout",
+        "pt": "tempo limite",
+        "nl": "vertaling:",
+        "fr": "timeout fixe",
+        "it": "tempo fisso",
+        "es": "tiempo fijo",
+        "pl": "czas ciągły",
+        "uk": "фіксований час",
+        "zh-cn": "固定时间"
+      },
       "0.0.17": {
         "en": "fixed adapter crash",
         "de": "fester adapterabsturz",
@@ -80,19 +93,6 @@
         "pl": "zmieniona wartość ostatniej kontaktu do daty formatu tekstowego",
         "uk": "змінено значення останнього_контакту до формату рядка",
         "zh-cn": "a. 修改了最后表格的价值"
-      },
-      "0.0.11": {
-        "en": "raised timeouts\nfixed types",
-        "de": "erhöhte timeouts\nfeste typen",
-        "ru": "поднятые таймеры\nфиксированные типы",
-        "pt": "timeouts levantados\ntipos fixos",
-        "nl": "verhoogde time-outs\ngerepareerde types",
-        "fr": "des délais élevés\ntypes fixes",
-        "it": "aumento dei timeout\ntipi fissi",
-        "es": "cronologías elevadas\ntipos fijos",
-        "pl": "podwyższony czas\ntyp maszynowy",
-        "uk": "підняті час\nфіксовані види",
-        "zh-cn": "d. 提出的时间安排\n固定类型"
       }
     },
     "titleLang": {
