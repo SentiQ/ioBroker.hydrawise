@@ -38,6 +38,11 @@ You can see all controller information, schedules and sensors. It is also possib
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+-   (SentiQ) fixed button roles
+
 ### 0.0.18 (2023-08-05)
 
 -   (SentiQ) fixed timeout
