@@ -147,6 +147,24 @@ class Hydrawise extends utils.Adapter {
 								});
 
 								this.setStateChangedAsync(`schedule.${key}`, content[key], true);
+
+								if (key === "time") {
+									await this.setObjectNotExistsAsync("schedule.timestr", {
+										type: "state",
+										common: {
+											name: "last api call",
+											type: "string",
+											role: "text",
+											read: true,
+											write: false,
+										},
+										native: {},
+									});
+
+									const t = new Date(content[key] * 1000);
+
+									this.setStateChangedAsync("schedule.timestr", t.toString(), true);
+								}
 							}
 						}
 
@@ -425,48 +443,52 @@ class Hydrawise extends utils.Adapter {
 			let lastErrorCode = 0;
 
 			if (params.api_key) {
-				axios({
-					method: "GET",
-					baseURL: hydrawise_url,
-					url: url,
-					timeout: 30000,
-					responseType: "json",
-					params: params,
-				})
-					.then((response) => {
-						// no error - clear up reminder
-						lastErrorCode = 0;
-
-						resolve(response);
+				try {
+					axios({
+						method: "GET",
+						baseURL: hydrawise_url,
+						url: url,
+						timeout: 30000,
+						responseType: "json",
+						params: params,
 					})
-					.catch((error) => {
-						if (error.response) {
-							// The request was made and the server responded with a status code
+						.then((response) => {
+							// no error - clear up reminder
+							lastErrorCode = 0;
 
-							this.log.warn(
-								`received ${error.response.status} response from ${url} with content: ${JSON.stringify(
-									error.response.data,
-								)}`,
-							);
-						} else if (error.request) {
-							// The request was made but no response was received
-							// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-							// http.ClientRequest in node.js
+							resolve(response);
+						})
+						.catch((error) => {
+							if (error.response) {
+								// The request was made and the server responded with a status code
 
-							// avoid spamming of the same error when stuck in a reconnection loop
-							if (error.code === lastErrorCode) {
-								this.log.debug(error.message);
+								this.log.warn(
+									`received ${
+										error.response.status
+									} response from ${url} with content: ${JSON.stringify(error.response.data)}`,
+								);
+							} else if (error.request) {
+								// The request was made but no response was received
+								// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+								// http.ClientRequest in node.js
+
+								// avoid spamming of the same error when stuck in a reconnection loop
+								if (error.code === lastErrorCode) {
+									this.log.debug(error.message);
+								} else {
+									this.log.info(`error ${error.code} from ${url}: ${error.message}`);
+									lastErrorCode = error.code;
+								}
 							} else {
-								this.log.info(`error ${error.code} from ${url}: ${error.message}`);
-								lastErrorCode = error.code;
+								// Something happened in setting up the request that triggered an Error
+								this.log.error(error.message);
 							}
-						} else {
-							// Something happened in setting up the request that triggered an Error
-							this.log.error(error.message);
-						}
 
-						reject(error);
-					});
+							reject(error);
+						});
+				} catch (error) {
+					reject(error);
+				}
 			} else {
 				reject("API key is not configured");
 			}

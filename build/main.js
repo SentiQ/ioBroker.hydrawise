@@ -141,6 +141,21 @@ class Hydrawise extends utils.Adapter {
                 native: {}
               });
               this.setStateChangedAsync(`schedule.${key}`, content[key], true);
+              if (key === "time") {
+                await this.setObjectNotExistsAsync("schedule.timestr", {
+                  type: "state",
+                  common: {
+                    name: "last api call",
+                    type: "string",
+                    role: "text",
+                    read: true,
+                    write: false
+                  },
+                  native: {}
+                });
+                const t = new Date(content[key] * 1e3);
+                this.setStateChangedAsync("schedule.timestr", t.toString(), true);
+              }
             }
           }
           for (const relay of content.relays) {
@@ -380,35 +395,37 @@ class Hydrawise extends utils.Adapter {
       const url = `/api/v1/${service}`;
       let lastErrorCode = 0;
       if (params.api_key) {
-        (0, import_axios.default)({
-          method: "GET",
-          baseURL: hydrawise_url,
-          url,
-          timeout: 3e4,
-          responseType: "json",
-          params
-        }).then((response) => {
-          lastErrorCode = 0;
-          resolve(response);
-        }).catch((error) => {
-          if (error.response) {
-            this.log.warn(
-              `received ${error.response.status} response from ${url} with content: ${JSON.stringify(
-                error.response.data
-              )}`
-            );
-          } else if (error.request) {
-            if (error.code === lastErrorCode) {
-              this.log.debug(error.message);
+        try {
+          (0, import_axios.default)({
+            method: "GET",
+            baseURL: hydrawise_url,
+            url,
+            timeout: 3e4,
+            responseType: "json",
+            params
+          }).then((response) => {
+            lastErrorCode = 0;
+            resolve(response);
+          }).catch((error) => {
+            if (error.response) {
+              this.log.warn(
+                `received ${error.response.status} response from ${url} with content: ${JSON.stringify(error.response.data)}`
+              );
+            } else if (error.request) {
+              if (error.code === lastErrorCode) {
+                this.log.debug(error.message);
+              } else {
+                this.log.info(`error ${error.code} from ${url}: ${error.message}`);
+                lastErrorCode = error.code;
+              }
             } else {
-              this.log.info(`error ${error.code} from ${url}: ${error.message}`);
-              lastErrorCode = error.code;
+              this.log.error(error.message);
             }
-          } else {
-            this.log.error(error.message);
-          }
+            reject(error);
+          });
+        } catch (error) {
           reject(error);
-        });
+        }
       } else {
         reject("API key is not configured");
       }

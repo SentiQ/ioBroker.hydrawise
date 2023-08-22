@@ -38,6 +38,12 @@ You can see all controller information, schedules and sensors. It is also possib
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+-   (SentiQ) fixed random crash, when api domain can't be resolved by dns
+-   (SentiQ) added time string of last api call
+
 ### 0.0.19 (2023-08-05)
 
 -   (SentiQ) fixed button roles
