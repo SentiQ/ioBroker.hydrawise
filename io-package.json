@@ -1,222 +1,234 @@
 {
-	"common": {
-		"name": "hydrawise",
-		"version": "0.1.0",
-		"news": {
-			"0.0.19": {
-				"en": "fixed button roles",
-				"de": "feste tastenrollen",
-				"ru": "фиксированные роли кнопки",
-				"pt": "funções de botão fixo",
-				"nl": "gerepareerde knop rollen",
-				"fr": "des boutons fixes",
-				"it": "ruoli di pulsante fissi",
-				"es": "funciones de botón fijo",
-				"pl": "rola przycisku",
-				"uk": "фіксовані кнопки ролі",
-				"zh-cn": "b. 固定但工作地点的作用"
-			},
-			"0.0.18": {
-				"en": "fixed timeout",
-				"de": "feste zeit",
-				"ru": "фиксированный timeout",
-				"pt": "tempo limite",
-				"nl": "vertaling:",
-				"fr": "timeout fixe",
-				"it": "tempo fisso",
-				"es": "tiempo fijo",
-				"pl": "czas ciągły",
-				"uk": "фіксований час",
-				"zh-cn": "固定时间"
-			},
-			"0.0.17": {
-				"en": "fixed adapter crash",
-				"de": "fester adapterabsturz",
-				"ru": "фиксированный адаптер аварии",
-				"pt": "travamento do adaptador fixo",
-				"nl": "vertaling:",
-				"fr": "crash de l'adaptateur fixe",
-				"it": "arresto dell'adattatore fisso",
-				"es": "choque de adaptador fijo",
-				"pl": "adaptacja adaptatora",
-				"uk": "фіксований аварійний адаптер",
-				"zh-cn": "b. 固定适应器"
-			},
-			"0.0.16": {
-				"en": "added more information to README\nencrypted apiKey\nremoved logging of apiKey\nadded filtering of invalid characters in ids\nadded check of ack flag\nfixed roles\nfixed error message\nremoved usage of clearTimeout",
-				"de": "weitere Informationen zu README\nverschlüsselt api Schlüssel\nentfernte Protokollierung von api Schlüssel\nfiltern von ungültigen zeichen in ids\nzusätzlicher check von ack flag\nfeste rollen\nfeste fehlermeldung\nentfernte Verwendung von klar Zeit",
-				"ru": "добавлена дополнительная информация для README\nзашифрованный api Ключ\nудалили логирование api Ключ\nдобавлена фильтрация недействительных символов в ids\nдобавлена проверка флага ack\nфиксированные роли\nфиксированное сообщение об ошибке\nудаленное использование ясно Тайм-аут",
-				"pt": "adicionado mais informações para LERME\napi criptografado Chaveiro\nlog removido de api Chaveiro\nadicionado filtragem de caracteres inválidos em ids\nadicionado check of ack flag\npapéis fixos\nmensagem de erro fixo\nuso removido de claro Timeout",
-				"nl": "voegde meer informatie toe aan\ngecodeerde api Sleutel\nverwijderde logging Sleutel\nvoegde toegevoegd van invalide personages in id\nvertaling:\ngerepareerde rollen\nvergissing\nverwijder het gebruik Time-out",
-				"fr": "ajouté plus d'informations à README\ncrypté api Key\nenlèvement de l ' api Key\nfiltrage des caractères invalides dans les ids\nvérification supplémentaire du drapeau ack\nrôles fixes\nmessage d ' erreur\nl ' utilisation supprimée Timeout",
-				"it": "maggiori informazioni su README\napi crittografato Chiave\nlogging rimosso di api Chiave\nfiltraggio aggiunto di caratteri non validi in ids\ncontrollo aggiunto della bandiera di ack\nruoli fissi\nmessaggio di errore fisso\nuso rimosso di chiaro Tempo",
-				"es": "añadir más información a README\nencriptado api Clave\nextracción de registro de api Clave\nfiltro añadido de caracteres inválidos en ids\ncheque añadido de la bandera de la cubierta\nfunciones fijas\nmensaje de error fijo\nuso eliminado de clara Timeout",
-				"pl": "dodano więcej informacji na temat README\nszyfrowanie api Key\nusunięta logika api Key\ndodał filtrowanie nieprawidłowych postaci w idsach\ndodać się do flagi\nrola stała\nbłędy\nusunąć Timeout",
-				"uk": "додано більше інформації\nзашифрований api Головна\nвидалений загін апі Головна\nдодано фільтрування недійсних символів у ids\nдодано перевірку ack прапора\nфіксовані ролі\nфіксоване повідомлення про помилку\nвидалення використання прозорого Розклад",
-				"zh-cn": "d. 增加中小企业的更多信息\n加密处 关键\n拆除管道 关键\n添加过滤剂中的无效性\n进一步检查旗帜\n固定作用\n固定错误信息\n删除明确用途 时限"
-			},
-			"0.0.15": {
-				"en": "updated dependencies",
-				"de": "aktualisierte abhängigkeiten",
-				"ru": "обновленные зависимости",
-				"pt": "dependências atualizadas",
-				"nl": "vertaling:",
-				"fr": "dépendances actualisées",
-				"it": "dipendenze aggiornate",
-				"es": "dependencias actualizadas",
-				"pl": "zależności aktualizacji",
-				"uk": "оновлені залежності",
-				"zh-cn": "二. 最新依赖"
-			},
-			"0.0.14": {
-				"en": "fixing version",
-				"de": "befestigungsversion",
-				"ru": "исправление версии",
-				"pt": "versão de fixação",
-				"nl": "vertaling:",
-				"fr": "correction de la version",
-				"it": "versione di fissaggio",
-				"es": "versión de fijación",
-				"pl": "poprawiona wersja",
-				"uk": "версія фіксації",
-				"zh-cn": "f 定本"
-			},
-			"0.0.13": {
-				"en": "fixing version",
-				"de": "befestigungsversion",
-				"ru": "исправление версии",
-				"pt": "versão de fixação",
-				"nl": "vertaling:",
-				"fr": "correction de la version",
-				"it": "versione di fissaggio",
-				"es": "versión de fijación",
-				"pl": "poprawiona wersja",
-				"uk": "версія фіксації",
-				"zh-cn": "f 定本"
-			}
-		},
-		"titleLang": {
-			"en": "Hydrawise",
-			"de": "Hydrawise",
-			"ru": "Hydrawise",
-			"pt": "Hydrawise",
-			"nl": "Hydrawise",
-			"fr": "Hydrawise",
-			"it": "Hydrawise",
-			"es": "Hydrawise",
-			"pl": "Hydrawise",
-			"uk": "Hydrawise",
-			"zh-cn": "Hydrawise"
-		},
-		"desc": {
-			"en": "Adapter to control the Hydrawise irrigation control system",
-			"de": "Adapter to control the Hydrawise irrigation control system",
-			"ru": "Adapter to control the Hydrawise irrigation control system",
-			"pt": "Adapter to control the Hydrawise irrigation control system",
-			"nl": "Adapter to control the Hydrawise irrigation control system",
-			"fr": "Adapter to control the Hydrawise irrigation control system",
-			"it": "Adapter to control the Hydrawise irrigation control system",
-			"es": "Adapter to control the Hydrawise irrigation control system",
-			"pl": "Adapter to control the Hydrawise irrigation control system",
-			"uk": "Adapter to control the Hydrawise irrigation control system",
-			"zh-cn": "Adapter to control the Hydrawise irrigation control system"
-		},
-		"authors": ["SentiQ <fischer.yves@web.de>"],
-		"keywords": ["hydrawise", "hunter", "irrigation", "watering", "garden"],
-		"license": "MIT",
-		"platform": "Javascript/Node.js",
-		"main": "build/main.js",
-		"icon": "hydrawise.jpg",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/SentiQ/ioBroker.hydrawise/main/admin/hydrawise.jpg",
-		"readme": "https://github.com/SentiQ/ioBroker.hydrawise/blob/main/README.md",
-		"loglevel": "info",
-		"mode": "daemon",
-		"type": "garden",
-		"compact": true,
-		"connectionType": "cloud",
-		"dataSource": "poll",
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=3.3.22"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=5.1.13"
-			}
-		]
-	},
-	"native": {
-		"apiKey": ""
-	},
-	"encryptedNative": ["apiKey"],
-	"protectedNative": ["apiKey"],
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "customer",
-			"type": "channel",
-			"common": {
-				"name": {
-					"en": "Controllers",
-					"de": "Controller",
-					"ru": "Контроллеры",
-					"pt": "Controladores",
-					"nl": "Controller",
-					"fr": "Contrôleurs",
-					"it": "Regolatori",
-					"es": "Controladores",
-					"pl": "Kontroler",
-					"uk": "Контролери",
-					"zh-cn": "主计长"
-				}
-			},
-			"native": {}
-		},
-		{
-			"_id": "schedule",
-			"type": "channel",
-			"common": {
-				"name": {
-					"en": "Schedule",
-					"de": "Zeitplan",
-					"ru": "Расписание",
-					"pt": "Programação",
-					"nl": "Schedel",
-					"fr": "Tableau",
-					"it": "Programma",
-					"es": "Cuadro",
-					"pl": "Schedule",
-					"uk": "Розклад",
-					"zh-cn": "附表"
-				}
-			},
-			"native": {}
-		}
-	]
+  "common": {
+    "name": "hydrawise",
+    "version": "0.1.1",
+    "news": {
+      "0.1.1": {
+        "en": "fixed random crash, when api domain can't be resolved by dns\nadded time string of last api call",
+        "de": "fester zufälliger absturz, wenn api-domain nicht durch dns behoben werden kann\nhinzufügen der zeitfolge des letzten api anrufs",
+        "ru": "исправлена случайная катастрофа, когда домен api не может быть разрешен dns\nдобавлена строка времени последнего api call",
+        "pt": "acidente aleatório fixo, quando o domínio api não pode ser resolvido por dns\nstring de tempo adicionado da última chamada api",
+        "nl": "vertaling:\nvertaling:",
+        "fr": "crash aléatoire fixe, quand le domaine api ne peut pas être résolu par des dns\na ajouté la chaîne de temps de dernière appel api",
+        "it": "fisso crash casuale, quando il dominio api non può essere risolto da dns\nstringa di tempo aggiunta di ultima chiamata api",
+        "es": "bloqueo fijo al azar, cuando el dominio api no puede ser resuelto por dns\ncadena de tiempo añadido de última llamada api",
+        "pl": "stała przypadkowa katastrofa, gdy domena pi nie może być ustalona przez dns\ndodał czas na ostatni api call",
+        "uk": "фіксована випадкова аварія, коли домен api не може бути вирішений dns\nдодано рядок часу останнього виклику api",
+        "zh-cn": "固定的意外事故,如果一个皮埃尔区可以由庇护所解决。\n最后一页呼吁增加时间"
+      },
+      "0.0.19": {
+        "en": "fixed button roles",
+        "de": "feste tastenrollen",
+        "ru": "фиксированные роли кнопки",
+        "pt": "funções de botão fixo",
+        "nl": "gerepareerde knop rollen",
+        "fr": "des boutons fixes",
+        "it": "ruoli di pulsante fissi",
+        "es": "funciones de botón fijo",
+        "pl": "rola przycisku",
+        "uk": "фіксовані кнопки ролі",
+        "zh-cn": "b. 固定但工作地点的作用"
+      },
+      "0.0.18": {
+        "en": "fixed timeout",
+        "de": "feste zeit",
+        "ru": "фиксированный timeout",
+        "pt": "tempo limite",
+        "nl": "vertaling:",
+        "fr": "timeout fixe",
+        "it": "tempo fisso",
+        "es": "tiempo fijo",
+        "pl": "czas ciągły",
+        "uk": "фіксований час",
+        "zh-cn": "固定时间"
+      },
+      "0.0.17": {
+        "en": "fixed adapter crash",
+        "de": "fester adapterabsturz",
+        "ru": "фиксированный адаптер аварии",
+        "pt": "travamento do adaptador fixo",
+        "nl": "vertaling:",
+        "fr": "crash de l'adaptateur fixe",
+        "it": "arresto dell'adattatore fisso",
+        "es": "choque de adaptador fijo",
+        "pl": "adaptacja adaptatora",
+        "uk": "фіксований аварійний адаптер",
+        "zh-cn": "b. 固定适应器"
+      },
+      "0.0.16": {
+        "en": "added more information to README\nencrypted apiKey\nremoved logging of apiKey\nadded filtering of invalid characters in ids\nadded check of ack flag\nfixed roles\nfixed error message\nremoved usage of clearTimeout",
+        "de": "weitere Informationen zu README\nverschlüsselt api Schlüssel\nentfernte Protokollierung von api Schlüssel\nfiltern von ungültigen zeichen in ids\nzusätzlicher check von ack flag\nfeste rollen\nfeste fehlermeldung\nentfernte Verwendung von klar Zeit",
+        "ru": "добавлена дополнительная информация для README\nзашифрованный api Ключ\nудалили логирование api Ключ\nдобавлена фильтрация недействительных символов в ids\nдобавлена проверка флага ack\nфиксированные роли\nфиксированное сообщение об ошибке\nудаленное использование ясно Тайм-аут",
+        "pt": "adicionado mais informações para LERME\napi criptografado Chaveiro\nlog removido de api Chaveiro\nadicionado filtragem de caracteres inválidos em ids\nadicionado check of ack flag\npapéis fixos\nmensagem de erro fixo\nuso removido de claro Timeout",
+        "nl": "voegde meer informatie toe aan\ngecodeerde api Sleutel\nverwijderde logging Sleutel\nvoegde toegevoegd van invalide personages in id\nvertaling:\ngerepareerde rollen\nvergissing\nverwijder het gebruik Time-out",
+        "fr": "ajouté plus d'informations à README\ncrypté api Key\nenlèvement de l ' api Key\nfiltrage des caractères invalides dans les ids\nvérification supplémentaire du drapeau ack\nrôles fixes\nmessage d ' erreur\nl ' utilisation supprimée Timeout",
+        "it": "maggiori informazioni su README\napi crittografato Chiave\nlogging rimosso di api Chiave\nfiltraggio aggiunto di caratteri non validi in ids\ncontrollo aggiunto della bandiera di ack\nruoli fissi\nmessaggio di errore fisso\nuso rimosso di chiaro Tempo",
+        "es": "añadir más información a README\nencriptado api Clave\nextracción de registro de api Clave\nfiltro añadido de caracteres inválidos en ids\ncheque añadido de la bandera de la cubierta\nfunciones fijas\nmensaje de error fijo\nuso eliminado de clara Timeout",
+        "pl": "dodano więcej informacji na temat README\nszyfrowanie api Key\nusunięta logika api Key\ndodał filtrowanie nieprawidłowych postaci w idsach\ndodać się do flagi\nrola stała\nbłędy\nusunąć Timeout",
+        "uk": "додано більше інформації\nзашифрований api Головна\nвидалений загін апі Головна\nдодано фільтрування недійсних символів у ids\nдодано перевірку ack прапора\nфіксовані ролі\nфіксоване повідомлення про помилку\nвидалення використання прозорого Розклад",
+        "zh-cn": "d. 增加中小企业的更多信息\n加密处 关键\n拆除管道 关键\n添加过滤剂中的无效性\n进一步检查旗帜\n固定作用\n固定错误信息\n删除明确用途 时限"
+      },
+      "0.0.15": {
+        "en": "updated dependencies",
+        "de": "aktualisierte abhängigkeiten",
+        "ru": "обновленные зависимости",
+        "pt": "dependências atualizadas",
+        "nl": "vertaling:",
+        "fr": "dépendances actualisées",
+        "it": "dipendenze aggiornate",
+        "es": "dependencias actualizadas",
+        "pl": "zależności aktualizacji",
+        "uk": "оновлені залежності",
+        "zh-cn": "二. 最新依赖"
+      },
+      "0.0.14": {
+        "en": "fixing version",
+        "de": "befestigungsversion",
+        "ru": "исправление версии",
+        "pt": "versão de fixação",
+        "nl": "vertaling:",
+        "fr": "correction de la version",
+        "it": "versione di fissaggio",
+        "es": "versión de fijación",
+        "pl": "poprawiona wersja",
+        "uk": "версія фіксації",
+        "zh-cn": "f 定本"
+      }
+    },
+    "titleLang": {
+      "en": "Hydrawise",
+      "de": "Hydrawise",
+      "ru": "Hydrawise",
+      "pt": "Hydrawise",
+      "nl": "Hydrawise",
+      "fr": "Hydrawise",
+      "it": "Hydrawise",
+      "es": "Hydrawise",
+      "pl": "Hydrawise",
+      "uk": "Hydrawise",
+      "zh-cn": "Hydrawise"
+    },
+    "desc": {
+      "en": "Adapter to control the Hydrawise irrigation control system",
+      "de": "Adapter to control the Hydrawise irrigation control system",
+      "ru": "Adapter to control the Hydrawise irrigation control system",
+      "pt": "Adapter to control the Hydrawise irrigation control system",
+      "nl": "Adapter to control the Hydrawise irrigation control system",
+      "fr": "Adapter to control the Hydrawise irrigation control system",
+      "it": "Adapter to control the Hydrawise irrigation control system",
+      "es": "Adapter to control the Hydrawise irrigation control system",
+      "pl": "Adapter to control the Hydrawise irrigation control system",
+      "uk": "Adapter to control the Hydrawise irrigation control system",
+      "zh-cn": "Adapter to control the Hydrawise irrigation control system"
+    },
+    "authors": [
+      "SentiQ <fischer.yves@web.de>"
+    ],
+    "keywords": [
+      "hydrawise",
+      "hunter",
+      "irrigation",
+      "watering",
+      "garden"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "build/main.js",
+    "icon": "hydrawise.jpg",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/SentiQ/ioBroker.hydrawise/main/admin/hydrawise.jpg",
+    "readme": "https://github.com/SentiQ/ioBroker.hydrawise/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "garden",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.22"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.13"
+      }
+    ]
+  },
+  "native": {
+    "apiKey": ""
+  },
+  "encryptedNative": [
+    "apiKey"
+  ],
+  "protectedNative": [
+    "apiKey"
+  ],
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "customer",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Controllers",
+          "de": "Controller",
+          "ru": "Контроллеры",
+          "pt": "Controladores",
+          "nl": "Controller",
+          "fr": "Contrôleurs",
+          "it": "Regolatori",
+          "es": "Controladores",
+          "pl": "Kontroler",
+          "uk": "Контролери",
+          "zh-cn": "主计长"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "schedule",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Schedule",
+          "de": "Zeitplan",
+          "ru": "Расписание",
+          "pt": "Programação",
+          "nl": "Schedel",
+          "fr": "Tableau",
+          "it": "Programma",
+          "es": "Cuadro",
+          "pl": "Schedule",
+          "uk": "Розклад",
+          "zh-cn": "附表"
+        }
+      },
+      "native": {}
+    }
+  ]
 }
