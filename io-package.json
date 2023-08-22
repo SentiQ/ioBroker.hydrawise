@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "news": {
+      "0.1.2": {
+        "en": "added link to api docu",
+        "de": "link zu api docu",
+        "ru": "добавлена ссылка на api docu",
+        "pt": "adicionado link para api docu",
+        "nl": "vertaling:",
+        "fr": "lien ajouté à api docu",
+        "it": "link aggiunto a a api docu",
+        "es": "api docu",
+        "pl": "dodanie do api docu",
+        "uk": "додано посилання на api docu",
+        "zh-cn": "a. 皮埃尔的附加联系"
+      },
       "0.1.1": {
         "en": "fixed random crash, when api domain can't be resolved by dns\nadded time string of last api call",
         "de": "fester zufälliger absturz, wenn api-domain nicht durch dns behoben werden kann\nhinzufügen der zeitfolge des letzten api anrufs",
@@ -80,19 +93,6 @@
         "pl": "zależności aktualizacji",
         "uk": "оновлені залежності",
         "zh-cn": "二. 最新依赖"
-      },
-      "0.0.14": {
-        "en": "fixing version",
-        "de": "befestigungsversion",
-        "ru": "исправление версии",
-        "pt": "versão de fixação",
-        "nl": "vertaling:",
-        "fr": "correction de la version",
-        "it": "versione di fissaggio",
-        "es": "versión de fijación",
-        "pl": "poprawiona wersja",
-        "uk": "версія фіксації",
-        "zh-cn": "f 定本"
       }
     },
     "titleLang": {
