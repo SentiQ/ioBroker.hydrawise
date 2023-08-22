@@ -40,6 +40,10 @@ You can see all controller information, schedules and sensors. It is also possib
     ### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+
+-   (SentiQ) added link to api docu
+
 ### 0.1.1 (2023-08-22)
 
 -   (SentiQ) fixed random crash, when api domain can't be resolved by dns
