@@ -80,32 +80,6 @@
 				"pl": "adaptacja adaptatora",
 				"uk": "фіксований аварійний адаптер",
 				"zh-cn": "b. 固定适应器"
-			},
-			"0.0.16": {
-				"en": "added more information to README\nencrypted apiKey\nremoved logging of apiKey\nadded filtering of invalid characters in ids\nadded check of ack flag\nfixed roles\nfixed error message\nremoved usage of clearTimeout",
-				"de": "weitere Informationen zu README\nverschlüsselt api Schlüssel\nentfernte Protokollierung von api Schlüssel\nfiltern von ungültigen zeichen in ids\nzusätzlicher check von ack flag\nfeste rollen\nfeste fehlermeldung\nentfernte Verwendung von klar Zeit",
-				"ru": "добавлена дополнительная информация для README\nзашифрованный api Ключ\nудалили логирование api Ключ\nдобавлена фильтрация недействительных символов в ids\nдобавлена проверка флага ack\nфиксированные роли\nфиксированное сообщение об ошибке\nудаленное использование ясно Тайм-аут",
-				"pt": "adicionado mais informações para LERME\napi criptografado Chaveiro\nlog removido de api Chaveiro\nadicionado filtragem de caracteres inválidos em ids\nadicionado check of ack flag\npapéis fixos\nmensagem de erro fixo\nuso removido de claro Timeout",
-				"nl": "voegde meer informatie toe aan\ngecodeerde api Sleutel\nverwijderde logging Sleutel\nvoegde toegevoegd van invalide personages in id\nvertaling:\ngerepareerde rollen\nvergissing\nverwijder het gebruik Time-out",
-				"fr": "ajouté plus d'informations à README\ncrypté api Key\nenlèvement de l ' api Key\nfiltrage des caractères invalides dans les ids\nvérification supplémentaire du drapeau ack\nrôles fixes\nmessage d ' erreur\nl ' utilisation supprimée Timeout",
-				"it": "maggiori informazioni su README\napi crittografato Chiave\nlogging rimosso di api Chiave\nfiltraggio aggiunto di caratteri non validi in ids\ncontrollo aggiunto della bandiera di ack\nruoli fissi\nmessaggio di errore fisso\nuso rimosso di chiaro Tempo",
-				"es": "añadir más información a README\nencriptado api Clave\nextracción de registro de api Clave\nfiltro añadido de caracteres inválidos en ids\ncheque añadido de la bandera de la cubierta\nfunciones fijas\nmensaje de error fijo\nuso eliminado de clara Timeout",
-				"pl": "dodano więcej informacji na temat README\nszyfrowanie api Key\nusunięta logika api Key\ndodał filtrowanie nieprawidłowych postaci w idsach\ndodać się do flagi\nrola stała\nbłędy\nusunąć Timeout",
-				"uk": "додано більше інформації\nзашифрований api Головна\nвидалений загін апі Головна\nдодано фільтрування недійсних символів у ids\nдодано перевірку ack прапора\nфіксовані ролі\nфіксоване повідомлення про помилку\nвидалення використання прозорого Розклад",
-				"zh-cn": "d. 增加中小企业的更多信息\n加密处 关键\n拆除管道 关键\n添加过滤剂中的无效性\n进一步检查旗帜\n固定作用\n固定错误信息\n删除明确用途 时限"
-			},
-			"0.0.15": {
-				"en": "updated dependencies",
-				"de": "aktualisierte abhängigkeiten",
-				"ru": "обновленные зависимости",
-				"pt": "dependências atualizadas",
-				"nl": "vertaling:",
-				"fr": "dépendances actualisées",
-				"it": "dipendenze aggiornate",
-				"es": "dependencias actualizadas",
-				"pl": "zależności aktualizacji",
-				"uk": "оновлені залежності",
-				"zh-cn": "二. 最新依赖"
 			}
 		},
 		"titleLang": {
