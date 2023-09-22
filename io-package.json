@@ -1,9 +1,9 @@
 {
 	"common": {
 		"name": "hydrawise",
-		"version": "0.2.0",
+		"version": "0.2.1",
 		"news": {
-			"0.2.0": {
+			"0.2.1": {
 				"en": "added button to run zone for default runtime",
 				"de": "Schaltfläche zum Ausführen der Zone für Standardlaufzeit",
 				"ru": "добавлена кнопка для запуска зоны для по умолчанию runtime",

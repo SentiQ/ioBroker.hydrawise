@@ -40,6 +40,10 @@ You can see all controller information, schedules and sensors. It is also possib
     ### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+
+-   (SentiQ) fixed versions
+
 ### 0.2.0 (2023-09-22)
 
 -   (SentiQ) added button to run zone for default runtime
