@@ -22,6 +22,7 @@ var import_axios = __toESM(require("axios"));
 const hydrawise_url = "https://api.hydrawise.com";
 let nextpollSchedule = null;
 let nextpollCustomer = null;
+let resetSwitch = null;
 const RELAYS = Object;
 class Hydrawise extends utils.Adapter {
   constructor(options = {}) {
@@ -128,7 +129,7 @@ class Hydrawise extends utils.Adapter {
           });
           for (let key in content) {
             key = this.name2id(key);
-            if (key !== "relays" && key !== "sensors" && key !== "expanders") {
+            if (key !== "relays" && key !== "sensors" && key !== "expanders" && !Number.isNaN(key)) {
               await this.setObjectNotExistsAsync(`schedule.${key}`, {
                 type: "state",
                 common: {
@@ -257,6 +258,29 @@ class Hydrawise extends utils.Adapter {
               },
               native: {}
             });
+            await this.setObjectNotExistsAsync(`schedule.${relay.relay}.runDefault`, {
+              type: "state",
+              common: {
+                name: {
+                  en: "run zone for default time",
+                  de: "Zone mit Standardlaufzeit starten",
+                  ru: "\u0437\u0430\u043F\u0443\u0441\u0442\u0438\u0442\u044C \u0437\u043E\u043D\u0443 \u0434\u043B\u044F \u0432\u0440\u0435\u043C\u0435\u043D\u0438 \u043F\u043E \u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E",
+                  pt: "fuso de execu\xE7\xE3o para o tempo padr\xE3o",
+                  nl: "run zone for default time",
+                  fr: "run zone for default time",
+                  it: "run zone per il tempo predefinito",
+                  es: "zona de ejecuci\xF3n por tiempo predeterminado",
+                  pl: "strefa czasu domy\u015Blnego",
+                  uk: "\u0437\u043E\u043D\u0430 \u0437\u0430\u043F\u0443\u0441\u043A\u0443 \u0437\u0430 \u0437\u0430\u043C\u043E\u0432\u0447\u0443\u0432\u0430\u043D\u043D\u044F\u043C",
+                  "zh-cn": "a. \u6682\u505C\u65F6\u95F4\u533A"
+                },
+                type: "boolean",
+                role: "switch.power",
+                read: true,
+                write: true
+              },
+              native: {}
+            });
           }
           for (const sensor of content.sensors) {
             await this.setObjectNotExistsAsync(`schedule.sensors.${sensor.input}`, {
@@ -322,7 +346,7 @@ class Hydrawise extends utils.Adapter {
           const content = response.data;
           this.setStateChangedAsync("info.connection", true, true);
           for (let key in content) {
-            if (key !== "controllers") {
+            if (key !== "controllers" && !Number.isNaN(key)) {
               key = this.name2id(key);
               await this.setObjectNotExistsAsync(`customer.${key}`, {
                 type: "state",
@@ -461,7 +485,7 @@ class Hydrawise extends utils.Adapter {
           period_id: 999,
           custom: state.val
         });
-      } else if (id.indexOf("run") !== -1 && (state.val || state.val === 0)) {
+      } else if (id.indexOf("runZone") !== -1 && (state.val || state.val === 0)) {
         const relay = id.match(/.*schedule\.(.*)\.runZone/);
         if (relay && (relay == null ? void 0 : relay.length) > 1) {
           this.buildRequest("setzone.php", {
@@ -472,6 +496,9 @@ class Hydrawise extends utils.Adapter {
             relay_id: RELAYS[relay[1]]
           });
         }
+      }
+      if (id.indexOf("runDefault") !== -1 && state.val !== null) {
+        this.initRunDefault(id, state.val);
       }
       if (id.indexOf("suspendall") !== -1 && (state.val || state.val === 0)) {
         const num = state.val;
@@ -493,6 +520,26 @@ class Hydrawise extends utils.Adapter {
             relay_id: RELAYS[relay[1]]
           });
         }
+      }
+    }
+  }
+  async initRunDefault(id, run) {
+    const relay = id.match(/(.*schedule.*\.)runDefault/);
+    this.clearTimeout(resetSwitch);
+    if (relay) {
+      if (run) {
+        const defaultRunTime = await this.getStateAsync(relay[1] + "run");
+        if (defaultRunTime && defaultRunTime.val) {
+          this.setStateAsync(relay[1] + "runZone", defaultRunTime.val, false);
+          resetSwitch = this.setTimeout(
+            () => {
+              this.setStateAsync(id, false, false);
+            },
+            defaultRunTime.val * 1e3
+          );
+        }
+      } else {
+        this.setStateAsync(relay[1] + "stopZone", true, false);
       }
     }
   }

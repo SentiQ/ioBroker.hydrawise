@@ -10,6 +10,7 @@ import axios from "axios";
 const hydrawise_url = "https://api.hydrawise.com";
 let nextpollSchedule: any = null;
 let nextpollCustomer: any = null;
+let resetSwitch: any = null;
 const RELAYS: any = Object;
 
 class Hydrawise extends utils.Adapter {
@@ -133,7 +134,7 @@ class Hydrawise extends utils.Adapter {
 						for (let key in content) {
 							key = this.name2id(key);
 
-							if (key !== "relays" && key !== "sensors" && key !== "expanders") {
+							if (key !== "relays" && key !== "sensors" && key !== "expanders" && !Number.isNaN(key)) {
 								await this.setObjectNotExistsAsync(`schedule.${key}`, {
 									type: "state",
 									common: {
@@ -275,6 +276,30 @@ class Hydrawise extends utils.Adapter {
 								},
 								native: {},
 							});
+
+							await this.setObjectNotExistsAsync(`schedule.${relay.relay}.runDefault`, {
+								type: "state",
+								common: {
+									name: {
+										en: "run zone for default time",
+										de: "Zone mit Standardlaufzeit starten",
+										ru: "запустить зону для времени по умолчанию",
+										pt: "fuso de execução para o tempo padrão",
+										nl: "run zone for default time",
+										fr: "run zone for default time",
+										it: "run zone per il tempo predefinito",
+										es: "zona de ejecución por tiempo predeterminado",
+										pl: "strefa czasu domyślnego",
+										uk: "зона запуску за замовчуванням",
+										"zh-cn": "a. 暂停时间区",
+									},
+									type: "boolean",
+									role: "switch.power",
+									read: true,
+									write: true,
+								},
+								native: {},
+							});
 						}
 
 						for (const sensor of content.sensors) {
@@ -356,7 +381,7 @@ class Hydrawise extends utils.Adapter {
 						this.setStateChangedAsync("info.connection", true, true);
 
 						for (let key in content) {
-							if (key !== "controllers") {
+							if (key !== "controllers" && !Number.isNaN(key)) {
 								key = this.name2id(key);
 
 								await this.setObjectNotExistsAsync(`customer.${key}`, {
@@ -534,7 +559,7 @@ class Hydrawise extends utils.Adapter {
 					period_id: 999,
 					custom: state.val,
 				});
-			} else if (id.indexOf("run") !== -1 && (state.val || state.val === 0)) {
+			} else if (id.indexOf("runZone") !== -1 && (state.val || state.val === 0)) {
 				const relay = id.match(/.*schedule\.(.*)\.runZone/);
 
 				if (relay && relay?.length > 1) {
@@ -546,6 +571,10 @@ class Hydrawise extends utils.Adapter {
 						relay_id: RELAYS[relay[1]],
 					});
 				}
+			}
+
+			if (id.indexOf("runDefault") !== -1 && state.val !== null) {
+				this.initRunDefault(id, state.val as boolean);
 			}
 
 			if (id.indexOf("suspendall") !== -1 && (state.val || state.val === 0)) {
@@ -570,6 +599,29 @@ class Hydrawise extends utils.Adapter {
 						relay_id: RELAYS[relay[1]],
 					});
 				}
+			}
+		}
+	}
+
+	async initRunDefault(id: string, run: boolean) {
+		const relay = id.match(/(.*schedule.*\.)runDefault/);
+
+		this.clearTimeout(resetSwitch);
+
+		if (relay) {
+			if (run) {
+				const defaultRunTime = await this.getStateAsync(relay[1] + "run");
+				if (defaultRunTime && defaultRunTime.val) {
+					this.setStateAsync(relay[1] + "runZone", defaultRunTime.val, false);
+					resetSwitch = this.setTimeout(
+						() => {
+							this.setStateAsync(id, false, false);
+						},
+						(defaultRunTime.val as number) * 1000,
+					);
+				}
+			} else {
+				this.setStateAsync(relay[1] + "stopZone", true, false);
 			}
 		}
 	}
