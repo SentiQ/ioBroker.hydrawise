@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "news": {
+      "0.2.3": {
+        "en": "NodeJS 16.x is required\nupdated dependencies",
+        "de": "NodeJS 16.x ist erforderlich\naktualisierte abhängigkeiten",
+        "ru": "NodeJS 16.x требуется\nобновленные зависимости",
+        "pt": "NodeJS 16.x é necessário\ndependências atualizadas",
+        "nl": "NodeJS 16.x is vereist\nvertaling:",
+        "fr": "NodeJS 16.x est nécessaire\ndépendances actualisées",
+        "it": "NodeJS 16.x è richiesto\ndipendenze aggiornate",
+        "es": "NodeJS 16.x es necesario\ndependencias actualizadas",
+        "pl": "NodeJS 16 (ang.)\nzależności aktualizacji",
+        "uk": "NodeJS 16.x обов'язковий\nоновлені залежності",
+        "zh-cn": "不需要16.JS16x。\n二. 最新依赖"
+      },
       "0.2.2": {
         "en": "fixed versions",
         "de": "feste versionen",
@@ -80,19 +93,6 @@
         "pl": "czas ciągły",
         "uk": "фіксований час",
         "zh-cn": "固定时间"
-      },
-      "0.0.17": {
-        "en": "fixed adapter crash",
-        "de": "fester adapterabsturz",
-        "ru": "фиксированный адаптер аварии",
-        "pt": "travamento do adaptador fixo",
-        "nl": "vertaling:",
-        "fr": "crash de l'adaptateur fixe",
-        "it": "arresto dell'adattatore fisso",
-        "es": "choque de adaptador fijo",
-        "pl": "adaptacja adaptatora",
-        "uk": "фіксований аварійний адаптер",
-        "zh-cn": "b. 固定适应器"
       }
     },
     "titleLang": {
