@@ -618,12 +618,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iobroker/adapter-core@npm:^2.6.7":
-  version: 2.6.8
-  resolution: "@iobroker/adapter-core@npm:2.6.8"
-  dependencies:
-    "@types/iobroker": ^4.0.5
-  checksum: f9c1643e1139f3abc6690eb53604e3ae69127e14c7e1e0811bf615170c80df164c1178c12e50640f443dd2a23c9a787c18e26317acb574b0b657bde5d4b20f8d
+"@iobroker/adapter-core@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "@iobroker/adapter-core@npm:3.0.4"
+  peerDependencies:
+    "@iobroker/types": ^5.0.11
+  checksum: 4ad0b8d5ad3efdd5db470955d6596efee7793e99f7149eb888b5170328907a59aee2bdcf4d6bc6273e8fd81993a1976891a1ebeec3d4ea4bb01b0b83497789cb
   languageName: node
   linkType: hard
 
@@ -1037,15 +1037,6 @@ __metadata:
     "@types/minimatch": ^5.1.2
     "@types/node": "*"
   checksum: 9101f3a9061e40137190f70626aa0e202369b5ec4012c3fabe6f5d229cce04772db9a94fa5a0eb39655e2e4ad105c38afbb4af56a56c0996a8c7d4fc72350e3d
-  languageName: node
-  linkType: hard
-
-"@types/iobroker@npm:^4.0.5":
-  version: 4.0.5
-  resolution: "@types/iobroker@npm:4.0.5"
-  dependencies:
-    "@types/node": "*"
-  checksum: f4db70f60956710cc131d792248086c42a09878225ad5dbe169ba4363db2bd79e7f53096f3d95981265e53fb70664fbd64b262eea09f57c390c9c486eb6b1e1e
   languageName: node
   linkType: hard
 
@@ -3371,7 +3362,7 @@ __metadata:
     "@alcalzone/release-script-plugin-iobroker": ^3.6.0
     "@alcalzone/release-script-plugin-license": ^3.5.9
     "@alcalzone/release-script-plugin-manual-review": ^3.5.9
-    "@iobroker/adapter-core": ^2.6.7
+    "@iobroker/adapter-core": ^3.0.4
     "@iobroker/adapter-dev": ^1.2.0
     "@iobroker/testing": ^4.1.0
     "@tsconfig/node16": ^16.1.0
