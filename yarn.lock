@@ -74,16 +74,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@alcalzone/release-script-plugin-iobroker@npm:^3.6.0":
-  version: 3.6.0
-  resolution: "@alcalzone/release-script-plugin-iobroker@npm:3.6.0"
+"@alcalzone/release-script-plugin-iobroker@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "@alcalzone/release-script-plugin-iobroker@npm:3.7.0"
   dependencies:
-    "@alcalzone/release-script-core": 3.5.9
+    "@alcalzone/release-script-core": 3.7.0
     alcalzone-shared: ^4.0.1
-    axios: ^0.27.1
+    axios: ^1.6.2
     fs-extra: ^10.1.0
     semver: ^7.5.2
-  checksum: 9ebf0cbddf0ed93f3c59554326559400b2964d8f3fd3e79c6c03230c80e4bb35484aeb8124319dee971d5a8f04a1f8ecb0dbb32d52472c6d917c3a1192259e08
+  checksum: 68f192cb4bbc08b31cbb9a85ec903d4a584bcad2b66c8398f5220d7b5d858330724e81eda9def4102eaaee3c6b04cfebd1aad0395db4bfd7038b58e1957f962a
   languageName: node
   linkType: hard
 
@@ -1536,7 +1536,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.27.1, axios@npm:^0.27.2":
+"axios@npm:^0.27.2":
   version: 0.27.2
   resolution: "axios@npm:0.27.2"
   dependencies:
@@ -3408,7 +3408,7 @@ __metadata:
   resolution: "iobroker.hydrawise@workspace:."
   dependencies:
     "@alcalzone/release-script": ^3.7.0
-    "@alcalzone/release-script-plugin-iobroker": ^3.6.0
+    "@alcalzone/release-script-plugin-iobroker": ^3.7.0
     "@alcalzone/release-script-plugin-license": ^3.5.9
     "@alcalzone/release-script-plugin-manual-review": ^3.5.9
     "@iobroker/adapter-core": ^2.6.7
