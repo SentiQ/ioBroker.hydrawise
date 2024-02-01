@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "news": {
+      "0.2.4": {
+        "en": "updated dependencies",
+        "de": "aktualisierte abhängigkeiten",
+        "ru": "обновленные зависимости",
+        "pt": "dependências atualizadas",
+        "nl": "bijgewerkte afhankelijkheden",
+        "fr": "dépendances actualisées",
+        "it": "dipendenze aggiornate",
+        "es": "dependencias actualizadas",
+        "pl": "zaktualizowane zależności",
+        "uk": "оновлені залежності",
+        "zh-cn": "更新的依赖关系"
+      },
       "0.2.3": {
         "en": "NodeJS 16.x is required\nupdated dependencies",
         "de": "NodeJS 16.x ist erforderlich\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "rola przycisku",
         "uk": "фіксовані кнопки ролі",
         "zh-cn": "b. 固定但工作地点的作用"
-      },
-      "0.0.18": {
-        "en": "fixed timeout",
-        "de": "feste zeit",
-        "ru": "фиксированный timeout",
-        "pt": "tempo limite",
-        "nl": "vertaling:",
-        "fr": "timeout fixe",
-        "it": "tempo fisso",
-        "es": "tiempo fijo",
-        "pl": "czas ciągły",
-        "uk": "фіксований час",
-        "zh-cn": "固定时间"
       }
     },
     "titleLang": {
