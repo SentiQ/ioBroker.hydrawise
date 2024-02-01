@@ -151,7 +151,7 @@ You can see all controller information, schedules and sensors. It is also possib
 
 MIT License
 
-Copyright (c) 2023 SentiQ <fischer.yves@web.de>
+Copyright (c) 2024 SentiQ <fischer.yves@web.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
