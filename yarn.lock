@@ -98,12 +98,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@alcalzone/release-script-plugin-manual-review@npm:^3.5.9":
-  version: 3.5.9
-  resolution: "@alcalzone/release-script-plugin-manual-review@npm:3.5.9"
+"@alcalzone/release-script-plugin-manual-review@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "@alcalzone/release-script-plugin-manual-review@npm:3.7.0"
   dependencies:
-    "@alcalzone/release-script-core": 3.5.9
-  checksum: d8fa26493d869e068ec134b2f90e7850b4897735021c89afd15e0fad7c7a16e5fc5b47623a0b720f65da6cc93cf514a7306caf3696a4733b647ac3de56cc7244
+    "@alcalzone/release-script-core": 3.7.0
+  checksum: 9ddd6749409c17b42df199d8d7aa86fcc4e8ff5a553926a7760d6876b6ab9cda26f1cb44a1e6be776da16c6bbf03377170d72012c6fec84ea8388d6baf484eb4
   languageName: node
   linkType: hard
 
@@ -3400,7 +3400,7 @@ __metadata:
     "@alcalzone/release-script": ^3.7.0
     "@alcalzone/release-script-plugin-iobroker": ^3.7.0
     "@alcalzone/release-script-plugin-license": ^3.5.9
-    "@alcalzone/release-script-plugin-manual-review": ^3.5.9
+    "@alcalzone/release-script-plugin-manual-review": ^3.7.0
     "@iobroker/adapter-core": ^2.6.7
     "@iobroker/adapter-dev": ^1.2.0
     "@iobroker/testing": ^4.1.0
