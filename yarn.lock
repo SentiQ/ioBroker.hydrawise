@@ -588,10 +588,10 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-2.0.2.tgz"
   integrity sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==
 
-"@iobroker/adapter-core@^2.6.7":
-  version "2.6.8"
-  resolved "https://registry.npmjs.org/@iobroker/adapter-core/-/adapter-core-2.6.8.tgz"
-  integrity sha512-xrqtH5RYZ6BvEcDyfuPkajd9el4R6p0VLRYKlnfMafAbxybIN+zfeHvjGI4l8OAHkyP2tcv6boX2Vu0KnMFOHw==
+"@iobroker/adapter-core@^2.6.9":
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/@iobroker/adapter-core/-/adapter-core-2.6.9.tgz#8c3dc2bae373ce40de82dcad245c5a040681f3ac"
+  integrity sha512-ulEm2U3JdQiThjfRoF/MRy9BJJVp5ONtv8NhAJ+WNYZlL2vSOI0DGNg6GVcd9lvrej6BhUplHnvxYGj7DWMC9w==
   dependencies:
     "@types/iobroker" "^4.0.5"
 
