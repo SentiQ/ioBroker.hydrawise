@@ -14,6 +14,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -183,7 +187,7 @@ class Hydrawise extends utils.Adapter {
                 native: {}
               });
               if (key === "timestr") {
-                const t = new Date();
+                const t = /* @__PURE__ */ new Date();
                 t.setSeconds(t.getSeconds() + relay.time);
                 relay[key] = t.toString();
               }
@@ -455,6 +459,9 @@ class Hydrawise extends utils.Adapter {
       }
     });
   }
+  /**
+   * Is called when adapter shuts down - callback has to be called under any circumstances!
+   */
   onUnload(callback) {
     try {
       this.clearTimeout(nextpollSchedule);
@@ -464,6 +471,9 @@ class Hydrawise extends utils.Adapter {
       callback();
     }
   }
+  /**
+   * Is called if a subscribed state changes
+   */
   onStateChange(id, state) {
     if (state && !state.ack) {
       if (id.indexOf("stopall") !== -1) {

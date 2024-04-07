@@ -1,222 +1,234 @@
 {
-	"common": {
-		"name": "hydrawise",
-		"version": "0.2.4",
-		"news": {
-			"0.2.4": {
-				"en": "updated dependencies",
-				"de": "aktualisierte abhängigkeiten",
-				"ru": "обновленные зависимости",
-				"pt": "dependências atualizadas",
-				"nl": "bijgewerkte afhankelijkheden",
-				"fr": "dépendances actualisées",
-				"it": "dipendenze aggiornate",
-				"es": "dependencias actualizadas",
-				"pl": "zaktualizowane zależności",
-				"uk": "оновлені залежності",
-				"zh-cn": "更新的依赖关系"
-			},
-			"0.2.3": {
-				"en": "NodeJS 16.x is required\nupdated dependencies",
-				"de": "NodeJS 16.x ist erforderlich\naktualisierte abhängigkeiten",
-				"ru": "NodeJS 16.x требуется\nобновленные зависимости",
-				"pt": "NodeJS 16.x é necessário\ndependências atualizadas",
-				"nl": "NodeJS 16.x is vereist\nvertaling:",
-				"fr": "NodeJS 16.x est nécessaire\ndépendances actualisées",
-				"it": "NodeJS 16.x è richiesto\ndipendenze aggiornate",
-				"es": "NodeJS 16.x es necesario\ndependencias actualizadas",
-				"pl": "NodeJS 16 (ang.)\nzależności aktualizacji",
-				"uk": "NodeJS 16.x обов'язковий\nоновлені залежності",
-				"zh-cn": "不需要16.JS16x。\n二. 最新依赖"
-			},
-			"0.2.2": {
-				"en": "fixed versions",
-				"de": "feste versionen",
-				"ru": "фиксированные версии",
-				"pt": "versões fixas",
-				"nl": "vertaling:",
-				"fr": "versions fixes",
-				"it": "versioni fisse",
-				"es": "versiones fijas",
-				"pl": "wersja stała",
-				"uk": "фіксовані версії",
-				"zh-cn": "固定版本"
-			},
-			"0.2.1": {
-				"en": "added button to run zone for default runtime",
-				"de": "Schaltfläche zum Ausführen der Zone für Standardlaufzeit",
-				"ru": "добавлена кнопка для запуска зоны для по умолчанию runtime",
-				"pt": "botão adicionado para executar a zona para o tempo de execução padrão",
-				"nl": "voegde knop toe om zone te runnen voor mishandeling",
-				"fr": "bouton ajouté pour la zone de course par défaut",
-				"it": "pulsante aggiunto per eseguire la zona per runtime predefinito",
-				"es": "botón añadido para ejecutar la zona por defecto",
-				"pl": "przycisk",
-				"uk": "додана кнопка для запуску зони за замовчуванням",
-				"zh-cn": "增拨但停顿区"
-			},
-			"0.1.2": {
-				"en": "added link to api docu",
-				"de": "link zu api docu",
-				"ru": "добавлена ссылка на api docu",
-				"pt": "adicionado link para api docu",
-				"nl": "vertaling:",
-				"fr": "lien ajouté à api docu",
-				"it": "link aggiunto a a api docu",
-				"es": "api docu",
-				"pl": "dodanie do api docu",
-				"uk": "додано посилання на api docu",
-				"zh-cn": "a. 皮埃尔的附加联系"
-			},
-			"0.1.1": {
-				"en": "fixed random crash, when api domain can't be resolved by dns\nadded time string of last api call",
-				"de": "fester zufälliger absturz, wenn api-domain nicht durch dns behoben werden kann\nhinzufügen der zeitfolge des letzten api anrufs",
-				"ru": "исправлена случайная катастрофа, когда домен api не может быть разрешен dns\nдобавлена строка времени последнего api call",
-				"pt": "acidente aleatório fixo, quando o domínio api não pode ser resolvido por dns\nstring de tempo adicionado da última chamada api",
-				"nl": "vertaling:\nvertaling:",
-				"fr": "crash aléatoire fixe, quand le domaine api ne peut pas être résolu par des dns\na ajouté la chaîne de temps de dernière appel api",
-				"it": "fisso crash casuale, quando il dominio api non può essere risolto da dns\nstringa di tempo aggiunta di ultima chiamata api",
-				"es": "bloqueo fijo al azar, cuando el dominio api no puede ser resuelto por dns\ncadena de tiempo añadido de última llamada api",
-				"pl": "stała przypadkowa katastrofa, gdy domena pi nie może być ustalona przez dns\ndodał czas na ostatni api call",
-				"uk": "фіксована випадкова аварія, коли домен api не може бути вирішений dns\nдодано рядок часу останнього виклику api",
-				"zh-cn": "固定的意外事故,如果一个皮埃尔区可以由庇护所解决。\n最后一页呼吁增加时间"
-			},
-			"0.0.19": {
-				"en": "fixed button roles",
-				"de": "feste tastenrollen",
-				"ru": "фиксированные роли кнопки",
-				"pt": "funções de botão fixo",
-				"nl": "gerepareerde knop rollen",
-				"fr": "des boutons fixes",
-				"it": "ruoli di pulsante fissi",
-				"es": "funciones de botón fijo",
-				"pl": "rola przycisku",
-				"uk": "фіксовані кнопки ролі",
-				"zh-cn": "b. 固定但工作地点的作用"
-			}
-		},
-		"titleLang": {
-			"en": "Hydrawise",
-			"de": "Hydrawise",
-			"ru": "Hydrawise",
-			"pt": "Hydrawise",
-			"nl": "Hydrawise",
-			"fr": "Hydrawise",
-			"it": "Hydrawise",
-			"es": "Hydrawise",
-			"pl": "Hydrawise",
-			"uk": "Hydrawise",
-			"zh-cn": "Hydrawise"
-		},
-		"desc": {
-			"en": "Adapter to control the Hydrawise irrigation control system",
-			"de": "Adapter to control the Hydrawise irrigation control system",
-			"ru": "Adapter to control the Hydrawise irrigation control system",
-			"pt": "Adapter to control the Hydrawise irrigation control system",
-			"nl": "Adapter to control the Hydrawise irrigation control system",
-			"fr": "Adapter to control the Hydrawise irrigation control system",
-			"it": "Adapter to control the Hydrawise irrigation control system",
-			"es": "Adapter to control the Hydrawise irrigation control system",
-			"pl": "Adapter to control the Hydrawise irrigation control system",
-			"uk": "Adapter to control the Hydrawise irrigation control system",
-			"zh-cn": "Adapter to control the Hydrawise irrigation control system"
-		},
-		"authors": ["SentiQ <fischer.yves@web.de>"],
-		"keywords": ["hydrawise", "hunter", "irrigation", "watering", "garden"],
-		"license": "MIT",
-		"platform": "Javascript/Node.js",
-		"main": "build/main.js",
-		"icon": "hydrawise.jpg",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/SentiQ/ioBroker.hydrawise/main/admin/hydrawise.jpg",
-		"readme": "https://github.com/SentiQ/ioBroker.hydrawise/blob/main/README.md",
-		"loglevel": "info",
-		"mode": "daemon",
-		"type": "garden",
-		"compact": true,
-		"connectionType": "cloud",
-		"dataSource": "poll",
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=5.0.0"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=6.6.0"
-			}
-		]
-	},
-	"native": {
-		"apiKey": ""
-	},
-	"encryptedNative": ["apiKey"],
-	"protectedNative": ["apiKey"],
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "customer",
-			"type": "channel",
-			"common": {
-				"name": {
-					"en": "Controllers",
-					"de": "Controller",
-					"ru": "Контроллеры",
-					"pt": "Controladores",
-					"nl": "Controller",
-					"fr": "Contrôleurs",
-					"it": "Regolatori",
-					"es": "Controladores",
-					"pl": "Kontroler",
-					"uk": "Контролери",
-					"zh-cn": "主计长"
-				}
-			},
-			"native": {}
-		},
-		{
-			"_id": "schedule",
-			"type": "channel",
-			"common": {
-				"name": {
-					"en": "Schedule",
-					"de": "Zeitplan",
-					"ru": "Расписание",
-					"pt": "Programação",
-					"nl": "Schedel",
-					"fr": "Tableau",
-					"it": "Programma",
-					"es": "Cuadro",
-					"pl": "Schedule",
-					"uk": "Розклад",
-					"zh-cn": "附表"
-				}
-			},
-			"native": {}
-		}
-	]
+  "common": {
+    "name": "hydrawise",
+    "version": "0.2.5",
+    "news": {
+      "0.2.5": {
+        "en": "NodeJS >= 18.x and js-controller >= 5 is required",
+        "de": "NodeJS >= 18.x und js-Controller >= 5 ist erforderlich",
+        "ru": "NodeJS >= 18.x и js-контроллер >= 5 требуется",
+        "pt": "NodeJS >= 18.x e js-controller >= 5 é necessário",
+        "nl": "Voor de toepassing van de onderverdelingen 870190 tot en met 870290 wordt onder post 8702 verstaan: 5 is vereist",
+        "fr": "NodeJS >= 18.x et js-controller >= 5 est nécessaire",
+        "it": "NodeJS >= 18.x e js-controller 5 è richiesto",
+        "es": "NodeJS >= 18.x y js-controller Se requiere 5",
+        "pl": "NodeJS > = 18.x i kontroler js- > = 5 jest wymagane",
+        "uk": "NodeJS >= 18.x та js-controller >= 5 обов'язково",
+        "zh-cn": "节点JS18x和js控制器QQ 需要5个"
+      },
+      "0.2.4": {
+        "en": "updated dependencies",
+        "de": "aktualisierte abhängigkeiten",
+        "ru": "обновленные зависимости",
+        "pt": "dependências atualizadas",
+        "nl": "bijgewerkte afhankelijkheden",
+        "fr": "dépendances actualisées",
+        "it": "dipendenze aggiornate",
+        "es": "dependencias actualizadas",
+        "pl": "zaktualizowane zależności",
+        "uk": "оновлені залежності",
+        "zh-cn": "更新的依赖关系"
+      },
+      "0.2.3": {
+        "en": "NodeJS 16.x is required\nupdated dependencies",
+        "de": "NodeJS 16.x ist erforderlich\naktualisierte abhängigkeiten",
+        "ru": "NodeJS 16.x требуется\nобновленные зависимости",
+        "pt": "NodeJS 16.x é necessário\ndependências atualizadas",
+        "nl": "NodeJS 16.x is vereist\nvertaling:",
+        "fr": "NodeJS 16.x est nécessaire\ndépendances actualisées",
+        "it": "NodeJS 16.x è richiesto\ndipendenze aggiornate",
+        "es": "NodeJS 16.x es necesario\ndependencias actualizadas",
+        "pl": "NodeJS 16 (ang.)\nzależności aktualizacji",
+        "uk": "NodeJS 16.x обов'язковий\nоновлені залежності",
+        "zh-cn": "不需要16.JS16x。\n二. 最新依赖"
+      },
+      "0.2.2": {
+        "en": "fixed versions",
+        "de": "feste versionen",
+        "ru": "фиксированные версии",
+        "pt": "versões fixas",
+        "nl": "vertaling:",
+        "fr": "versions fixes",
+        "it": "versioni fisse",
+        "es": "versiones fijas",
+        "pl": "wersja stała",
+        "uk": "фіксовані версії",
+        "zh-cn": "固定版本"
+      },
+      "0.2.1": {
+        "en": "added button to run zone for default runtime",
+        "de": "Schaltfläche zum Ausführen der Zone für Standardlaufzeit",
+        "ru": "добавлена кнопка для запуска зоны для по умолчанию runtime",
+        "pt": "botão adicionado para executar a zona para o tempo de execução padrão",
+        "nl": "voegde knop toe om zone te runnen voor mishandeling",
+        "fr": "bouton ajouté pour la zone de course par défaut",
+        "it": "pulsante aggiunto per eseguire la zona per runtime predefinito",
+        "es": "botón añadido para ejecutar la zona por defecto",
+        "pl": "przycisk",
+        "uk": "додана кнопка для запуску зони за замовчуванням",
+        "zh-cn": "增拨但停顿区"
+      },
+      "0.1.2": {
+        "en": "added link to api docu",
+        "de": "link zu api docu",
+        "ru": "добавлена ссылка на api docu",
+        "pt": "adicionado link para api docu",
+        "nl": "vertaling:",
+        "fr": "lien ajouté à api docu",
+        "it": "link aggiunto a a api docu",
+        "es": "api docu",
+        "pl": "dodanie do api docu",
+        "uk": "додано посилання на api docu",
+        "zh-cn": "a. 皮埃尔的附加联系"
+      },
+      "0.1.1": {
+        "en": "fixed random crash, when api domain can't be resolved by dns\nadded time string of last api call",
+        "de": "fester zufälliger absturz, wenn api-domain nicht durch dns behoben werden kann\nhinzufügen der zeitfolge des letzten api anrufs",
+        "ru": "исправлена случайная катастрофа, когда домен api не может быть разрешен dns\nдобавлена строка времени последнего api call",
+        "pt": "acidente aleatório fixo, quando o domínio api não pode ser resolvido por dns\nstring de tempo adicionado da última chamada api",
+        "nl": "vertaling:\nvertaling:",
+        "fr": "crash aléatoire fixe, quand le domaine api ne peut pas être résolu par des dns\na ajouté la chaîne de temps de dernière appel api",
+        "it": "fisso crash casuale, quando il dominio api non può essere risolto da dns\nstringa di tempo aggiunta di ultima chiamata api",
+        "es": "bloqueo fijo al azar, cuando el dominio api no puede ser resuelto por dns\ncadena de tiempo añadido de última llamada api",
+        "pl": "stała przypadkowa katastrofa, gdy domena pi nie może być ustalona przez dns\ndodał czas na ostatni api call",
+        "uk": "фіксована випадкова аварія, коли домен api не може бути вирішений dns\nдодано рядок часу останнього виклику api",
+        "zh-cn": "固定的意外事故,如果一个皮埃尔区可以由庇护所解决。\n最后一页呼吁增加时间"
+      }
+    },
+    "titleLang": {
+      "en": "Hydrawise",
+      "de": "Hydrawise",
+      "ru": "Hydrawise",
+      "pt": "Hydrawise",
+      "nl": "Hydrawise",
+      "fr": "Hydrawise",
+      "it": "Hydrawise",
+      "es": "Hydrawise",
+      "pl": "Hydrawise",
+      "uk": "Hydrawise",
+      "zh-cn": "Hydrawise"
+    },
+    "desc": {
+      "en": "Adapter to control the Hydrawise irrigation control system",
+      "de": "Adapter to control the Hydrawise irrigation control system",
+      "ru": "Adapter to control the Hydrawise irrigation control system",
+      "pt": "Adapter to control the Hydrawise irrigation control system",
+      "nl": "Adapter to control the Hydrawise irrigation control system",
+      "fr": "Adapter to control the Hydrawise irrigation control system",
+      "it": "Adapter to control the Hydrawise irrigation control system",
+      "es": "Adapter to control the Hydrawise irrigation control system",
+      "pl": "Adapter to control the Hydrawise irrigation control system",
+      "uk": "Adapter to control the Hydrawise irrigation control system",
+      "zh-cn": "Adapter to control the Hydrawise irrigation control system"
+    },
+    "authors": [
+      "SentiQ <fischer.yves@web.de>"
+    ],
+    "keywords": [
+      "hydrawise",
+      "hunter",
+      "irrigation",
+      "watering",
+      "garden"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "build/main.js",
+    "icon": "hydrawise.jpg",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/SentiQ/ioBroker.hydrawise/main/admin/hydrawise.jpg",
+    "readme": "https://github.com/SentiQ/ioBroker.hydrawise/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "garden",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=6.6.0"
+      }
+    ]
+  },
+  "native": {
+    "apiKey": ""
+  },
+  "encryptedNative": [
+    "apiKey"
+  ],
+  "protectedNative": [
+    "apiKey"
+  ],
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "customer",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Controllers",
+          "de": "Controller",
+          "ru": "Контроллеры",
+          "pt": "Controladores",
+          "nl": "Controller",
+          "fr": "Contrôleurs",
+          "it": "Regolatori",
+          "es": "Controladores",
+          "pl": "Kontroler",
+          "uk": "Контролери",
+          "zh-cn": "主计长"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "schedule",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Schedule",
+          "de": "Zeitplan",
+          "ru": "Расписание",
+          "pt": "Programação",
+          "nl": "Schedel",
+          "fr": "Tableau",
+          "it": "Programma",
+          "es": "Cuadro",
+          "pl": "Schedule",
+          "uk": "Розклад",
+          "zh-cn": "附表"
+        }
+      },
+      "native": {}
+    }
+  ]
 }
