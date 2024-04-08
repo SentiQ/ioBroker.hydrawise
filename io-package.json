@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "news": {
+      "0.2.6": {
+        "en": "fixed type of `runDefault`",
+        "de": "fester Typ von `runDefault `",
+        "ru": "фиксированный тип `runDefault \"",
+        "pt": "tipo fixo de `runDefault \"",
+        "nl": "vast type van de loopstandaard Wat",
+        "fr": "type fixe de `runDefault \"",
+        "it": "tipo fisso di `runDefault #",
+        "es": "tipo fijo de `runDefault `",
+        "pl": "stały typ 'runDomyślne'",
+        "uk": "фіксований тип `runDefault й",
+        "zh-cn": "固定类型“runDefault” `"
+      },
       "0.2.5": {
         "en": "NodeJS >= 18.x and js-controller >= 5 is required",
         "de": "NodeJS >= 18.x und js-Controller >= 5 ist erforderlich",
@@ -80,19 +93,6 @@
         "pl": "dodanie do api docu",
         "uk": "додано посилання на api docu",
         "zh-cn": "a. 皮埃尔的附加联系"
-      },
-      "0.1.1": {
-        "en": "fixed random crash, when api domain can't be resolved by dns\nadded time string of last api call",
-        "de": "fester zufälliger absturz, wenn api-domain nicht durch dns behoben werden kann\nhinzufügen der zeitfolge des letzten api anrufs",
-        "ru": "исправлена случайная катастрофа, когда домен api не может быть разрешен dns\nдобавлена строка времени последнего api call",
-        "pt": "acidente aleatório fixo, quando o domínio api não pode ser resolvido por dns\nstring de tempo adicionado da última chamada api",
-        "nl": "vertaling:\nvertaling:",
-        "fr": "crash aléatoire fixe, quand le domaine api ne peut pas être résolu par des dns\na ajouté la chaîne de temps de dernière appel api",
-        "it": "fisso crash casuale, quando il dominio api non può essere risolto da dns\nstringa di tempo aggiunta di ultima chiamata api",
-        "es": "bloqueo fijo al azar, cuando el dominio api no puede ser resuelto por dns\ncadena de tiempo añadido de última llamada api",
-        "pl": "stała przypadkowa katastrofa, gdy domena pi nie może być ustalona przez dns\ndodał czas na ostatni api call",
-        "uk": "фіксована випадкова аварія, коли домен api не може бути вирішений dns\nдодано рядок часу останнього виклику api",
-        "zh-cn": "固定的意外事故,如果一个皮埃尔区可以由庇护所解决。\n最后一页呼吁增加时间"
       }
     },
     "titleLang": {
