@@ -39,6 +39,11 @@ You can see all controller information, schedules and sensors. It is also possib
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+-   (SentiQ) fixed tier and license
+
 ### 0.2.7 (2024-04-08)
 
 -   (SentiQ) fixed type of runDefault object
