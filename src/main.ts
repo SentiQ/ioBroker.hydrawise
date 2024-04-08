@@ -294,7 +294,7 @@ class Hydrawise extends utils.Adapter {
 										"zh-cn": "a. 暂停时间区",
 									},
 									type: "boolean",
-									role: "switch.power",
+									role: "button.start",
 									read: true,
 									write: true,
 								},
