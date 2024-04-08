@@ -279,7 +279,7 @@ class Hydrawise extends utils.Adapter {
                   "zh-cn": "a. \u6682\u505C\u65F6\u95F4\u533A"
                 },
                 type: "boolean",
-                role: "switch.power",
+                role: "button.start",
                 read: true,
                 write: true
               },
