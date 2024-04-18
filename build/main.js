@@ -45,21 +45,21 @@ class Hydrawise extends utils.Adapter {
       this.log.error("No API-Interval defined!");
     } else {
       this.setStateChangedAsync("info.connection", false, true);
-      await this.GetStatusSchedule(this.config.apiKey);
+      await this.GetStatusSchedule();
       nextpollSchedule = this.setInterval(async () => {
-        await this.GetStatusSchedule(this.config.apiKey);
+        await this.GetStatusSchedule();
       }, this.config.apiInterval * 1e3);
-      await this.GetCustomerDetails(this.config.apiKey);
+      await this.GetCustomerDetails();
       nextpollCustomer = this.setInterval(
         async () => {
-          await this.GetCustomerDetails(this.config.apiKey);
+          await this.GetCustomerDetails();
         },
         5 * 60 * 1e3
       );
       await this.subscribeStatesAsync("*");
     }
   }
-  async GetStatusSchedule(apiKey) {
+  async GetStatusSchedule() {
     return new Promise((resolve, reject) => {
       this.log.debug("GetStatusSchedule");
       this.buildRequest("statusschedule.php", { api_key: this.config.apiKey }).then(async (response) => {
@@ -328,7 +328,7 @@ class Hydrawise extends utils.Adapter {
         this.clearInterval(nextpollSchedule);
         if (((_a = error.response) == null ? void 0 : _a.status) === 429) {
           nextpollSchedule = this.setInterval(async () => {
-            await this.GetStatusSchedule(this.config.apiKey);
+            await this.GetStatusSchedule();
           }, this.config.apiInterval * 1e3);
         } else {
           this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
@@ -338,7 +338,7 @@ class Hydrawise extends utils.Adapter {
       });
     });
   }
-  async GetCustomerDetails(apiKey) {
+  async GetCustomerDetails() {
     return new Promise((resolve, reject) => {
       this.log.debug("GetCustomerDetails");
       this.buildRequest("customerdetails.php", { api_key: this.config.apiKey }).then(async (response) => {
@@ -402,7 +402,7 @@ class Hydrawise extends utils.Adapter {
           this.clearInterval(nextpollCustomer);
           nextpollCustomer = this.setInterval(
             async () => {
-              await this.GetCustomerDetails(this.config.apiKey);
+              await this.GetCustomerDetails();
             },
             5 * 60 * 1e3
           );

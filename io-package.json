@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "news": {
+      "0.3.1": {
+        "en": "removed parameter `apiKey` in method call",
+        "de": "entfernter Parameter `apiKey` im Methodenaufruf",
+        "ru": "удаленный параметр `apiKey' в вызове метода",
+        "pt": "parâmetro removido `apiKey` na chamada do método",
+        "nl": "verwijderde parameter ",
+        "fr": "paramètre supprimé `apiKey` dans l'appel de méthode",
+        "it": "parametro rimosso `apiKey` nella chiamata metodo",
+        "es": "parámetro eliminado `apiKey` en llamada de método",
+        "pl": "usunięty parametr 'apiKey' w wywołaniu metody",
+        "uk": "видалити параметр `apiKey` в методі виклику",
+        "zh-cn": "方法调用中已删除参数“ apiKey ”"
+      },
       "0.3.0": {
         "en": "added api interval to settings\nchanged interval of schedule endpoint from 5 minutes to 1 minute",
         "de": "api intervall zu den einstellungen hinzugefügt\ngeändertes intervall von zeitplan endpunkt von 5 minuten bis 1 minute",
@@ -80,19 +93,6 @@
         "pl": "zaktualizowane zależności",
         "uk": "оновлені залежності",
         "zh-cn": "更新的依赖关系"
-      },
-      "0.2.3": {
-        "en": "NodeJS 16.x is required\nupdated dependencies",
-        "de": "NodeJS 16.x ist erforderlich\naktualisierte abhängigkeiten",
-        "ru": "NodeJS 16.x требуется\nобновленные зависимости",
-        "pt": "NodeJS 16.x é necessário\ndependências atualizadas",
-        "nl": "NodeJS 16.x is vereist\nvertaling:",
-        "fr": "NodeJS 16.x est nécessaire\ndépendances actualisées",
-        "it": "NodeJS 16.x è richiesto\ndipendenze aggiornate",
-        "es": "NodeJS 16.x es necesario\ndependencias actualizadas",
-        "pl": "NodeJS 16 (ang.)\nzależności aktualizacji",
-        "uk": "NodeJS 16.x обов'язковий\nоновлені залежності",
-        "zh-cn": "不需要16.JS16x。\n二. 最新依赖"
       }
     },
     "titleLang": {
