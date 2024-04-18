@@ -33,17 +33,17 @@ class Hydrawise extends utils.Adapter {
 		} else {
 			this.setStateChangedAsync("info.connection", false, true);
 
-			await this.GetStatusSchedule(this.config.apiKey);
+			await this.GetStatusSchedule();
 
 			nextpollSchedule = this.setInterval(async () => {
-				await this.GetStatusSchedule(this.config.apiKey);
+				await this.GetStatusSchedule();
 			}, this.config.apiInterval * 1000);
 
-			await this.GetCustomerDetails(this.config.apiKey);
+			await this.GetCustomerDetails();
 
 			nextpollCustomer = this.setInterval(
 				async () => {
-					await this.GetCustomerDetails(this.config.apiKey);
+					await this.GetCustomerDetails();
 				},
 				5 * 60 * 1000,
 			);
@@ -52,7 +52,7 @@ class Hydrawise extends utils.Adapter {
 		}
 	}
 
-	private async GetStatusSchedule(apiKey: string): Promise<void> {
+	private async GetStatusSchedule(): Promise<void> {
 		return new Promise((resolve, reject) => {
 			this.log.debug("GetStatusSchedule");
 
@@ -349,7 +349,7 @@ class Hydrawise extends utils.Adapter {
 
 					if (error.response?.status === 429) {
 						nextpollSchedule = this.setInterval(async () => {
-							await this.GetStatusSchedule(this.config.apiKey);
+							await this.GetStatusSchedule();
 						}, this.config.apiInterval * 1000);
 					} else {
 						this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
@@ -362,7 +362,7 @@ class Hydrawise extends utils.Adapter {
 		});
 	}
 
-	private async GetCustomerDetails(apiKey: string): Promise<void> {
+	private async GetCustomerDetails(): Promise<void> {
 		return new Promise((resolve, reject) => {
 			this.log.debug("GetCustomerDetails");
 
@@ -439,7 +439,7 @@ class Hydrawise extends utils.Adapter {
 
 						nextpollCustomer = this.setInterval(
 							async () => {
-								await this.GetCustomerDetails(this.config.apiKey);
+								await this.GetCustomerDetails();
 							},
 							5 * 60 * 1000,
 						);
@@ -595,7 +595,7 @@ class Hydrawise extends utils.Adapter {
 		}
 	}
 
-	async initRunDefault(id: string, run: boolean) {
+	async initRunDefault(id: string, run: boolean): Promise<void> {
 		const relay = id.match(/(.*schedule.*\.)runDefault/);
 
 		this.clearTimeout(resetSwitch);
