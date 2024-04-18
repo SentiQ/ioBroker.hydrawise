@@ -1,226 +1,238 @@
 {
-	"common": {
-		"name": "hydrawise",
-		"version": "0.2.8",
-		"news": {
-			"0.2.8": {
-				"en": "fixed tier and license",
-				"de": "festwert und lizenz",
-				"ru": "фиксированный уровень и лицензия",
-				"pt": "tier fixo e licença",
-				"nl": "vast niveau en licentie",
-				"fr": "niveau fixe et licence",
-				"it": "tier fisso e licenza",
-				"es": "nivel fijo y licencia",
-				"pl": "stały poziom dokładności i licencja",
-				"uk": "фіксований ярус і ліцензія",
-				"zh-cn": "固定等级和许可证"
-			},
-			"0.2.7": {
-				"en": "fixed type of runDefault object",
-				"de": "feste Art von runDefault Objekt",
-				"ru": "фиксированный тип объекта RunDefault",
-				"pt": "tipo fixo de runDefault object",
-				"nl": "vast type runStandaard object",
-				"fr": "type fixe d'objet runDefault",
-				"it": "tipo fisso di oggetto runDefault",
-				"es": "tipo fijo de runDefault objeto",
-				"pl": "stały typ obiektu runDomyślne",
-				"uk": "фіксований тип об'єкта за замовчуванням",
-				"zh-cn": "运行对象的固定类型"
-			},
-			"0.2.6": {
-				"en": "fixed type of `runDefault`",
-				"de": "fester Typ von `runDefault `",
-				"ru": "фиксированный тип `runDefault \"",
-				"pt": "tipo fixo de `runDefault \"",
-				"nl": "vast type van de loopstandaard Wat",
-				"fr": "type fixe de `runDefault \"",
-				"it": "tipo fisso di `runDefault #",
-				"es": "tipo fijo de `runDefault `",
-				"pl": "stały typ 'runDomyślne'",
-				"uk": "фіксований тип `runDefault й",
-				"zh-cn": "固定类型“runDefault” `"
-			},
-			"0.2.5": {
-				"en": "NodeJS >= 18.x and js-controller >= 5 is required",
-				"de": "NodeJS >= 18.x und js-Controller >= 5 ist erforderlich",
-				"ru": "NodeJS >= 18.x и js-контроллер >= 5 требуется",
-				"pt": "NodeJS >= 18.x e js-controller >= 5 é necessário",
-				"nl": "Voor de toepassing van de onderverdelingen 870190 tot en met 870290 wordt onder post 8702 verstaan: 5 is vereist",
-				"fr": "NodeJS >= 18.x et js-controller >= 5 est nécessaire",
-				"it": "NodeJS >= 18.x e js-controller 5 è richiesto",
-				"es": "NodeJS >= 18.x y js-controller Se requiere 5",
-				"pl": "NodeJS > = 18.x i kontroler js- > = 5 jest wymagane",
-				"uk": "NodeJS >= 18.x та js-controller >= 5 обов'язково",
-				"zh-cn": "节点JS18x和js控制器QQ 需要5个"
-			},
-			"0.2.4": {
-				"en": "updated dependencies",
-				"de": "aktualisierte abhängigkeiten",
-				"ru": "обновленные зависимости",
-				"pt": "dependências atualizadas",
-				"nl": "bijgewerkte afhankelijkheden",
-				"fr": "dépendances actualisées",
-				"it": "dipendenze aggiornate",
-				"es": "dependencias actualizadas",
-				"pl": "zaktualizowane zależności",
-				"uk": "оновлені залежності",
-				"zh-cn": "更新的依赖关系"
-			},
-			"0.2.3": {
-				"en": "NodeJS 16.x is required\nupdated dependencies",
-				"de": "NodeJS 16.x ist erforderlich\naktualisierte abhängigkeiten",
-				"ru": "NodeJS 16.x требуется\nобновленные зависимости",
-				"pt": "NodeJS 16.x é necessário\ndependências atualizadas",
-				"nl": "NodeJS 16.x is vereist\nvertaling:",
-				"fr": "NodeJS 16.x est nécessaire\ndépendances actualisées",
-				"it": "NodeJS 16.x è richiesto\ndipendenze aggiornate",
-				"es": "NodeJS 16.x es necesario\ndependencias actualizadas",
-				"pl": "NodeJS 16 (ang.)\nzależności aktualizacji",
-				"uk": "NodeJS 16.x обов'язковий\nоновлені залежності",
-				"zh-cn": "不需要16.JS16x。\n二. 最新依赖"
-			},
-			"0.2.2": {
-				"en": "fixed versions",
-				"de": "feste versionen",
-				"ru": "фиксированные версии",
-				"pt": "versões fixas",
-				"nl": "vertaling:",
-				"fr": "versions fixes",
-				"it": "versioni fisse",
-				"es": "versiones fijas",
-				"pl": "wersja stała",
-				"uk": "фіксовані версії",
-				"zh-cn": "固定版本"
-			}
-		},
-		"titleLang": {
-			"en": "Hydrawise",
-			"de": "Hydrawise",
-			"ru": "Hydrawise",
-			"pt": "Hydrawise",
-			"nl": "Hydrawise",
-			"fr": "Hydrawise",
-			"it": "Hydrawise",
-			"es": "Hydrawise",
-			"pl": "Hydrawise",
-			"uk": "Hydrawise",
-			"zh-cn": "Hydrawise"
-		},
-		"desc": {
-			"en": "Adapter to control the Hydrawise irrigation control system",
-			"de": "Adapter to control the Hydrawise irrigation control system",
-			"ru": "Adapter to control the Hydrawise irrigation control system",
-			"pt": "Adapter to control the Hydrawise irrigation control system",
-			"nl": "Adapter to control the Hydrawise irrigation control system",
-			"fr": "Adapter to control the Hydrawise irrigation control system",
-			"it": "Adapter to control the Hydrawise irrigation control system",
-			"es": "Adapter to control the Hydrawise irrigation control system",
-			"pl": "Adapter to control the Hydrawise irrigation control system",
-			"uk": "Adapter to control the Hydrawise irrigation control system",
-			"zh-cn": "Adapter to control the Hydrawise irrigation control system"
-		},
-		"authors": ["SentiQ <yves.nuesser@proton.me>"],
-		"keywords": ["hydrawise", "hunter", "irrigation", "watering", "garden"],
-		"tier": 3,
-		"licenseInformation": {
-			"license": "MIT",
-			"type": "free"
-		},
-		"platform": "Javascript/Node.js",
-		"main": "build/main.js",
-		"icon": "hydrawise.jpg",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/SentiQ/ioBroker.hydrawise/main/admin/hydrawise.jpg",
-		"readme": "https://github.com/SentiQ/ioBroker.hydrawise/blob/main/README.md",
-		"loglevel": "info",
-		"mode": "daemon",
-		"type": "garden",
-		"compact": true,
-		"connectionType": "cloud",
-		"dataSource": "poll",
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=5.0.0"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=6.6.0"
-			}
-		]
-	},
-	"native": {
-		"apiKey": ""
-	},
-	"encryptedNative": ["apiKey"],
-	"protectedNative": ["apiKey"],
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "customer",
-			"type": "channel",
-			"common": {
-				"name": {
-					"en": "Controllers",
-					"de": "Controller",
-					"ru": "Контроллеры",
-					"pt": "Controladores",
-					"nl": "Controller",
-					"fr": "Contrôleurs",
-					"it": "Regolatori",
-					"es": "Controladores",
-					"pl": "Kontroler",
-					"uk": "Контролери",
-					"zh-cn": "主计长"
-				}
-			},
-			"native": {}
-		},
-		{
-			"_id": "schedule",
-			"type": "channel",
-			"common": {
-				"name": {
-					"en": "Schedule",
-					"de": "Zeitplan",
-					"ru": "Расписание",
-					"pt": "Programação",
-					"nl": "Schedel",
-					"fr": "Tableau",
-					"it": "Programma",
-					"es": "Cuadro",
-					"pl": "Schedule",
-					"uk": "Розклад",
-					"zh-cn": "附表"
-				}
-			},
-			"native": {}
-		}
-	]
+  "common": {
+    "name": "hydrawise",
+    "version": "0.3.0",
+    "news": {
+      "0.3.0": {
+        "en": "added api interval to settings\nchanged interval of schedule endpoint from 5 minutes to 1 minute",
+        "de": "api intervall zu den einstellungen hinzugefügt\ngeändertes intervall von zeitplan endpunkt von 5 minuten bis 1 minute",
+        "ru": "добавлен интервал api в настройки\nизмененный интервал конечной точки расписания с 5 минут до 1 минуты",
+        "pt": "adicionado intervalo api para configurações\nintervalo alterado de cronograma ponto final de 5 minutos a 1 minuto",
+        "nl": "api-interval toegevoegd aan instellingen\nveranderde interval van het eindpunt van het schema van 5 minuten tot 1 minuut",
+        "fr": "l'intervalle api ajouté aux paramètres\nchangement de l'intervalle de 5 minutes à 1 minute",
+        "it": "intervallo api aggiunto alle impostazioni\nintervallo modificato di endpoint programmato da 5 minuti a 1 minuto",
+        "es": "añadir intervalo api a la configuración\ncambio de intervalo de tiempo de 5 minutos a 1 minuto",
+        "pl": "dodany interwał api do ustawień\nzmiana odstępu między punktem końcowym schematu z 5 minut do 1 minuty",
+        "uk": "додано інтервал api для налаштувань\nзмінений інтервал графіка кінцевої точки від 5 хвилин до 1 хвилини",
+        "zh-cn": "在设置中添加 api 间隔\n时间表终点从5分钟改为1分钟"
+      },
+      "0.2.8": {
+        "en": "fixed tier and license",
+        "de": "festwert und lizenz",
+        "ru": "фиксированный уровень и лицензия",
+        "pt": "tier fixo e licença",
+        "nl": "vast niveau en licentie",
+        "fr": "niveau fixe et licence",
+        "it": "tier fisso e licenza",
+        "es": "nivel fijo y licencia",
+        "pl": "stały poziom dokładności i licencja",
+        "uk": "фіксований ярус і ліцензія",
+        "zh-cn": "固定等级和许可证"
+      },
+      "0.2.7": {
+        "en": "fixed type of runDefault object",
+        "de": "feste Art von runDefault Objekt",
+        "ru": "фиксированный тип объекта RunDefault",
+        "pt": "tipo fixo de runDefault object",
+        "nl": "vast type runStandaard object",
+        "fr": "type fixe d'objet runDefault",
+        "it": "tipo fisso di oggetto runDefault",
+        "es": "tipo fijo de runDefault objeto",
+        "pl": "stały typ obiektu runDomyślne",
+        "uk": "фіксований тип об'єкта за замовчуванням",
+        "zh-cn": "运行对象的固定类型"
+      },
+      "0.2.6": {
+        "en": "fixed type of `runDefault`",
+        "de": "fester Typ von `runDefault `",
+        "ru": "фиксированный тип `runDefault \"",
+        "pt": "tipo fixo de `runDefault \"",
+        "nl": "vast type van de loopstandaard Wat",
+        "fr": "type fixe de `runDefault \"",
+        "it": "tipo fisso di `runDefault #",
+        "es": "tipo fijo de `runDefault `",
+        "pl": "stały typ 'runDomyślne'",
+        "uk": "фіксований тип `runDefault й",
+        "zh-cn": "固定类型“runDefault” `"
+      },
+      "0.2.5": {
+        "en": "NodeJS >= 18.x and js-controller >= 5 is required",
+        "de": "NodeJS >= 18.x und js-Controller >= 5 ist erforderlich",
+        "ru": "NodeJS >= 18.x и js-контроллер >= 5 требуется",
+        "pt": "NodeJS >= 18.x e js-controller >= 5 é necessário",
+        "nl": "Voor de toepassing van de onderverdelingen 870190 tot en met 870290 wordt onder post 8702 verstaan: 5 is vereist",
+        "fr": "NodeJS >= 18.x et js-controller >= 5 est nécessaire",
+        "it": "NodeJS >= 18.x e js-controller 5 è richiesto",
+        "es": "NodeJS >= 18.x y js-controller Se requiere 5",
+        "pl": "NodeJS > = 18.x i kontroler js- > = 5 jest wymagane",
+        "uk": "NodeJS >= 18.x та js-controller >= 5 обов'язково",
+        "zh-cn": "节点JS18x和js控制器QQ 需要5个"
+      },
+      "0.2.4": {
+        "en": "updated dependencies",
+        "de": "aktualisierte abhängigkeiten",
+        "ru": "обновленные зависимости",
+        "pt": "dependências atualizadas",
+        "nl": "bijgewerkte afhankelijkheden",
+        "fr": "dépendances actualisées",
+        "it": "dipendenze aggiornate",
+        "es": "dependencias actualizadas",
+        "pl": "zaktualizowane zależności",
+        "uk": "оновлені залежності",
+        "zh-cn": "更新的依赖关系"
+      },
+      "0.2.3": {
+        "en": "NodeJS 16.x is required\nupdated dependencies",
+        "de": "NodeJS 16.x ist erforderlich\naktualisierte abhängigkeiten",
+        "ru": "NodeJS 16.x требуется\nобновленные зависимости",
+        "pt": "NodeJS 16.x é necessário\ndependências atualizadas",
+        "nl": "NodeJS 16.x is vereist\nvertaling:",
+        "fr": "NodeJS 16.x est nécessaire\ndépendances actualisées",
+        "it": "NodeJS 16.x è richiesto\ndipendenze aggiornate",
+        "es": "NodeJS 16.x es necesario\ndependencias actualizadas",
+        "pl": "NodeJS 16 (ang.)\nzależności aktualizacji",
+        "uk": "NodeJS 16.x обов'язковий\nоновлені залежності",
+        "zh-cn": "不需要16.JS16x。\n二. 最新依赖"
+      }
+    },
+    "titleLang": {
+      "en": "Hydrawise",
+      "de": "Hydrawise",
+      "ru": "Hydrawise",
+      "pt": "Hydrawise",
+      "nl": "Hydrawise",
+      "fr": "Hydrawise",
+      "it": "Hydrawise",
+      "es": "Hydrawise",
+      "pl": "Hydrawise",
+      "uk": "Hydrawise",
+      "zh-cn": "Hydrawise"
+    },
+    "desc": {
+      "en": "Adapter to control the Hydrawise irrigation control system",
+      "de": "Adapter to control the Hydrawise irrigation control system",
+      "ru": "Adapter to control the Hydrawise irrigation control system",
+      "pt": "Adapter to control the Hydrawise irrigation control system",
+      "nl": "Adapter to control the Hydrawise irrigation control system",
+      "fr": "Adapter to control the Hydrawise irrigation control system",
+      "it": "Adapter to control the Hydrawise irrigation control system",
+      "es": "Adapter to control the Hydrawise irrigation control system",
+      "pl": "Adapter to control the Hydrawise irrigation control system",
+      "uk": "Adapter to control the Hydrawise irrigation control system",
+      "zh-cn": "Adapter to control the Hydrawise irrigation control system"
+    },
+    "authors": [
+      "SentiQ <yves.nuesser@proton.me>"
+    ],
+    "keywords": [
+      "hydrawise",
+      "hunter",
+      "irrigation",
+      "watering",
+      "garden"
+    ],
+    "tier": 3,
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
+    "platform": "Javascript/Node.js",
+    "main": "build/main.js",
+    "icon": "hydrawise.jpg",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/SentiQ/ioBroker.hydrawise/main/admin/hydrawise.jpg",
+    "readme": "https://github.com/SentiQ/ioBroker.hydrawise/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "garden",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=6.6.0"
+      }
+    ]
+  },
+  "native": {
+    "apiKey": ""
+  },
+  "encryptedNative": [
+    "apiKey"
+  ],
+  "protectedNative": [
+    "apiKey"
+  ],
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "customer",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Controllers",
+          "de": "Controller",
+          "ru": "Контроллеры",
+          "pt": "Controladores",
+          "nl": "Controller",
+          "fr": "Contrôleurs",
+          "it": "Regolatori",
+          "es": "Controladores",
+          "pl": "Kontroler",
+          "uk": "Контролери",
+          "zh-cn": "主计长"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "schedule",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Schedule",
+          "de": "Zeitplan",
+          "ru": "Расписание",
+          "pt": "Programação",
+          "nl": "Schedel",
+          "fr": "Tableau",
+          "it": "Programma",
+          "es": "Cuadro",
+          "pl": "Schedule",
+          "uk": "Розклад",
+          "zh-cn": "附表"
+        }
+      },
+      "native": {}
+    }
+  ]
 }
