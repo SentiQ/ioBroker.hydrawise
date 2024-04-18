@@ -27,13 +27,26 @@ class Hydrawise extends utils.Adapter {
 
 	private async onReady(): Promise<void> {
 		if (!this.config.apiKey) {
-			this.log.error("No API-Key definded!");
+			this.log.error("No API-Key defined!");
+		} else if (!this.config.apiInterval) {
+			this.log.error("No API-Interval defined!");
 		} else {
 			this.setStateChangedAsync("info.connection", false, true);
 
 			await this.GetStatusSchedule(this.config.apiKey);
 
+			nextpollSchedule = this.setInterval(async () => {
+				await this.GetStatusSchedule(this.config.apiKey);
+			}, this.config.apiInterval * 1000);
+
 			await this.GetCustomerDetails(this.config.apiKey);
+
+			nextpollCustomer = this.setInterval(
+				async () => {
+					await this.GetCustomerDetails(this.config.apiKey);
+				},
+				5 * 60 * 1000,
+			);
 
 			await this.subscribeStatesAsync("*");
 		}
@@ -41,15 +54,7 @@ class Hydrawise extends utils.Adapter {
 
 	private async GetStatusSchedule(apiKey: string): Promise<void> {
 		return new Promise((resolve, reject) => {
-			nextpollSchedule =
-				nextpollSchedule ||
-				this.setTimeout(
-					() => {
-						nextpollSchedule = null;
-						this.GetStatusSchedule(apiKey);
-					},
-					5 * 60 * 1000,
-				);
+			this.log.debug("GetStatusSchedule");
 
 			this.buildRequest("statusschedule.php", { api_key: this.config.apiKey })
 				.then(async (response) => {
@@ -340,16 +345,12 @@ class Hydrawise extends utils.Adapter {
 					resolve(response.status);
 				})
 				.catch((error) => {
+					this.clearInterval(nextpollSchedule);
+
 					if (error.response?.status === 429) {
-						nextpollSchedule =
-							nextpollSchedule ||
-							this.setTimeout(
-								() => {
-									nextpollSchedule = null;
-									this.GetStatusSchedule(apiKey);
-								},
-								5 * 60 * 1000,
-							);
+						nextpollSchedule = this.setInterval(async () => {
+							await this.GetStatusSchedule(this.config.apiKey);
+						}, this.config.apiInterval * 1000);
 					} else {
 						this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
 
@@ -363,15 +364,7 @@ class Hydrawise extends utils.Adapter {
 
 	private async GetCustomerDetails(apiKey: string): Promise<void> {
 		return new Promise((resolve, reject) => {
-			nextpollCustomer =
-				nextpollCustomer ||
-				this.setTimeout(
-					() => {
-						nextpollCustomer = null;
-						this.GetCustomerDetails(apiKey);
-					},
-					5 * 60 * 1000,
-				);
+			this.log.debug("GetCustomerDetails");
 
 			this.buildRequest("customerdetails.php", { api_key: this.config.apiKey })
 				.then(async (response) => {
@@ -442,15 +435,14 @@ class Hydrawise extends utils.Adapter {
 				})
 				.catch((error) => {
 					if (error.response?.status === 429) {
-						nextpollCustomer =
-							nextpollCustomer ||
-							this.setTimeout(
-								() => {
-									nextpollCustomer = null;
-									this.GetCustomerDetails(apiKey);
-								},
-								5 * 60 * 1000,
-							);
+						this.clearInterval(nextpollCustomer);
+
+						nextpollCustomer = this.setInterval(
+							async () => {
+								await this.GetCustomerDetails(this.config.apiKey);
+							},
+							5 * 60 * 1000,
+						);
 					} else {
 						this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
 
@@ -525,8 +517,8 @@ class Hydrawise extends utils.Adapter {
 	 */
 	private onUnload(callback: () => void): void {
 		try {
-			this.clearTimeout(nextpollSchedule);
-			this.clearTimeout(nextpollCustomer);
+			this.clearInterval(nextpollSchedule);
+			this.clearInterval(nextpollCustomer);
 
 			callback();
 		} catch (e) {

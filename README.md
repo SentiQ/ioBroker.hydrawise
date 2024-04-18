@@ -39,6 +39,12 @@ You can see all controller information, schedules and sensors. It is also possib
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+-   (SentiQ) added api interval to settings
+-   (SentiQ) changed interval of schedule endpoint from 5 minutes to 1 minute
+
 ### 0.2.8 (2024-04-08)
 
 -   (SentiQ) fixed tier and license
@@ -166,7 +172,7 @@ You can see all controller information, schedules and sensors. It is also possib
 
 MIT License
 
-Copyright (c) 2024 SentiQ <fischer.yves@web.de>
+Copyright (c) 2024 SentiQ <yves.nuesser@proton.me>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

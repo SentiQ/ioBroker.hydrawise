@@ -6,6 +6,13 @@
 			"type": "text",
 			"label": "API-Key",
 			"newLine": true
+		},
+		"apiInterval": {
+			"type": "number",
+			"label": "API-Intervall",
+			"newLine": true,
+			"default": 60,
+			"min": 15
 		}
 	}
 }
