@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "news": {
+      "0.3.2": {
+        "en": "added default value to parameter `apiInterval`\nadded translations",
+        "de": "standardwert zum Parameter `apiInterval `\nübersetzungen",
+        "ru": "добавленное значение по умолчанию для параметра `apiInterval \"\nдобавленные переводы",
+        "pt": "valor padrão adicionado ao parâmetro `apiInterval \"\ntraduções adicionadas",
+        "nl": "toegevoegde standaardwaarde aan parameter  Wat\ntoegevoegde vertalingen",
+        "fr": "valeur ajoutée par défaut au paramètre `apiInterval \"\ntraductions ajoutées",
+        "it": "valore predefinito aggiunto al parametro `apiInterval #\ntraduzioni aggiunte",
+        "es": "valor predeterminado añadido al parámetro `apiInterval `\ntraducciones adicionales",
+        "pl": "domyślna wartość dodana do parametru 'apiInterval'\ndodane tłumaczenia",
+        "uk": "додано значення за замовчуванням до параметра `apiInterval й\nдодано переклади",
+        "zh-cn": "添加参数“ apiInterval” 的默认值 `\n增加翻译"
+      },
       "0.3.1": {
         "en": "removed parameter `apiKey` in method call",
         "de": "entfernter Parameter `apiKey` im Methodenaufruf",
@@ -80,19 +93,6 @@
         "pl": "NodeJS > = 18.x i kontroler js- > = 5 jest wymagane",
         "uk": "NodeJS >= 18.x та js-controller >= 5 обов'язково",
         "zh-cn": "节点JS18x和js控制器QQ 需要5个"
-      },
-      "0.2.4": {
-        "en": "updated dependencies",
-        "de": "aktualisierte abhängigkeiten",
-        "ru": "обновленные зависимости",
-        "pt": "dependências atualizadas",
-        "nl": "bijgewerkte afhankelijkheden",
-        "fr": "dépendances actualisées",
-        "it": "dipendenze aggiornate",
-        "es": "dependencias actualizadas",
-        "pl": "zaktualizowane zależności",
-        "uk": "оновлені залежності",
-        "zh-cn": "更新的依赖关系"
       }
     },
     "titleLang": {
