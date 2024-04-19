@@ -1,18 +1,20 @@
 {
-	"i18n": true,
-	"type": "panel",
-	"items": {
-		"apiKey": {
-			"type": "text",
-			"label": "API-Key",
-			"newLine": true
-		},
-		"apiInterval": {
-			"type": "number",
-			"label": "API-Intervall",
-			"newLine": true,
-			"default": 60,
-			"min": 15
-		}
-	}
+    "i18n": true,
+    "type": "panel",
+    "items": {
+        "apiKey": {
+            "type": "text",
+            "label": "api key",
+            "newLine": true,
+            "help": "how to get token",
+            "helpLink": "https://github.com/SentiQ/ioBroker.hydrawise/blob/main/README.md#documentation"
+        },
+        "apiInterval": {
+            "type": "number",
+            "label": "api interval",
+            "newLine": true,
+            "default": 60,
+            "min": 15
+        }
+    }
 }

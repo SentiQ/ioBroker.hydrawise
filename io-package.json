@@ -163,7 +163,8 @@
     ]
   },
   "native": {
-    "apiKey": ""
+    "apiKey": "",
+    "apiInterval": 60
   },
   "encryptedNative": [
     "apiKey"

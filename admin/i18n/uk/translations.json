@@ -1,4 +1,5 @@
 {
-	"hydrawise adapter settings": "параметри адаптера гідра",
-	"apiKey": "API-Key"
+    "api interval": "Інтервал API (у секундах)",
+    "api key": "API-ключ",
+    "how to get token": "Як отримати токен"
 }

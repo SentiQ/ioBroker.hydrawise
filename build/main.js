@@ -41,8 +41,6 @@ class Hydrawise extends utils.Adapter {
   async onReady() {
     if (!this.config.apiKey) {
       this.log.error("No API-Key defined!");
-    } else if (!this.config.apiInterval) {
-      this.log.error("No API-Interval defined!");
     } else {
       this.setStateChangedAsync("info.connection", false, true);
       await this.GetStatusSchedule();
@@ -61,7 +59,6 @@ class Hydrawise extends utils.Adapter {
   }
   async GetStatusSchedule() {
     return new Promise((resolve, reject) => {
-      this.log.debug("GetStatusSchedule");
       this.buildRequest("statusschedule.php", { api_key: this.config.apiKey }).then(async (response) => {
         if ((response == null ? void 0 : response.status) === 200) {
           const content = response.data;
@@ -313,11 +310,7 @@ class Hydrawise extends utils.Adapter {
                   },
                   native: {}
                 });
-                this.setStateChangedAsync(
-                  `schedule.sensors.${sensor.input}.${key}`,
-                  sensor[key],
-                  true
-                );
+                this.setStateChangedAsync(`schedule.sensors.${sensor.input}.${key}`, sensor[key], true);
               }
             }
           }
@@ -340,7 +333,6 @@ class Hydrawise extends utils.Adapter {
   }
   async GetCustomerDetails() {
     return new Promise((resolve, reject) => {
-      this.log.debug("GetCustomerDetails");
       this.buildRequest("customerdetails.php", { api_key: this.config.apiKey }).then(async (response) => {
         if ((response == null ? void 0 : response.status) === 200) {
           const content = response.data;
@@ -387,11 +379,7 @@ class Hydrawise extends utils.Adapter {
                 const t = new Date(controller[key] * 1e3);
                 controller[key] = t.toString();
               }
-              this.setStateChangedAsync(
-                `customer.controllers.${controller.name}.${key}`,
-                controller[key],
-                true
-              );
+              this.setStateChangedAsync(`customer.controllers.${controller.name}.${key}`, controller[key], true);
             }
           }
         }
@@ -432,9 +420,7 @@ class Hydrawise extends utils.Adapter {
             resolve(response);
           }).catch((error) => {
             if (error.response) {
-              this.log.warn(
-                `received ${error.response.status} response from ${url} with content: ${JSON.stringify(error.response.data)}`
-              );
+              this.log.warn(`received ${error.response.status} response from ${url} with content: ${JSON.stringify(error.response.data)}`);
             } else if (error.request) {
               if (error.code === lastErrorCode) {
                 this.log.debug(error.message);

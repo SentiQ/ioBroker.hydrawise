@@ -39,6 +39,11 @@ You can see all controller information, schedules and sensors. It is also possib
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+-   (SentiQ) added default value to parameter `apiInterval`
+-   (SentiQ) added translations
+
 ### 0.3.1 (2024-04-18)
 
 -   (SentiQ) removed parameter `apiKey` in method call

@@ -1,4 +1,5 @@
 {
-	"hydrawise adapter settings": "Impostazioni dell'adattatore per hydrawise",
-	"apiKey": "API-Key"
+    "api interval": "Intervallo API (in secondi)",
+    "api key": "Chiave API",
+    "how to get token": "Come ottenere il gettone"
 }
