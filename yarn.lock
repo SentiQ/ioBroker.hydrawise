@@ -479,10 +479,10 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-2.0.3.tgz"
   integrity sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==
 
-"@iobroker/adapter-core@^3.0.6":
-  version "3.1.0"
-  resolved "https://registry.npmjs.org/@iobroker/adapter-core/-/adapter-core-3.1.0.tgz"
-  integrity sha512-//XeBqMzVWIPelJYiIXalxRMtvMbY7S5XOFQbSjwG0YqX0wgobWmbJk1hGd/qGVUYzhY+SKNJ3nAbjB+28bd0w==
+"@iobroker/adapter-core@^3.1.4":
+  version "3.1.4"
+  resolved "https://registry.npmjs.org/@iobroker/adapter-core/-/adapter-core-3.1.4.tgz"
+  integrity sha512-RYDGB8Vk/MEKvMMwo4fLgxY8kjHrCeQmqROo/JxQYiLBEA4/gwFCTpxdD6s7RQ+dh4yZoH16/yTWqdgyR6NAxQ==
 
 "@iobroker/adapter-dev@^1.3.0":
   version "1.3.0"
@@ -498,7 +498,7 @@
     tiny-glob "^0.2.9"
     yargs "^17.7.2"
 
-"@iobroker/testing@^4.1.0":
+"@iobroker/testing@^4.1.3":
   version "4.1.3"
   resolved "https://registry.npmjs.org/@iobroker/testing/-/testing-4.1.3.tgz"
   integrity sha512-PTfvlXQBXDJVX35bkJxzgjuMX6bEjUmB4Dy8+bWLqbOgyq1JQVrRn+ah5IB7hEf+4lP8wD0MpAjXFJTv3zfTvA==
@@ -1197,9 +1197,9 @@ camelcase@^6.0.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001587:
-  version "1.0.30001611"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001611.tgz"
-  integrity sha512-19NuN1/3PjA3QI8Eki55N8my4LzfkMCRLgCVfrl/slbSAchQfV0+GwjPrK3rq37As4UCLlM/DHajbKkAqbv92Q==
+  version "1.0.30001612"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001612.tgz"
+  integrity sha512-lFgnZ07UhaCcsSZgWW0K5j4e69dK1u/ltrL9lTUiFOwNHs12S3UMIEYgBV0Z6C6hRDev7iRnMzzYmKabYdXF9g==
 
 catharsis@^0.9.0:
   version "0.9.0"
@@ -1457,9 +1457,9 @@ ecdsa-sig-formatter@^1.0.11, ecdsa-sig-formatter@1.0.11:
     safe-buffer "^5.0.1"
 
 electron-to-chromium@^1.4.668:
-  version "1.4.744"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.744.tgz"
-  integrity sha512-nAGcF0yeKKfrP13LMFr5U1eghfFSvFLg302VUFzWlcjPOnUYd52yU5x6PBYrujhNbc4jYmZFrGZFK+xasaEzVA==
+  version "1.4.745"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.745.tgz"
+  integrity sha512-tRbzkaRI5gbUn5DEvF0dV4TQbMZ5CLkWeTAXmpC9IrYT+GE+x76i9p+o3RJ5l9XmdQlI1pPhVtE9uNcJJ0G0EA==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
