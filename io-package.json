@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "0.3.3",
+    "version": "1.0.0",
     "news": {
+      "1.0.0": {
+        "en": "fixed adapter crash after dns not reachable",
+        "de": "fester adapterabsturz nach dns nicht erreichbar",
+        "ru": "крушение фиксированного адаптера после того, как днс недоступен",
+        "pt": "trava do adaptador fixo após dns não alcançável",
+        "nl": "vaste adapter crash na dns niet bereikbaar",
+        "fr": "crash de l'adaptateur fixe après dns inaccessible",
+        "it": "crash adattatore fisso dopo dns non raggiungibile",
+        "es": "ajuste fijo estrella después de dns no alcanzable",
+        "pl": "stałe zderzenie adaptera po dns nie osiągalne",
+        "uk": "фіксована аварійна аварія після dns не досягається",
+        "zh-cn": "dns 无法到达后固定适配器崩溃"
+      },
       "0.3.3": {
         "en": "updated dependencies",
         "de": "aktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "stały typ obiektu runDomyślne",
         "uk": "фіксований тип об'єкта за замовчуванням",
         "zh-cn": "运行对象的固定类型"
-      },
-      "0.2.6": {
-        "en": "fixed type of `runDefault`",
-        "de": "fester Typ von `runDefault `",
-        "ru": "фиксированный тип `runDefault \"",
-        "pt": "tipo fixo de `runDefault \"",
-        "nl": "vast type van de loopstandaard Wat",
-        "fr": "type fixe de `runDefault \"",
-        "it": "tipo fisso di `runDefault #",
-        "es": "tipo fijo de `runDefault `",
-        "pl": "stały typ 'runDomyślne'",
-        "uk": "фіксований тип `runDefault й",
-        "zh-cn": "固定类型“runDefault” `"
       }
     },
     "titleLang": {
