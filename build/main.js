@@ -43,17 +43,21 @@ class Hydrawise extends utils.Adapter {
       this.log.error("No API-Key defined!");
     } else {
       this.setStateChangedAsync("info.connection", false, true);
-      await this.GetStatusSchedule();
-      nextpollSchedule = this.setInterval(async () => {
+      try {
         await this.GetStatusSchedule();
-      }, this.config.apiInterval * 1e3);
-      await this.GetCustomerDetails();
-      nextpollCustomer = this.setInterval(
-        async () => {
-          await this.GetCustomerDetails();
-        },
-        5 * 60 * 1e3
-      );
+        nextpollSchedule = this.setInterval(async () => {
+          await this.GetStatusSchedule();
+        }, this.config.apiInterval * 1e3);
+        await this.GetCustomerDetails();
+        nextpollCustomer = this.setInterval(
+          async () => {
+            await this.GetCustomerDetails();
+          },
+          5 * 60 * 1e3
+        );
+      } catch (error) {
+        this.log.error(error.toString());
+      }
       await this.subscribeStatesAsync("*");
     }
   }
@@ -319,7 +323,7 @@ class Hydrawise extends utils.Adapter {
       }).catch((error) => {
         var _a;
         this.clearInterval(nextpollSchedule);
-        if (((_a = error.response) == null ? void 0 : _a.status) === 429) {
+        if (error.code === "EAI_AGAIN" || error.code === "ECONNABORTED" || error.code === "ENOTFOUND" || ((_a = error.response) == null ? void 0 : _a.status) === 429) {
           nextpollSchedule = this.setInterval(async () => {
             await this.GetStatusSchedule();
           }, this.config.apiInterval * 1e3);
@@ -386,8 +390,8 @@ class Hydrawise extends utils.Adapter {
         resolve(response.status);
       }).catch((error) => {
         var _a;
-        if (((_a = error.response) == null ? void 0 : _a.status) === 429) {
-          this.clearInterval(nextpollCustomer);
+        this.clearInterval(nextpollCustomer);
+        if (error.code === "EAI_AGAIN" || error.code === "ECONNABORTED" || error.code === "ENOTFOUND" || ((_a = error.response) == null ? void 0 : _a.status) === 429) {
           nextpollCustomer = this.setInterval(
             async () => {
               await this.GetCustomerDetails();

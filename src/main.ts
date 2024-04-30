@@ -31,20 +31,24 @@ class Hydrawise extends utils.Adapter {
         } else {
             this.setStateChangedAsync('info.connection', false, true);
 
-            await this.GetStatusSchedule();
-
-            nextpollSchedule = this.setInterval(async () => {
+            try {
                 await this.GetStatusSchedule();
-            }, this.config.apiInterval * 1000);
 
-            await this.GetCustomerDetails();
+                nextpollSchedule = this.setInterval(async () => {
+                    await this.GetStatusSchedule();
+                }, this.config.apiInterval * 1000);
 
-            nextpollCustomer = this.setInterval(
-                async () => {
-                    await this.GetCustomerDetails();
-                },
-                5 * 60 * 1000,
-            );
+                await this.GetCustomerDetails();
+
+                nextpollCustomer = this.setInterval(
+                    async () => {
+                        await this.GetCustomerDetails();
+                    },
+                    5 * 60 * 1000,
+                );
+            } catch (error: any) {
+                this.log.error(error.toString());
+            }
 
             await this.subscribeStatesAsync('*');
         }
@@ -339,7 +343,7 @@ class Hydrawise extends utils.Adapter {
                 .catch((error) => {
                     this.clearInterval(nextpollSchedule);
 
-                    if (error.response?.status === 429) {
+                    if (error.code === 'EAI_AGAIN' || error.code === 'ECONNABORTED' || error.code === 'ENOTFOUND' || error.response?.status === 429) {
                         nextpollSchedule = this.setInterval(async () => {
                             await this.GetStatusSchedule();
                         }, this.config.apiInterval * 1000);
@@ -420,9 +424,9 @@ class Hydrawise extends utils.Adapter {
                     resolve(response.status);
                 })
                 .catch((error) => {
-                    if (error.response?.status === 429) {
-                        this.clearInterval(nextpollCustomer);
+                    this.clearInterval(nextpollCustomer);
 
+                    if (error.code === 'EAI_AGAIN' || error.code === 'ECONNABORTED' || error.code === 'ENOTFOUND' || error.response?.status === 429) {
                         nextpollCustomer = this.setInterval(
                             async () => {
                                 await this.GetCustomerDetails();
