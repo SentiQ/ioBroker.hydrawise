@@ -39,7 +39,7 @@ You can see all controller information, schedules and sensors. It is also possib
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.0.2 (2024-09-24)
 
 - (SentiQ) fixed issues detected by repository checker
 

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "news": {
+      "1.0.2": {
+        "en": "fixed issues detected by repository checker",
+        "de": "von repository checker erkannte probleme",
+        "ru": "фиксированные проблемы, выявленные регистратором",
+        "pt": "problemas corrigidos detectados pelo verificador de repositório",
+        "nl": "vaste problemen gedetecteerd door repository checker",
+        "fr": "problèmes corrigés détectés par le vérificateur du dépôt",
+        "it": "problemi fissi rilevati da repository checker",
+        "es": "problemas fijos detectados por el repositorio",
+        "pl": "stałe problemy wykryte przez kontroler repozytorium",
+        "uk": "виправлені питання, виявлені репозиторійним чекером",
+        "zh-cn": "仓库检查器检测到的固定问题"
+      },
       "1.0.1": {
         "en": "added compatibility check and testing for node.js 22",
         "de": "kompatibilitätsprüfung und test für node.js 22",
