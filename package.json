@@ -9,6 +9,7 @@
   "homepage": "https://github.com/SentiQ/ioBroker.hydrawise",
   "license": "MIT",
   "keywords": [
+    "iobroker",
     "hydrawise",
     "hunter",
     "irrigation",

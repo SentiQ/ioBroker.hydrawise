@@ -55,32 +55,6 @@
         "uk": "додано значення за замовчуванням до параметра `apiInterval й\nдодано переклади",
         "zh-cn": "添加参数“ apiInterval” 的默认值 `\n增加翻译"
       },
-      "0.3.1": {
-        "en": "removed parameter `apiKey` in method call",
-        "de": "entfernter Parameter `apiKey` im Methodenaufruf",
-        "ru": "удаленный параметр `apiKey' в вызове метода",
-        "pt": "parâmetro removido `apiKey` na chamada do método",
-        "nl": "verwijderde parameter ",
-        "fr": "paramètre supprimé `apiKey` dans l'appel de méthode",
-        "it": "parametro rimosso `apiKey` nella chiamata metodo",
-        "es": "parámetro eliminado `apiKey` en llamada de método",
-        "pl": "usunięty parametr 'apiKey' w wywołaniu metody",
-        "uk": "видалити параметр `apiKey` в методі виклику",
-        "zh-cn": "方法调用中已删除参数“ apiKey ”"
-      },
-      "0.3.0": {
-        "en": "added api interval to settings\nchanged interval of schedule endpoint from 5 minutes to 1 minute",
-        "de": "api intervall zu den einstellungen hinzugefügt\ngeändertes intervall von zeitplan endpunkt von 5 minuten bis 1 minute",
-        "ru": "добавлен интервал api в настройки\nизмененный интервал конечной точки расписания с 5 минут до 1 минуты",
-        "pt": "adicionado intervalo api para configurações\nintervalo alterado de cronograma ponto final de 5 minutos a 1 minuto",
-        "nl": "api-interval toegevoegd aan instellingen\nveranderde interval van het eindpunt van het schema van 5 minuten tot 1 minuut",
-        "fr": "l'intervalle api ajouté aux paramètres\nchangement de l'intervalle de 5 minutes à 1 minute",
-        "it": "intervallo api aggiunto alle impostazioni\nintervallo modificato di endpoint programmato da 5 minuti a 1 minuto",
-        "es": "añadir intervalo api a la configuración\ncambio de intervalo de tiempo de 5 minutos a 1 minuto",
-        "pl": "dodany interwał api do ustawień\nzmiana odstępu między punktem końcowym schematu z 5 minut do 1 minuty",
-        "uk": "додано інтервал api для налаштувань\nзмінений інтервал графіка кінцевої точки від 5 хвилин до 1 хвилини",
-        "zh-cn": "在设置中添加 api 间隔\n时间表终点从5分钟改为1分钟"
-      },
       "0.2.8": {
         "en": "fixed tier and license",
         "de": "festwert und lizenz",
@@ -137,7 +111,6 @@
       "type": "free"
     },
     "platform": "Javascript/Node.js",
-    "main": "build/main.js",
     "icon": "hydrawise.jpg",
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/SentiQ/ioBroker.hydrawise/main/admin/hydrawise.jpg",
@@ -153,7 +126,7 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=5.0.0"
+        "js-controller": ">=5.0.19"
       }
     ],
     "globalDependencies": [
