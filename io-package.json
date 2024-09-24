@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "news": {
+      "1.0.1": {
+        "en": "added compatibility check and testing for node.js 22",
+        "de": "kompatibilitätsprüfung und test für node.js 22",
+        "ru": "проверка совместимости и тестирование для node.js 22",
+        "pt": "verificação de compatibilidade adicionada e teste para node.js 22",
+        "nl": "toegevoegde compatibiliteitscontrole en testen voor node.js 22",
+        "fr": "vérification et essais de compatibilité pour node.js 22",
+        "it": "controllo della compatibilità aggiunto e test per node.js 22",
+        "es": "comprobación de compatibilidad añadido y pruebas para node.js 22",
+        "pl": "dodane sprawdzenie zgodności i testowanie na node.js 22",
+        "uk": "додано перевірку сумісності та тестування для node.js 22",
+        "zh-cn": "为节点.js 22 添加兼容性检查和测试"
+      },
       "1.0.0": {
         "en": "fixed adapter crash after dns not reachable",
         "de": "fester adapterabsturz nach dns nicht erreichbar",
@@ -80,19 +93,6 @@
         "pl": "stały poziom dokładności i licencja",
         "uk": "фіксований ярус і ліцензія",
         "zh-cn": "固定等级和许可证"
-      },
-      "0.2.7": {
-        "en": "fixed type of runDefault object",
-        "de": "feste Art von runDefault Objekt",
-        "ru": "фиксированный тип объекта RunDefault",
-        "pt": "tipo fixo de runDefault object",
-        "nl": "vast type runStandaard object",
-        "fr": "type fixe d'objet runDefault",
-        "it": "tipo fisso di oggetto runDefault",
-        "es": "tipo fijo de runDefault objeto",
-        "pl": "stały typ obiektu runDomyślne",
-        "uk": "фіксований тип об'єкта за замовчуванням",
-        "zh-cn": "运行对象的固定类型"
       }
     },
     "titleLang": {
