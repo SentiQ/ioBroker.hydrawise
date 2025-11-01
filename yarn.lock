@@ -20,6 +20,13 @@
   dependencies:
     execa "^5.1.1"
 
+"@alcalzone/release-script-core@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@alcalzone/release-script-core/-/release-script-core-4.0.0.tgz#2a681f6cd5bbe67961bf35e1ec0270fa54a404f7"
+  integrity sha512-vwBhNzsUBpGDCVrL0fAkOkdsxCaGOC43UOgTbB4U27noBgz+J9rscc53DiafKniSyfK6+NgWzHcjwY1vtyvaEQ==
+  dependencies:
+    execa "^5.1.1"
+
 "@alcalzone/release-script-plugin-changelog@3.7.0":
   version "3.7.0"
   resolved "https://registry.npmjs.org/@alcalzone/release-script-plugin-changelog/-/release-script-plugin-changelog-3.7.0.tgz"
@@ -45,16 +52,16 @@
     "@alcalzone/release-script-core" "3.7.0"
     fs-extra "^10.1.0"
 
-"@alcalzone/release-script-plugin-iobroker@^3.7.2":
-  version "3.7.2"
-  resolved "https://registry.npmjs.org/@alcalzone/release-script-plugin-iobroker/-/release-script-plugin-iobroker-3.7.2.tgz"
-  integrity sha512-ezXFyxx2irq7my3BmlBUrzT+QHNsldR9MQYkXs7uyH6lXSkudmqq5EiDW9WckT0Cj9YqIUzoOJhhnZA9M+XTvQ==
+"@alcalzone/release-script-plugin-iobroker@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@alcalzone/release-script-plugin-iobroker/-/release-script-plugin-iobroker-4.0.0.tgz#700a20a1762eefa330ba7b1988bafab3b66cb574"
+  integrity sha512-dtTACwVtl0NSNXJLg4La2xWPU/gnuQPYZ8aivFFguwipLevf/3R2YmFSwL6st5kUjbbaL5nHRbCHfxwfx4CD6Q==
   dependencies:
-    "@alcalzone/release-script-core" "3.7.0"
-    alcalzone-shared "^4.0.1"
+    "@alcalzone/release-script-core" "4.0.0"
+    alcalzone-shared "^5.0.0"
     axios "^1.6.2"
     fs-extra "^10.1.0"
-    semver "^7.5.2"
+    semver "^7.7.2"
 
 "@alcalzone/release-script-plugin-license@^3.5.9":
   version "3.7.0"
@@ -1045,6 +1052,11 @@ alcalzone-shared@^4.0.1, alcalzone-shared@~4.0.8:
   integrity sha512-Rr0efCjNL9lw7miDvU8exL87Y42ehsLU2jUGNQUphhnlvxnTMrHeApWgoOSGZvsE2PhxC3KO7Z+VpQ/IbuV3aA==
   dependencies:
     debug "^4.3.4"
+
+alcalzone-shared@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/alcalzone-shared/-/alcalzone-shared-5.0.0.tgz#ac93bd7648866afb64bd0c976cf3b0bf8466e5a8"
+  integrity sha512-X73hgVWcrIKUUB6jZgHj5flRbTft8AAoJ2MqRKEcAX1whW3OeGkxsQ6ol4nd4/rKxd1eoCRXUGW3cIhXrXU4Sg==
 
 ansi-colors@^4.1.1, ansi-colors@^4.1.3:
   version "4.1.3"
@@ -2632,13 +2644,6 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-lru-cache@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.npmjs.org/lru-cache/-/lru-cache-6.0.0.tgz"
-  integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
-  dependencies:
-    yallist "^4.0.0"
-
 make-dir@^3.0.0, make-dir@^3.0.2:
   version "3.1.0"
   resolved "https://registry.npmjs.org/make-dir/-/make-dir-3.1.0.tgz"
@@ -3180,12 +3185,10 @@ semver@^6.0.0, semver@^6.3.1:
   resolved "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.3.7, semver@^7.5.2, semver@^7.5.3, semver@^7.5.4:
-  version "7.6.0"
-  resolved "https://registry.npmjs.org/semver/-/semver-7.6.0.tgz"
-  integrity sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==
-  dependencies:
-    lru-cache "^6.0.0"
+semver@^7.3.7, semver@^7.5.2, semver@^7.5.3, semver@^7.5.4, semver@^7.7.2:
+  version "7.7.3"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.3.tgz#4b5f4143d007633a8dc671cd0a6ef9147b8bb946"
+  integrity sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==
 
 serialize-javascript@^6.0.2:
   version "6.0.2"
@@ -3669,11 +3672,6 @@ yallist@^3.0.2:
   version "3.1.1"
   resolved "https://registry.npmjs.org/yallist/-/yallist-3.1.1.tgz"
   integrity sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==
-
-yallist@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/yallist/-/yallist-4.0.0.tgz"
-  integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
 yargs-parser@^18.1.2:
   version "18.1.3"
