@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "news": {
+      "1.0.4": {
+        "en": "fixed dependencies\nfixed schema URLs",
+        "de": "feste abhängigkeiten\nfestes Schema URLs",
+        "ru": "фиксированные зависимости\nфиксированная схема URL",
+        "pt": "dependências fixas\nesquema fixo URLs",
+        "nl": "vaste afhankelijkheden\nvast schema URL's",
+        "fr": "dépendances fixes\nschéma fixe URLs",
+        "it": "dipendenze fisse\nschema fisso URLs",
+        "es": "dependencias fijas\nesquema fijo URLs",
+        "pl": "stałe zależności\nstałe schematy URL",
+        "uk": "фіксовані залежності\nфіксована схема Контакти",
+        "zh-cn": "固定依赖关系\n固定计划 URL( URL)"
+      },
       "1.0.3": {
         "en": "updated dependencies",
         "de": "aktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "domyślna wartość dodana do parametru 'apiInterval'\ndodane tłumaczenia",
         "uk": "додано значення за замовчуванням до параметра `apiInterval й\nдодано переклади",
         "zh-cn": "添加参数“ apiInterval” 的默认值 `\n增加翻译"
-      },
-      "0.2.8": {
-        "en": "fixed tier and license",
-        "de": "festwert und lizenz",
-        "ru": "фиксированный уровень и лицензия",
-        "pt": "tier fixo e licença",
-        "nl": "vast niveau en licentie",
-        "fr": "niveau fixe et licence",
-        "it": "tier fisso e licenza",
-        "es": "nivel fijo y licencia",
-        "pl": "stały poziom dokładności i licencja",
-        "uk": "фіксований ярус і ліцензія",
-        "zh-cn": "固定等级和许可证"
       }
     },
     "titleLang": {
@@ -121,10 +121,21 @@
       "uk": "Adapter to control the Hydrawise irrigation control system",
       "zh-cn": "Adapter to control the Hydrawise irrigation control system"
     },
-    "authors": ["SentiQ <yves.nuesser@proton.me>"],
-    "keywords": ["hydrawise", "hunter", "irrigation", "watering", "garden"],
+    "authors": [
+      "SentiQ <yves.nuesser@proton.me>"
+    ],
+    "keywords": [
+      "hydrawise",
+      "hunter",
+      "irrigation",
+      "watering",
+      "garden"
+    ],
     "tier": 3,
-    "licenseInformation": { "license": "MIT", "type": "free" },
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
     "platform": "Javascript/Node.js",
     "icon": "hydrawise.jpg",
     "enabled": true,
@@ -136,19 +147,38 @@
     "compact": true,
     "connectionType": "cloud",
     "dataSource": "poll",
-    "adminUI": { "config": "json" },
-    "dependencies": [{ "js-controller": ">=5.0.19" }],
-    "globalDependencies": [{ "admin": ">=7.6.17" }]
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.19"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.6.17"
+      }
+    ]
   },
-  "native": { "apiKey": "", "apiInterval": 60 },
-  "encryptedNative": ["apiKey"],
-  "protectedNative": ["apiKey"],
+  "native": {
+    "apiKey": "",
+    "apiInterval": 60
+  },
+  "encryptedNative": [
+    "apiKey"
+  ],
+  "protectedNative": [
+    "apiKey"
+  ],
   "objects": [],
   "instanceObjects": [
     {
       "_id": "info",
       "type": "channel",
-      "common": { "name": "Information" },
+      "common": {
+        "name": "Information"
+      },
       "native": {}
     },
     {
