@@ -72,12 +72,12 @@
     fs-extra "^10.1.0"
     tiny-glob "^0.2.9"
 
-"@alcalzone/release-script-plugin-manual-review@^3.7.0":
-  version "3.7.0"
-  resolved "https://registry.npmjs.org/@alcalzone/release-script-plugin-manual-review/-/release-script-plugin-manual-review-3.7.0.tgz"
-  integrity sha512-lU/KJHQpYhdDcYPxiR3X5BsP9O+bNYfyP8VPE5dF9fwLgTFklbGMOhF9VjdQMiZ8Cyr7fCH7ptw+oHw+UuQutQ==
+"@alcalzone/release-script-plugin-manual-review@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@alcalzone/release-script-plugin-manual-review/-/release-script-plugin-manual-review-4.0.0.tgz#a9be72045ecd9c8d3399fee7a63ab2c621337344"
+  integrity sha512-Kcbqjaf0CoQXQkR1pYgcGV8UiENX31DkmxpfS0kpWomg+uKnZ7p37BGpQ6aZJgJA8XM9YfeQIWA8t53qGZ3AhQ==
   dependencies:
-    "@alcalzone/release-script-core" "3.7.0"
+    "@alcalzone/release-script-core" "4.0.0"
 
 "@alcalzone/release-script-plugin-package@3.7.3":
   version "3.7.3"
