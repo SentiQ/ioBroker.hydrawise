@@ -34,7 +34,7 @@
     "@alcalzone/release-script-plugin-manual-review": "^4.0.0",
     "@iobroker/adapter-dev": "^1.4.0",
     "@iobroker/testing": "^5.0.0",
-    "@tsconfig/node16": "^16.1.0",
+    "@tsconfig/node16": "^16.1.8",
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^8.0.2",
     "@types/mocha": "^10.0.9",
