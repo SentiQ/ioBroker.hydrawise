@@ -573,10 +573,10 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-2.0.3.tgz"
   integrity sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==
 
-"@iobroker/adapter-core@^3.2.3":
-  version "3.2.3"
-  resolved "https://registry.npmjs.org/@iobroker/adapter-core/-/adapter-core-3.2.3.tgz"
-  integrity sha512-ktk2KGexzOAbUZpkv/9JATJvO2DUHIfQAWhtpRjLxcR3+hs5/73hvt46XPSqwSpY/wnw5+E7kM7BqkfN7G19IQ==
+"@iobroker/adapter-core@^3.3.2":
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@iobroker/adapter-core/-/adapter-core-3.3.2.tgz#306b9a2910addc201443a20caa8850e6ff710a1d"
+  integrity sha512-knuCX6F1JUTnY1OdHzDhwNtOoe9/RZgBziDKSzCO3E4koteY/KRqZ7gtzmoavcAokejG68S5osbEnIb4MYT3VA==
 
 "@iobroker/adapter-dev@^1.4.0":
   version "1.4.0"
