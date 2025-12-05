@@ -121,21 +121,10 @@
       "uk": "Adapter to control the Hydrawise irrigation control system",
       "zh-cn": "Adapter to control the Hydrawise irrigation control system"
     },
-    "authors": [
-      "SentiQ <yves.nuesser@proton.me>"
-    ],
-    "keywords": [
-      "hydrawise",
-      "hunter",
-      "irrigation",
-      "watering",
-      "garden"
-    ],
+    "authors": ["SentiQ <yves.nuesser@proton.me>"],
+    "keywords": ["hydrawise", "hunter", "irrigation", "watering", "garden"],
     "tier": 3,
-    "licenseInformation": {
-      "license": "MIT",
-      "type": "free"
-    },
+    "licenseInformation": { "license": "MIT", "type": "free" },
     "platform": "Javascript/Node.js",
     "icon": "hydrawise.jpg",
     "enabled": true,
@@ -147,38 +136,19 @@
     "compact": true,
     "connectionType": "cloud",
     "dataSource": "poll",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=5.0.19"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=6.6.0"
-      }
-    ]
+    "adminUI": { "config": "json" },
+    "dependencies": [{ "js-controller": ">=5.0.19" }],
+    "globalDependencies": [{ "admin": ">=7.6.17" }]
   },
-  "native": {
-    "apiKey": "",
-    "apiInterval": 60
-  },
-  "encryptedNative": [
-    "apiKey"
-  ],
-  "protectedNative": [
-    "apiKey"
-  ],
+  "native": { "apiKey": "", "apiInterval": 60 },
+  "encryptedNative": ["apiKey"],
+  "protectedNative": ["apiKey"],
   "objects": [],
   "instanceObjects": [
     {
       "_id": "info",
       "type": "channel",
-      "common": {
-        "name": "Information"
-      },
+      "common": { "name": "Information" },
       "native": {}
     },
     {
