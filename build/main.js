@@ -42,7 +42,7 @@ class Hydrawise extends utils.Adapter {
     if (!this.config.apiKey) {
       this.log.error("No API-Key defined!");
     } else {
-      this.setStateChangedAsync("info.connection", false, true);
+      void this.setStateChangedAsync("info.connection", false, true);
       try {
         await this.GetStatusSchedule();
         nextpollSchedule = this.setInterval(async () => {
@@ -66,7 +66,7 @@ class Hydrawise extends utils.Adapter {
       this.buildRequest("statusschedule.php", { api_key: this.config.apiKey }).then(async (response) => {
         if ((response == null ? void 0 : response.status) === 200) {
           const content = response.data;
-          this.setStateChangedAsync("info.connection", true, true);
+          void this.setStateChangedAsync("info.connection", true, true);
           await this.setObjectNotExistsAsync("schedule.stopall", {
             type: "state",
             common: {
@@ -151,7 +151,7 @@ class Hydrawise extends utils.Adapter {
                 },
                 native: {}
               });
-              this.setStateChangedAsync(`schedule.${key}`, content[key], true);
+              void this.setStateChangedAsync(`schedule.${key}`, content[key], true);
               if (key === "time") {
                 await this.setObjectNotExistsAsync("schedule.timestr", {
                   type: "state",
@@ -165,7 +165,7 @@ class Hydrawise extends utils.Adapter {
                   native: {}
                 });
                 const t = new Date(content[key] * 1e3);
-                this.setStateChangedAsync("schedule.timestr", t.toString(), true);
+                void this.setStateChangedAsync("schedule.timestr", t.toString(), true);
               }
             }
           }
@@ -197,7 +197,7 @@ class Hydrawise extends utils.Adapter {
                 t.setSeconds(t.getSeconds() + relay.time);
                 relay[key] = t.toString();
               }
-              this.setStateChangedAsync(`schedule.${relay.relay}.${key}`, relay[key], true);
+              void this.setStateChangedAsync(`schedule.${relay.relay}.${key}`, relay[key], true);
             }
             await this.setObjectNotExistsAsync(`schedule.${relay.relay}.stopZone`, {
               type: "state",
@@ -314,7 +314,11 @@ class Hydrawise extends utils.Adapter {
                   },
                   native: {}
                 });
-                this.setStateChangedAsync(`schedule.sensors.${sensor.input}.${key}`, sensor[key], true);
+                void this.setStateChangedAsync(
+                  `schedule.sensors.${sensor.input}.${key}`,
+                  sensor[key],
+                  true
+                );
               }
             }
           }
@@ -329,8 +333,8 @@ class Hydrawise extends utils.Adapter {
           }, this.config.apiInterval * 1e3);
         } else {
           this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
-          this.setStateChangedAsync("info.connection", false, true);
-          reject(error);
+          void this.setStateChangedAsync("info.connection", false, true);
+          reject(new Error(error));
         }
       });
     });
@@ -340,7 +344,7 @@ class Hydrawise extends utils.Adapter {
       this.buildRequest("customerdetails.php", { api_key: this.config.apiKey }).then(async (response) => {
         if ((response == null ? void 0 : response.status) === 200) {
           const content = response.data;
-          this.setStateChangedAsync("info.connection", true, true);
+          void this.setStateChangedAsync("info.connection", true, true);
           for (let key in content) {
             if (key !== "controllers" && !Number.isNaN(key)) {
               key = this.name2id(key);
@@ -355,7 +359,7 @@ class Hydrawise extends utils.Adapter {
                 },
                 native: {}
               });
-              this.setStateChangedAsync(`customer.${key}`, content[key], true);
+              void this.setStateChangedAsync(`customer.${key}`, content[key], true);
             }
           }
           for (const controller of content.controllers) {
@@ -383,7 +387,11 @@ class Hydrawise extends utils.Adapter {
                 const t = new Date(controller[key] * 1e3);
                 controller[key] = t.toString();
               }
-              this.setStateChangedAsync(`customer.controllers.${controller.name}.${key}`, controller[key], true);
+              void this.setStateChangedAsync(
+                `customer.controllers.${controller.name}.${key}`,
+                controller[key],
+                true
+              );
             }
           }
         }
@@ -400,8 +408,8 @@ class Hydrawise extends utils.Adapter {
           );
         } else {
           this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
-          this.setStateChangedAsync("info.connection", false, true);
-          reject(error);
+          void this.setStateChangedAsync("info.connection", false, true);
+          reject(new Error(error));
         }
       });
     });
@@ -424,7 +432,9 @@ class Hydrawise extends utils.Adapter {
             resolve(response);
           }).catch((error) => {
             if (error.response) {
-              this.log.warn(`received ${error.response.status} response from ${url} with content: ${JSON.stringify(error.response.data)}`);
+              this.log.warn(
+                `received ${error.response.status} response from ${url} with content: ${JSON.stringify(error.response.data)}`
+              );
             } else if (error.request) {
               if (error.code === lastErrorCode) {
                 this.log.debug(error.message);
@@ -435,39 +445,44 @@ class Hydrawise extends utils.Adapter {
             } else {
               this.log.error(error.message);
             }
-            reject(error);
+            reject(new Error(error));
           });
         } catch (error) {
-          reject(error);
+          reject(new Error(error));
         }
       } else {
-        reject("API key is not configured");
+        reject(new Error("API key is not configured"));
       }
     });
   }
   /**
    * Is called when adapter shuts down - callback has to be called under any circumstances!
+   *
+   * @param callback callback function
    */
   onUnload(callback) {
     try {
       this.clearInterval(nextpollSchedule);
       this.clearInterval(nextpollCustomer);
       callback();
-    } catch (e) {
+    } catch {
       callback();
     }
   }
   /**
    * Is called if a subscribed state changes
+   *
+   * @param id id of the state
+   * @param state state object
    */
   onStateChange(id, state) {
     if (state && !state.ack) {
       if (id.indexOf("stopall") !== -1) {
-        this.buildRequest("setzone.php", { api_key: this.config.apiKey, action: "stopall" });
+        void this.buildRequest("setzone.php", { api_key: this.config.apiKey, action: "stopall" });
       } else if (id.indexOf("stop") !== -1) {
         const relay = id.match(/.*schedule\.(.*)\.stopZone/);
         if (relay && (relay == null ? void 0 : relay.length) > 1) {
-          this.buildRequest("setzone.php", {
+          void this.buildRequest("setzone.php", {
             api_key: this.config.apiKey,
             action: "stop",
             relay_id: RELAYS[relay[1]]
@@ -475,7 +490,7 @@ class Hydrawise extends utils.Adapter {
         }
       }
       if (id.indexOf("runall") !== -1 && (state.val || state.val === 0)) {
-        this.buildRequest("setzone.php", {
+        void this.buildRequest("setzone.php", {
           api_key: this.config.apiKey,
           action: "runall",
           period_id: 999,
@@ -484,7 +499,7 @@ class Hydrawise extends utils.Adapter {
       } else if (id.indexOf("runZone") !== -1 && (state.val || state.val === 0)) {
         const relay = id.match(/.*schedule\.(.*)\.runZone/);
         if (relay && (relay == null ? void 0 : relay.length) > 1) {
-          this.buildRequest("setzone.php", {
+          void this.buildRequest("setzone.php", {
             api_key: this.config.apiKey,
             action: "run",
             period_id: 999,
@@ -494,11 +509,11 @@ class Hydrawise extends utils.Adapter {
         }
       }
       if (id.indexOf("runDefault") !== -1 && state.val !== null) {
-        this.initRunDefault(id, state.val);
+        void this.initRunDefault(id, state.val);
       }
       if (id.indexOf("suspendall") !== -1 && (state.val || state.val === 0)) {
         const num = state.val;
-        this.buildRequest("setzone.php", {
+        void this.buildRequest("setzone.php", {
           api_key: this.config.apiKey,
           action: "suspendall",
           period_id: 999,
@@ -508,7 +523,7 @@ class Hydrawise extends utils.Adapter {
         const num = state.val;
         const relay = id.match(/.*schedule\.(.*)\.suspendZone/);
         if (relay && (relay == null ? void 0 : relay.length) > 1) {
-          this.buildRequest("setzone.php", {
+          void this.buildRequest("setzone.php", {
             api_key: this.config.apiKey,
             action: "suspend",
             period_id: 999,
@@ -524,18 +539,18 @@ class Hydrawise extends utils.Adapter {
     this.clearTimeout(resetSwitch);
     if (relay) {
       if (run) {
-        const defaultRunTime = await this.getStateAsync(relay[1] + "run");
+        const defaultRunTime = await this.getStateAsync(`${relay[1]}run`);
         if (defaultRunTime && defaultRunTime.val) {
-          this.setStateAsync(relay[1] + "runZone", defaultRunTime.val, false);
+          void this.setState(`${relay[1]}runZone`, defaultRunTime.val, false);
           resetSwitch = this.setTimeout(
             () => {
-              this.setStateAsync(id, false, false);
+              void this.setState(id, false, false);
             },
             defaultRunTime.val * 1e3
           );
         }
       } else {
-        this.setStateAsync(relay[1] + "stopZone", true, false);
+        void this.setState(`${relay[1]}stopZone`, true, false);
       }
     }
   }
