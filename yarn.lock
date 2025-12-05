@@ -10,10 +10,10 @@
     esbuild "^0.11.5"
     jsonc-parser "^3.0.0"
 
-"@alcalzone/pak@^0.10.1":
-  version "0.10.2"
-  resolved "https://registry.npmjs.org/@alcalzone/pak/-/pak-0.10.2.tgz"
-  integrity sha512-v+kM7HlfIVNLDlGBcbZvrG3yVK3rPLH5kIoGRJbCcoHwpUqQbfEMzXAy1ZrfP+zbI5phHw2PhgrXZr3z6nh7Ow==
+"@alcalzone/pak@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@alcalzone/pak/-/pak-0.11.0.tgz#a6c98c22259c9fc8c40fff9e4c7ada3fc488afcd"
+  integrity sha512-S6s2Xug8VJ04Xgam7kV+dUydVB2gJmTem+Kr7oxneeXndWddgoQxphQNI9WqgpsifTkonC9wiAbj3qkMFlNeAA==
   dependencies:
     axios "^1.6.2"
     execa "~5.0.1"
@@ -35,29 +35,29 @@
   dependencies:
     execa "^5.1.1"
 
-"@alcalzone/release-script-plugin-changelog@3.7.0":
-  version "3.7.0"
-  resolved "https://registry.npmjs.org/@alcalzone/release-script-plugin-changelog/-/release-script-plugin-changelog-3.7.0.tgz"
-  integrity sha512-AlLOIjIPP42uBmvcdYkfijYDzolyY6JmfbTmdxQDBLyrgYXnuUr2GaKxbpeWSbvcAuUhNvHCAyI6LI90X3OTEg==
+"@alcalzone/release-script-plugin-changelog@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@alcalzone/release-script-plugin-changelog/-/release-script-plugin-changelog-4.0.0.tgz#4d2f2d986097b1dbb9fc8cb6332ac790d4cc7856"
+  integrity sha512-jFC8TCTWhFr0dkgFkKRKuEqCTvNqqpTAullbXbOK33oOyBHvsk8M6ma8fOFx3caH1WLQCWwmzt+nr7+Pwx3AqQ==
   dependencies:
-    "@alcalzone/release-script-core" "3.7.0"
-    alcalzone-shared "^4.0.1"
+    "@alcalzone/release-script-core" "4.0.0"
+    alcalzone-shared "^5.0.0"
     fs-extra "^10.1.0"
 
-"@alcalzone/release-script-plugin-exec@3.7.0":
-  version "3.7.0"
-  resolved "https://registry.npmjs.org/@alcalzone/release-script-plugin-exec/-/release-script-plugin-exec-3.7.0.tgz"
-  integrity sha512-ZhlKGhxa71mLyYB1/ojzik2RKcSAeIjuwKzlWRd6oUvKoZPe7eAjLYneXx5viQC6tvDJE4dvN1NlkFGWsSlZYA==
+"@alcalzone/release-script-plugin-exec@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@alcalzone/release-script-plugin-exec/-/release-script-plugin-exec-4.0.0.tgz#963789f716c6931489a38245f2674220029f6198"
+  integrity sha512-STEQrbI91p+ZklKrSQq9obJ/OWMNC8U9GGYyy0Z36gMkfBTWYPu6B9aF+dMCBRdHvvacrvvMaux/uirt9EH3tQ==
   dependencies:
-    "@alcalzone/release-script-core" "3.7.0"
-    alcalzone-shared "^4.0.1"
+    "@alcalzone/release-script-core" "4.0.0"
+    alcalzone-shared "^5.0.0"
 
-"@alcalzone/release-script-plugin-git@3.8.0":
-  version "3.8.0"
-  resolved "https://registry.npmjs.org/@alcalzone/release-script-plugin-git/-/release-script-plugin-git-3.8.0.tgz"
-  integrity sha512-rI9EqSmvMWaNZ5xxOUBZjD4WOv1Enl+/ZxhUoTROq+K/9RYYHQaAXilGWNvnz2DYr14Q+Yx/fs54GXgAVf0scg==
+"@alcalzone/release-script-plugin-git@5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@alcalzone/release-script-plugin-git/-/release-script-plugin-git-5.0.0.tgz#fc15c0fe7ed003619ee934b0943c5e7dc0acdd16"
+  integrity sha512-OigoFIHQsZm6koYvFycnOolvGTjqh4XaL2P4E9IGSL8imIvuZz4FZ0X4bg3lV5wRY9AUYo1ui4lGfvcgorD+lw==
   dependencies:
-    "@alcalzone/release-script-core" "3.7.0"
+    "@alcalzone/release-script-core" "4.0.0"
     fs-extra "^10.1.0"
 
 "@alcalzone/release-script-plugin-iobroker@^4.0.0":
@@ -87,45 +87,45 @@
   dependencies:
     "@alcalzone/release-script-core" "4.0.0"
 
-"@alcalzone/release-script-plugin-package@3.7.3":
-  version "3.7.3"
-  resolved "https://registry.npmjs.org/@alcalzone/release-script-plugin-package/-/release-script-plugin-package-3.7.3.tgz"
-  integrity sha512-5oKSwbvHs9jRhARJ04eQ7xqig3a7NmPJlhtBxAqUM8+0cjs2g/V1xTxM6o8aZ09uRSdq80YGVxJm871SyszAWQ==
+"@alcalzone/release-script-plugin-package@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@alcalzone/release-script-plugin-package/-/release-script-plugin-package-4.0.0.tgz#c697117a19eeba14dde10736868a15edf3f506f1"
+  integrity sha512-Abxl9Ix/UtAvQTW3dzxHvl7L1ONigxV924KH6HIeqsOe/m2geeKTekbMxz76+EkBDusckKHWUq9pQWKOPv2ZNQ==
   dependencies:
-    "@alcalzone/pak" "^0.10.1"
-    "@alcalzone/release-script-core" "3.7.0"
-    alcalzone-shared "^4.0.1"
+    "@alcalzone/pak" "^0.11.0"
+    "@alcalzone/release-script-core" "4.0.0"
+    alcalzone-shared "^5.0.0"
     fs-extra "^10.1.0"
-    semver "^7.5.2"
+    semver "^7.7.2"
 
-"@alcalzone/release-script-plugin-version@3.7.0":
-  version "3.7.0"
-  resolved "https://registry.npmjs.org/@alcalzone/release-script-plugin-version/-/release-script-plugin-version-3.7.0.tgz"
-  integrity sha512-030NGQeB+mglVz/58cx0WO4QiFChaSd/pz35mnOrUc9PbKWRpzisTVOt4IhCV/++YiAVibJO31NMNzvipPdx4Q==
+"@alcalzone/release-script-plugin-version@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@alcalzone/release-script-plugin-version/-/release-script-plugin-version-4.0.0.tgz#0b6a7a91b96c1a1cf402a9f43b40a06bf8d86d82"
+  integrity sha512-ZbgGum7M1X0paDFYtcrlZRptPXy4SPqMDAZU6JgU/JSmifBSvuwEJpF42vt5POICrz3FkEmNUUdp9pZ44gYFXQ==
   dependencies:
-    "@alcalzone/release-script-core" "3.7.0"
-    alcalzone-shared "^4.0.1"
+    "@alcalzone/release-script-core" "4.0.0"
+    alcalzone-shared "^5.0.0"
     fs-extra "^10.1.0"
-    semver "^7.5.2"
+    semver "^7.7.2"
     tiny-glob "^0.2.9"
 
-"@alcalzone/release-script@^3.8.0":
-  version "3.8.0"
-  resolved "https://registry.npmjs.org/@alcalzone/release-script/-/release-script-3.8.0.tgz"
-  integrity sha512-9H3imn8o9n3Ekpkie9TMgPeJfgT6WmklCMtOZ1wuwvMw/obNA0Ao1ZZ8CJfHk1YNjiLGmWn0kQFEGTqz4DoD7w==
+"@alcalzone/release-script@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@alcalzone/release-script/-/release-script-5.0.0.tgz#013c39f2e3306fe5ba79a9d150de4d73d70b50a0"
+  integrity sha512-BKkD5wQBg/EF5lhAGkF9mgWFLLP+59RBoEVyvFOB1IRKOQOmwo8OYe7M0Q23yMCOpjzY9RU1CC2ESff7Mq/w8w==
   dependencies:
-    "@alcalzone/release-script-core" "3.7.0"
-    "@alcalzone/release-script-plugin-changelog" "3.7.0"
-    "@alcalzone/release-script-plugin-exec" "3.7.0"
-    "@alcalzone/release-script-plugin-git" "3.8.0"
-    "@alcalzone/release-script-plugin-package" "3.7.3"
-    "@alcalzone/release-script-plugin-version" "3.7.0"
-    alcalzone-shared "^4.0.1"
+    "@alcalzone/release-script-core" "4.0.0"
+    "@alcalzone/release-script-plugin-changelog" "4.0.0"
+    "@alcalzone/release-script-plugin-exec" "4.0.0"
+    "@alcalzone/release-script-plugin-git" "5.0.0"
+    "@alcalzone/release-script-plugin-package" "4.0.0"
+    "@alcalzone/release-script-plugin-version" "4.0.0"
+    alcalzone-shared "^5.0.0"
     axios "^1.6.2"
     enquirer "^2.3.6"
     fs-extra "^10.1.0"
     picocolors "1.0.0"
-    semver "^7.5.2"
+    semver "^7.7.2"
     source-map-support "^0.5.21"
     yargs "^17.4.1"
 
@@ -1062,13 +1062,6 @@ ajv@^6.12.4:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
-
-alcalzone-shared@^4.0.1:
-  version "4.0.8"
-  resolved "https://registry.npmjs.org/alcalzone-shared/-/alcalzone-shared-4.0.8.tgz"
-  integrity sha512-Rr0efCjNL9lw7miDvU8exL87Y42ehsLU2jUGNQUphhnlvxnTMrHeApWgoOSGZvsE2PhxC3KO7Z+VpQ/IbuV3aA==
-  dependencies:
-    debug "^4.3.4"
 
 alcalzone-shared@^5.0.0, alcalzone-shared@~5.0.0:
   version "5.0.0"
@@ -3072,17 +3065,12 @@ pathval@^1.1.1:
   resolved "https://registry.npmjs.org/pathval/-/pathval-1.1.1.tgz"
   integrity sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==
 
-picocolors@1.0.0, picocolors@^1.0.0:
+picocolors@1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/picocolors/-/picocolors-1.0.0.tgz"
   integrity sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==
 
-picocolors@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/picocolors/-/picocolors-1.1.0.tgz"
-  integrity sha512-TQ92mBOW0l3LeMeyLV6mzy/kWr8lkd/hp3mTg7wYK7zJhuBStmGMBG0BdeDZS/dZx1IukaX6Bk11zcln25o1Aw==
-
-picocolors@^1.1.1:
+picocolors@^1.0.0, picocolors@^1.1.0, picocolors@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.1.tgz#3d321af3eab939b083c8f929a1d12cda81c26b6b"
   integrity sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==
@@ -3281,7 +3269,7 @@ semver@^6.0.0, semver@^6.3.1:
   resolved "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.3.7, semver@^7.5.2, semver@^7.5.3, semver@^7.5.4, semver@^7.7.2:
+semver@^7.3.7, semver@^7.5.3, semver@^7.5.4, semver@^7.7.2:
   version "7.7.3"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.3.tgz#4b5f4143d007633a8dc671cd0a6ef9147b8bb946"
   integrity sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==
