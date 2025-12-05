@@ -7,14 +7,13 @@
             "label": "api key",
             "newLine": true,
             "help": "how to get token",
-            "helpLink": "https://github.com/SentiQ/ioBroker.hydrawise/blob/main/README.md#documentation"
+            "helpLink": "https://github.com/SentiQ/ioBroker.hydrawise/blob/main/README.md#documentation",
+            "xs": 12,
+            "sm": 12,
+            "md": 6,
+            "lg": 4,
+            "xl": 4
         },
-        "apiInterval": {
-            "type": "number",
-            "label": "api interval",
-            "newLine": true,
-            "default": 60,
-            "min": 15
-        }
+        "apiInterval": { "type": "number", "label": "api interval", "newLine": true, "default": 60, "min": 15, "xs": 12, "sm": 12, "md": 6, "lg": 4, "xl": 4 }
     }
 }
