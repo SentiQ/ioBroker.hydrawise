@@ -634,7 +634,7 @@
   resolved "https://registry.npmjs.org/@iobroker/adapter-core/-/adapter-core-3.3.2.tgz"
   integrity sha512-knuCX6F1JUTnY1OdHzDhwNtOoe9/RZgBziDKSzCO3E4koteY/KRqZ7gtzmoavcAokejG68S5osbEnIb4MYT3VA==
 
-"@iobroker/adapter-dev@^1.4.0":
+"@iobroker/adapter-dev@^1.5.0":
   version "1.5.0"
   resolved "https://registry.npmjs.org/@iobroker/adapter-dev/-/adapter-dev-1.5.0.tgz"
   integrity sha512-L1FhO7oxaz4hNMobvgbanSGyn2LaCESGKqPPJhXWU00vVEw5Cc166xdnU63Dk+JDnV5zl/HzOcFANGisETAWIg==

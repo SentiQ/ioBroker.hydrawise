@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "news": {
+      "1.0.5": {
+        "en": "updated js-controller dependency\nupdated @iobroker/adapter-dev dependency",
+        "de": "aktualisierte js-controller abhängigkeit\naktualisiert @iobroker/adapter-dev abhängigkeit",
+        "ru": "обновленная js-контроллерная зависимость\nобновленная зависимость @iobroker/adapter-dev",
+        "pt": "atualizado js-controller dependence\natualizado @iobroker/adapter-dev dependência",
+        "nl": "bijgewerkt js-controller afhankelijkheid\nbijgewerkt @iobroker/adapter-dev afhankelijkheid",
+        "fr": "mise à jour de la dépendance du contrôleur js\nmise à jour de la dépendance @iobroker/adaptateur-dev",
+        "it": "dipendenze aggiornate di js-controller\naggiornato @iobroker/adapter-dev dipendenza",
+        "es": "actualizada dependencia js-controller\nactualizado @iobroker/adapter-dev dependencia",
+        "pl": "zaktualizowana zależność kontrolera js-\nzaktualizowany @ iobroker / adapter-dev zależność",
+        "uk": "оновлена залежність js-controller\n@iobroker/adapter-dev залежностей",
+        "zh-cn": "更新 js 控制器依赖性\n更新@iobroduc/adapter-dev 依赖性"
+      },
       "1.0.4": {
         "en": "fixed dependencies\nfixed schema URLs",
         "de": "feste abhängigkeiten\nfestes Schema URLs",
@@ -80,19 +93,6 @@
         "pl": "zaktualizowane zależności",
         "uk": "оновлені залежності",
         "zh-cn": "更新的依赖关系"
-      },
-      "0.3.2": {
-        "en": "added default value to parameter `apiInterval`\nadded translations",
-        "de": "standardwert zum Parameter `apiInterval `\nübersetzungen",
-        "ru": "добавленное значение по умолчанию для параметра `apiInterval \"\nдобавленные переводы",
-        "pt": "valor padrão adicionado ao parâmetro `apiInterval \"\ntraduções adicionadas",
-        "nl": "toegevoegde standaardwaarde aan parameter  Wat\ntoegevoegde vertalingen",
-        "fr": "valeur ajoutée par défaut au paramètre `apiInterval \"\ntraductions ajoutées",
-        "it": "valore predefinito aggiunto al parametro `apiInterval #\ntraduzioni aggiunte",
-        "es": "valor predeterminado añadido al parámetro `apiInterval `\ntraducciones adicionales",
-        "pl": "domyślna wartość dodana do parametru 'apiInterval'\ndodane tłumaczenia",
-        "uk": "додано значення за замовчуванням до параметра `apiInterval й\nдодано переклади",
-        "zh-cn": "添加参数“ apiInterval” 的默认值 `\n增加翻译"
       }
     },
     "titleLang": {
@@ -121,10 +121,21 @@
       "uk": "Adapter to control the Hydrawise irrigation control system",
       "zh-cn": "Adapter to control the Hydrawise irrigation control system"
     },
-    "authors": ["SentiQ <yves.nuesser@proton.me>"],
-    "keywords": ["hydrawise", "hunter", "irrigation", "watering", "garden"],
+    "authors": [
+      "SentiQ <yves.nuesser@proton.me>"
+    ],
+    "keywords": [
+      "hydrawise",
+      "hunter",
+      "irrigation",
+      "watering",
+      "garden"
+    ],
     "tier": 3,
-    "licenseInformation": { "license": "MIT", "type": "free" },
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
     "platform": "Javascript/Node.js",
     "icon": "hydrawise.jpg",
     "enabled": true,
@@ -136,19 +147,38 @@
     "compact": true,
     "connectionType": "cloud",
     "dataSource": "poll",
-    "adminUI": { "config": "json" },
-    "dependencies": [{ "js-controller": ">=6.0.11" }],
-    "globalDependencies": [{ "admin": ">=7.6.17" }]
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.6.17"
+      }
+    ]
   },
-  "native": { "apiKey": "", "apiInterval": 60 },
-  "encryptedNative": ["apiKey"],
-  "protectedNative": ["apiKey"],
+  "native": {
+    "apiKey": "",
+    "apiInterval": 60
+  },
+  "encryptedNative": [
+    "apiKey"
+  ],
+  "protectedNative": [
+    "apiKey"
+  ],
   "objects": [],
   "instanceObjects": [
     {
       "_id": "info",
       "type": "channel",
-      "common": { "name": "Information" },
+      "common": {
+        "name": "Information"
+      },
       "native": {}
     },
     {
