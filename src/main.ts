@@ -29,7 +29,7 @@ class Hydrawise extends utils.Adapter {
         if (!this.config.apiKey) {
             this.log.error('No API-Key defined!');
         } else {
-            this.setStateChangedAsync('info.connection', false, true);
+            void this.setStateChangedAsync('info.connection', false, true);
 
             try {
                 await this.GetStatusSchedule();
@@ -57,11 +57,11 @@ class Hydrawise extends utils.Adapter {
     private async GetStatusSchedule(): Promise<void> {
         return new Promise((resolve, reject) => {
             this.buildRequest('statusschedule.php', { api_key: this.config.apiKey })
-                .then(async (response) => {
+                .then(async response => {
                     if (response?.status === 200) {
                         const content = response.data;
 
-                        this.setStateChangedAsync('info.connection', true, true);
+                        void this.setStateChangedAsync('info.connection', true, true);
 
                         await this.setObjectNotExistsAsync('schedule.stopall', {
                             type: 'state',
@@ -152,7 +152,7 @@ class Hydrawise extends utils.Adapter {
                                     native: {},
                                 });
 
-                                this.setStateChangedAsync(`schedule.${key}`, content[key], true);
+                                void this.setStateChangedAsync(`schedule.${key}`, content[key], true);
 
                                 if (key === 'time') {
                                     await this.setObjectNotExistsAsync('schedule.timestr', {
@@ -169,7 +169,7 @@ class Hydrawise extends utils.Adapter {
 
                                     const t = new Date(content[key] * 1000);
 
-                                    this.setStateChangedAsync('schedule.timestr', t.toString(), true);
+                                    void this.setStateChangedAsync('schedule.timestr', t.toString(), true);
                                 }
                             }
                         }
@@ -207,7 +207,7 @@ class Hydrawise extends utils.Adapter {
                                     relay[key] = t.toString();
                                 }
 
-                                this.setStateChangedAsync(`schedule.${relay.relay}.${key}`, relay[key], true);
+                                void this.setStateChangedAsync(`schedule.${relay.relay}.${key}`, relay[key], true);
                             }
 
                             await this.setObjectNotExistsAsync(`schedule.${relay.relay}.stopZone`, {
@@ -332,7 +332,11 @@ class Hydrawise extends utils.Adapter {
                                         native: {},
                                     });
 
-                                    this.setStateChangedAsync(`schedule.sensors.${sensor.input}.${key}`, sensor[key], true);
+                                    void this.setStateChangedAsync(
+                                        `schedule.sensors.${sensor.input}.${key}`,
+                                        sensor[key],
+                                        true,
+                                    );
                                 }
                             }
                         }
@@ -340,19 +344,24 @@ class Hydrawise extends utils.Adapter {
 
                     resolve(response.status);
                 })
-                .catch((error) => {
+                .catch(error => {
                     this.clearInterval(nextpollSchedule);
 
-                    if (error.code === 'EAI_AGAIN' || error.code === 'ECONNABORTED' || error.code === 'ENOTFOUND' || error.response?.status === 429) {
+                    if (
+                        error.code === 'EAI_AGAIN' ||
+                        error.code === 'ECONNABORTED' ||
+                        error.code === 'ENOTFOUND' ||
+                        error.response?.status === 429
+                    ) {
                         nextpollSchedule = this.setInterval(async () => {
                             await this.GetStatusSchedule();
                         }, this.config.apiInterval * 1000);
                     } else {
                         this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
 
-                        this.setStateChangedAsync('info.connection', false, true);
+                        void this.setStateChangedAsync('info.connection', false, true);
 
-                        reject(error);
+                        reject(new Error(error));
                     }
                 });
         });
@@ -361,11 +370,11 @@ class Hydrawise extends utils.Adapter {
     private async GetCustomerDetails(): Promise<void> {
         return new Promise((resolve, reject) => {
             this.buildRequest('customerdetails.php', { api_key: this.config.apiKey })
-                .then(async (response) => {
+                .then(async response => {
                     if (response?.status === 200) {
                         const content = response.data;
 
-                        this.setStateChangedAsync('info.connection', true, true);
+                        void this.setStateChangedAsync('info.connection', true, true);
 
                         for (let key in content) {
                             if (key !== 'controllers' && !Number.isNaN(key)) {
@@ -383,7 +392,7 @@ class Hydrawise extends utils.Adapter {
                                     native: {},
                                 });
 
-                                this.setStateChangedAsync(`customer.${key}`, content[key], true);
+                                void this.setStateChangedAsync(`customer.${key}`, content[key], true);
                             }
                         }
 
@@ -416,17 +425,26 @@ class Hydrawise extends utils.Adapter {
                                     controller[key] = t.toString();
                                 }
 
-                                this.setStateChangedAsync(`customer.controllers.${controller.name}.${key}`, controller[key], true);
+                                void this.setStateChangedAsync(
+                                    `customer.controllers.${controller.name}.${key}`,
+                                    controller[key],
+                                    true,
+                                );
                             }
                         }
                     }
 
                     resolve(response.status);
                 })
-                .catch((error) => {
+                .catch(error => {
                     this.clearInterval(nextpollCustomer);
 
-                    if (error.code === 'EAI_AGAIN' || error.code === 'ECONNABORTED' || error.code === 'ENOTFOUND' || error.response?.status === 429) {
+                    if (
+                        error.code === 'EAI_AGAIN' ||
+                        error.code === 'ECONNABORTED' ||
+                        error.code === 'ENOTFOUND' ||
+                        error.response?.status === 429
+                    ) {
                         nextpollCustomer = this.setInterval(
                             async () => {
                                 await this.GetCustomerDetails();
@@ -436,9 +454,9 @@ class Hydrawise extends utils.Adapter {
                     } else {
                         this.log.debug(`(stats) received error - API is now offline: ${JSON.stringify(error)}`);
 
-                        this.setStateChangedAsync('info.connection', false, true);
+                        void this.setStateChangedAsync('info.connection', false, true);
 
-                        reject(error);
+                        reject(new Error(error));
                     }
                 });
         });
@@ -459,17 +477,19 @@ class Hydrawise extends utils.Adapter {
                         responseType: 'json',
                         params: params,
                     })
-                        .then((response) => {
+                        .then(response => {
                             // no error - clear up reminder
                             lastErrorCode = 0;
 
                             resolve(response);
                         })
-                        .catch((error) => {
+                        .catch(error => {
                             if (error.response) {
                                 // The request was made and the server responded with a status code
 
-                                this.log.warn(`received ${error.response.status} response from ${url} with content: ${JSON.stringify(error.response.data)}`);
+                                this.log.warn(
+                                    `received ${error.response.status} response from ${url} with content: ${JSON.stringify(error.response.data)}`,
+                                );
                             } else if (error.request) {
                                 // The request was made but no response was received
                                 // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -487,19 +507,21 @@ class Hydrawise extends utils.Adapter {
                                 this.log.error(error.message);
                             }
 
-                            reject(error);
+                            reject(new Error(error));
                         });
-                } catch (error) {
-                    reject(error);
+                } catch (error: any) {
+                    reject(new Error(error));
                 }
             } else {
-                reject('API key is not configured');
+                reject(new Error('API key is not configured'));
             }
         });
     }
 
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
+     *
+     * @param callback callback function
      */
     private onUnload(callback: () => void): void {
         try {
@@ -507,23 +529,26 @@ class Hydrawise extends utils.Adapter {
             this.clearInterval(nextpollCustomer);
 
             callback();
-        } catch (e) {
+        } catch {
             callback();
         }
     }
 
     /**
      * Is called if a subscribed state changes
+     *
+     * @param id id of the state
+     * @param state state object
      */
     private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
         if (state && !state.ack) {
             if (id.indexOf('stopall') !== -1) {
-                this.buildRequest('setzone.php', { api_key: this.config.apiKey, action: 'stopall' });
+                void this.buildRequest('setzone.php', { api_key: this.config.apiKey, action: 'stopall' });
             } else if (id.indexOf('stop') !== -1) {
                 const relay = id.match(/.*schedule\.(.*)\.stopZone/);
 
                 if (relay && relay?.length > 1) {
-                    this.buildRequest('setzone.php', {
+                    void this.buildRequest('setzone.php', {
                         api_key: this.config.apiKey,
                         action: 'stop',
                         relay_id: RELAYS[relay[1]],
@@ -531,7 +556,7 @@ class Hydrawise extends utils.Adapter {
                 }
             }
             if (id.indexOf('runall') !== -1 && (state.val || state.val === 0)) {
-                this.buildRequest('setzone.php', {
+                void this.buildRequest('setzone.php', {
                     api_key: this.config.apiKey,
                     action: 'runall',
                     period_id: 999,
@@ -541,7 +566,7 @@ class Hydrawise extends utils.Adapter {
                 const relay = id.match(/.*schedule\.(.*)\.runZone/);
 
                 if (relay && relay?.length > 1) {
-                    this.buildRequest('setzone.php', {
+                    void this.buildRequest('setzone.php', {
                         api_key: this.config.apiKey,
                         action: 'run',
                         period_id: 999,
@@ -552,13 +577,13 @@ class Hydrawise extends utils.Adapter {
             }
 
             if (id.indexOf('runDefault') !== -1 && state.val !== null) {
-                this.initRunDefault(id, state.val as boolean);
+                void this.initRunDefault(id, state.val as boolean);
             }
 
             if (id.indexOf('suspendall') !== -1 && (state.val || state.val === 0)) {
                 const num = state.val as number;
 
-                this.buildRequest('setzone.php', {
+                void this.buildRequest('setzone.php', {
                     api_key: this.config.apiKey,
                     action: 'suspendall',
                     period_id: 999,
@@ -569,7 +594,7 @@ class Hydrawise extends utils.Adapter {
                 const relay = id.match(/.*schedule\.(.*)\.suspendZone/);
 
                 if (relay && relay?.length > 1) {
-                    this.buildRequest('setzone.php', {
+                    void this.buildRequest('setzone.php', {
                         api_key: this.config.apiKey,
                         action: 'suspend',
                         period_id: 999,
@@ -588,18 +613,18 @@ class Hydrawise extends utils.Adapter {
 
         if (relay) {
             if (run) {
-                const defaultRunTime = await this.getStateAsync(relay[1] + 'run');
+                const defaultRunTime = await this.getStateAsync(`${relay[1]}run`);
                 if (defaultRunTime && defaultRunTime.val) {
-                    this.setStateAsync(relay[1] + 'runZone', defaultRunTime.val, false);
+                    void this.setState(`${relay[1]}runZone`, defaultRunTime.val, false);
                     resetSwitch = this.setTimeout(
                         () => {
-                            this.setStateAsync(id, false, false);
+                            void this.setState(id, false, false);
                         },
                         (defaultRunTime.val as number) * 1000,
                     );
                 }
             } else {
-                this.setStateAsync(relay[1] + 'stopZone', true, false);
+                void this.setState(`${relay[1]}stopZone`, true, false);
             }
         }
     }
