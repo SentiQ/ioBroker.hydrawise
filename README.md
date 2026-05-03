@@ -206,6 +206,8 @@ You can see all controller information, schedules and sensors. It is also possib
 
 - (aDabbelju) Initial commit by adapter creator
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 
 MIT License
