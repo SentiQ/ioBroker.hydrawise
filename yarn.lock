@@ -710,11 +710,6 @@
     "@sinonjs/commons" "^3.0.1"
     type-detect "^4.1.0"
 
-"@tootallnate/once@2":
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/@tootallnate/once/-/once-2.0.0.tgz"
-  integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
-
 "@tsconfig/node10@^1.0.7":
   version "1.0.12"
   resolved "https://registry.npmjs.org/@tsconfig/node10/-/node10-1.0.12.tgz"
@@ -813,14 +808,7 @@ adm-zip@^0.5.16:
   resolved "https://registry.npmjs.org/adm-zip/-/adm-zip-0.5.16.tgz"
   integrity sha512-TGw5yVi4saajsSEgz25grObGHEUaDrniwvA2qwSC060KfqGPdglhvPMA2lPIoxs3PQIItj2iag35fONcQqgUaQ==
 
-agent-base@6:
-  version "6.0.2"
-  resolved "https://registry.npmjs.org/agent-base/-/agent-base-6.0.2.tgz"
-  integrity sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==
-  dependencies:
-    debug "4"
-
-agent-base@^7.1.2:
+agent-base@^7.1.0, agent-base@^7.1.2:
   version "7.1.4"
   resolved "https://registry.npmjs.org/agent-base/-/agent-base-7.1.4.tgz"
   integrity sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==
@@ -1143,7 +1131,7 @@ data-uri-to-buffer@^4.0.0:
   resolved "https://registry.npmjs.org/data-uri-to-buffer/-/data-uri-to-buffer-4.0.1.tgz"
   integrity sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==
 
-debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.5, debug@^4.4.3:
+debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.4, debug@^4.3.5, debug@^4.4.3:
   version "4.4.3"
   resolved "https://registry.npmjs.org/debug/-/debug-4.4.3.tgz"
   integrity sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==
@@ -1695,22 +1683,13 @@ html-tags@^3.0.0:
   resolved "https://registry.npmjs.org/html-tags/-/html-tags-3.3.1.tgz"
   integrity sha512-ztqyC3kLto0e9WbNp0aeP+M3kTt+nbaIveGmUxAtZa+8iFgKLUOD4YKM5j+f3QD89bra7UeumolZHKuOXnTmeQ==
 
-http-proxy-agent@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.npmjs.org/http-proxy-agent/-/http-proxy-agent-5.0.0.tgz"
-  integrity sha512-n2hY8YdoRE1i7r6M0w9DIw5GgZN0G25P8zLCRQ8rjXtTU3vsNFBI/vWK/UIeE6g5MUUz6avwAPXmL6Fy9D/90w==
+http-proxy-agent@^7.0.0:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/http-proxy-agent/-/http-proxy-agent-7.0.2.tgz#9a8b1f246866c028509486585f62b8f2c18c270e"
+  integrity sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ+veqSOHci/PxBcDabeUNCzpOODJZig==
   dependencies:
-    "@tootallnate/once" "2"
-    agent-base "6"
-    debug "4"
-
-https-proxy-agent@^5.0.0:
-  version "5.0.1"
-  resolved "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-5.0.1.tgz"
-  integrity sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==
-  dependencies:
-    agent-base "6"
-    debug "4"
+    agent-base "^7.1.0"
+    debug "^4.3.4"
 
 https-proxy-agent@^7.0.1:
   version "7.0.6"
@@ -2651,12 +2630,12 @@ supports-preserve-symlinks-flag@^1.0.0:
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
 teeny-request@^10.0.0:
-  version "10.1.0"
-  resolved "https://registry.npmjs.org/teeny-request/-/teeny-request-10.1.0.tgz"
-  integrity sha512-3ZnLvgWF29jikg1sAQ1g0o+lr5JX6sVgYvfUJazn7ZjJroDBUTWp44/+cFVX0bULjv4vci+rBD+oGVAkWqhUbw==
+  version "10.1.2"
+  resolved "https://registry.yarnpkg.com/teeny-request/-/teeny-request-10.1.2.tgz#13aa65d98dce099a85bfc6ef77760b536e3cc040"
+  integrity sha512-Xj0ZAQ0CeuQn6UxCDPLbFRlgcSTUEyO3+wiepr2grjIjyL/lMMs1Z4OwXn8kLvn/V1OuaEP0UY7Na6UDNNsYrQ==
   dependencies:
-    http-proxy-agent "^5.0.0"
-    https-proxy-agent "^5.0.0"
+    http-proxy-agent "^7.0.0"
+    https-proxy-agent "^7.0.1"
     node-fetch "^3.3.2"
     stream-events "^1.0.5"
 
