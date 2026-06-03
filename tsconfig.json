@@ -30,6 +30,7 @@
         // "noUnusedParameters": true,
         // Uncomment this if you want the old behavior of catch variables being `any`
         // "useUnknownInCatchVariables": false,
+        "types": ["node", "mocha"],
 
         "sourceMap": true,
         "inlineSourceMap": false
