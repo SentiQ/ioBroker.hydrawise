@@ -945,8 +945,11 @@ __metadata:
   resolved "https://registry.npmjs.org/@sinonjs/samsam/-/samsam-10.0.2.tgz"
   integrity sha512-8lVwD1Df1BmzoaOLhMcGGcz/Jyr5QY2KSB75/YK1QgKzoabTeLdIVyhXNZK9ojfSKSdirbXqdbsXXqP9/Ve8+A==
   dependencies:
-    "@sinonjs/commons" "^3.0.1"
-    type-detect "^4.1.0"
+    "@sinonjs/commons": "npm:^3.0.1"
+    type-detect: "npm:^4.1.0"
+  checksum: 10c0/b590af28a093d30db9b84f32793b18388817c6555df2533666c43e257e8a7becf43d864489d87af1b6e18b3163cc8f92a5bb2b3bec62406e6661a21fea43275b
+  languageName: node
+  linkType: hard
 
 "@tsconfig/node10@^1.0.7":
   version "1.0.12"
@@ -3567,7 +3570,10 @@ minimatch@^9.0.5:
   resolved "https://registry.npmjs.org/minimatch/-/minimatch-9.0.9.tgz"
   integrity sha512-OBwBN9AL4dqmETlpS2zasx+vTeWclWzkblfZk7KTA5j3jeOONz/tRCnZomUyvNg83wL5Zv9Ss6HMJXAgL8R2Yg==
   dependencies:
-    brace-expansion "^2.0.2"
+    brace-expansion: "npm:^2.0.2"
+  checksum: 10c0/0b6a58530dbb00361745aa6c8cffaba4c90f551afe7c734830bd95fd88ebf469dd7355a027824ea1d09e37181cfeb0a797fb17df60c15ac174303ac110eb7e86
+  languageName: node
+  linkType: hard
 
 minimist@^1.2.0, minimist@^1.2.6:
   version "1.2.8"
@@ -4557,12 +4563,14 @@ string.prototype.trimstart@^1.0.8:
   version: 7.2.0
   resolution: "strip-ansi@npm:7.2.0"
   dependencies:
-    ansi-regex "^5.0.1"
+    ansi-regex: "npm:^5.0.1"
+  checksum: 10c0/1ae5f212a126fe5b167707f716942490e3933085a5ff6c008ab97ab2f272c8025d3aa218b7bd6ab25729ca20cc81cddb252102f8751e13482a5199e873680952
+  languageName: node
+  linkType: hard
 
-strip-ansi@^6.0.0, strip-ansi@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz"
-  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+"strip-ansi@npm:^7.0.1, strip-ansi@npm:^7.1.0, strip-ansi@npm:^7.1.2":
+  version: 7.2.0
+  resolution: "strip-ansi@npm:7.2.0"
   dependencies:
     ansi-regex "^5.0.1"
 
