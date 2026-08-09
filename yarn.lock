@@ -651,7 +651,7 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/retry/-/retry-0.4.3.tgz"
   integrity sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==
 
-"@iobroker/adapter-core@^3.3.2":
+"@iobroker/adapter-core@^3.4.3":
   version "3.4.3"
   resolved "https://registry.npmjs.org/@iobroker/adapter-core/-/adapter-core-3.4.3.tgz"
   integrity sha512-6pFFcWsiZY966xmdeORTkhs1MMtuNSfdab6XxmKRWOO3RXWN8vWIh1vvgnFhttrF7+56ykE4iDr4rgjdEWCtog==
