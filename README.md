@@ -39,6 +39,14 @@ You can see all controller information, schedules and sensors. It is also possib
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+* (SentiQ) **FIXED**: Relay ID mapping no longer writes onto the Object constructor
+* (SentiQ) **FIXED**: runDefault reset no longer accidentally stops the zone
+* (SentiQ) **ENHANCED**: Object creation only on structure change; poll overlap protection
+* (SentiQ) **ENHANCED**: Replaced axios with native fetch; timers cleaned up on unload
+* (SentiQ) **TESTING**: Unit tests for helpers (name2id, URL builder, structure signature)
+
 ### 1.0.6 (2026-08-09)
 
 - (SentiQ) updated dependencies
