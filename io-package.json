@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "1.0.6",
+    "version": "1.1.0",
     "news": {
+      "1.1.0": {
+        "en": "**FIXED**: Relay ID mapping no longer writes onto the Object constructor\n**FIXED**: runDefault reset no longer accidentally stops the zone\n**ENHANCED**: Object creation only on structure change; poll overlap protection\n**ENHANCED**: Replaced axios with native fetch; timers cleaned up on unload\n**TESTING**: Unit tests for helpers (name2id, URL builder, structure signature)",
+        "de": "**BEHOBEN**: Die Relay-ID-Zuordnung schreibt nicht mehr in den Objektkonstruktor.\n**BEHOBEN**: runDefault reset stoppt die Zone nicht mehr versehentlich.\n**VERBESSERT**: Objekterstellung nur bei Strukturänderung; Schutz vor Abfrageüberlappungen\n**VERBESSERT**: Axios wurde durch natives Fetch ersetzt; Timer wurden beim Entladen bereinigt.\n**TESTEN**: Unit-Tests für Hilfsfunktionen (name2id, URL-Builder, Struktursignatur)",
+        "ru": "**ИСПРАВЛЕНО**: Сопоставление идентификаторов ретранслятора больше не записывается в конструктор объекта.\n**ИСПРАВЛЕНО**: команда runDefault reset больше не останавливает зону случайным образом.\n**УЛУЧШЕНО**: Создание объектов только при изменении структуры; защита от перекрытия опроса.\n**УЛУЧШЕНО**: Заменен axios на нативную функцию fetch; таймеры очищены при выгрузке.\n**ТЕСТИРОВАНИЕ**: Модульные тесты для вспомогательных функций (name2id, построитель URL, сигнатура структуры)",
+        "pt": "**CORRIGIDO**: O mapeamento de ID de relé não grava mais no construtor do objeto.\n**CORRIGIDO**: A redefinição do runDefault não interrompe mais a zona acidentalmente.\n**APRIMORADO**: Criação de objetos somente em caso de alteração de estrutura; proteção contra sobreposição de pesquisas.\n**APRIMORADO**: Substituído o axios pelo fetch nativo; temporizadores limpos ao descarregar.\n**TESTES**: Testes unitários para funções auxiliares (name2id, construtor de URL, assinatura de estrutura)",
+        "nl": "**OPGELOST**: De toewijzing van de relay-ID wordt niet langer naar de objectconstructor geschreven.\n**OPGELOST**: runDefault reset zorgt ervoor dat de zone niet langer per ongeluk stopt.\n**VERBETERD**: Objectcreatie alleen bij structuurwijziging; bescherming tegen overlappende polls.\n**VERBETERD**: Axios vervangen door native fetch; timers opgeruimd bij het ontladen\n**TESTEN**: Unit tests voor helpers (name2id, URL builder, structuursignatuur)",
+        "fr": "**CORRIGÉ** : Le mappage des ID de relais n’écrit plus dans le constructeur de l’objet.\n**CORRIGÉ** : La réinitialisation par défaut de run n’arrête plus accidentellement la zone\n**AMÉLIORÉ** : Création d’objets uniquement lors d’une modification de structure ; protection contre le chevauchement des requêtes\n**AMÉLIORÉ** : Axios a été remplacé par la fonction fetch native ; les minuteurs ont été nettoyés lors du déchargement.\n**TESTS** : Tests unitaires pour les fonctions d’assistance (name2id, générateur d’URL, signature de structure)",
+        "it": "**RISOLTO**: La mappatura dell'ID del relè non scrive più nel costruttore dell'oggetto\n**RISOLTO**: il ripristino di runDefault non interrompe più accidentalmente la zona\n**MIGLIORATO**: Creazione dell'oggetto solo in caso di modifica della struttura; protezione dalla sovrapposizione del polling\n**MIGLIORATO**: Axios è stato sostituito con fetch nativo; i timer sono stati ripuliti durante lo scaricamento.\n**TEST**: Test unitari per le funzioni di supporto (name2id, generatore di URL, firma della struttura)",
+        "es": "**CORREGIDO**: La asignación de ID de relé ya no escribe en el constructor del objeto.\n**CORREGIDO**: el reinicio de runDefault ya no detiene accidentalmente la zona.\n**MEJORADO**: Creación de objetos solo al cambiar la estructura; protección contra superposición de sondeos\n**MEJORADO**: Se reemplazó axios con la función de obtención nativa; los temporizadores se limpiaron al descargar.\n**PRUEBAS**: Pruebas unitarias para las funciones auxiliares (name2id, generador de URL, firma de estructura)",
+        "pl": "**NAPRAWIONO**: Mapowanie identyfikatorów przekaźnika nie zapisuje już w konstruktorze obiektu\n**NAPRAWIONO**: reset runDefault nie powoduje już przypadkowego zatrzymania strefy\n**ULEPSZONE**: Tworzenie obiektów tylko w przypadku zmiany struktury; ochrona przed nakładaniem się sond\n**ULEPSZONE**: Zastąpiono axios natywnym pobieraniem; poprawiono liczniki czasu rozładowywania\n**TESTOWANIE**: Testy jednostkowe dla funkcji pomocniczych (name2id, konstruktor URL, sygnatura struktury)",
+        "uk": "**ВИПРАВЛЕНО**: Зіставлення ідентифікатора реле більше не записується в конструктор об'єктів\n**ВИПРАВЛЕНО**: скидання runDefault більше випадково не зупиняє зону\n**ПОКРАЩЕНО**: Створення об'єктів лише при зміні структури; захист від перекриття опитувань\n**ПОКРАЩЕНО**: Замінено аксіоми на власну вибірку; очищено таймери під час вивантаження.\n**ТЕСТУВАННЯ**: Модульні тести для помічників (name2id, конструктор URL-адрес, сигнатура структури)",
+        "zh-cn": "**已修复**：中继 ID 映射不再写入对象构造函数。\n**已修复**：runDefault 重置不再意外停止区域\n**增强功能**：仅在结构更改时创建对象；轮询重叠保护\n**增强功能**：用原生fetch替换了axios；卸载时清理了定时器。\n**测试**：辅助函数（name2id、URL 构建器、结构签名）的单元测试"
+      },
       "1.0.6": {
         "en": "updated dependencies\nAdapter requires node.js >= 22 now",
         "de": "aktualisierte abhängigkeiten\nAdapter benötigt node.js >= 22 jetzt",
@@ -80,19 +93,6 @@
         "pl": "dodane sprawdzenie zgodności i testowanie na node.js 22",
         "uk": "додано перевірку сумісності та тестування для node.js 22",
         "zh-cn": "为节点.js 22 添加兼容性检查和测试"
-      },
-      "1.0.0": {
-        "en": "fixed adapter crash after dns not reachable",
-        "de": "fester adapterabsturz nach dns nicht erreichbar",
-        "ru": "крушение фиксированного адаптера после того, как днс недоступен",
-        "pt": "trava do adaptador fixo após dns não alcançável",
-        "nl": "vaste adapter crash na dns niet bereikbaar",
-        "fr": "crash de l'adaptateur fixe après dns inaccessible",
-        "it": "crash adattatore fisso dopo dns non raggiungibile",
-        "es": "ajuste fijo estrella después de dns no alcanzable",
-        "pl": "stałe zderzenie adaptera po dns nie osiągalne",
-        "uk": "фіксована аварійна аварія після dns не досягається",
-        "zh-cn": "dns 无法到达后固定适配器崩溃"
       }
     },
     "titleLang": {

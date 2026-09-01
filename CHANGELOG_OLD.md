@@ -1,4 +1,8 @@
 # Older changes
+## 1.0.2 (2024-09-24)
+
+- (SentiQ) fixed issues detected by repository checker
+
 ## 1.0.1 (2024-09-24)
 
 - (SentiQ) added compatibility check and testing for node.js 22

@@ -39,7 +39,7 @@ You can see all controller information, schedules and sensors. It is also possib
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.1.0 (2026-09-01)
 
 * (SentiQ) **FIXED**: Relay ID mapping no longer writes onto the Object constructor
 * (SentiQ) **FIXED**: runDefault reset no longer accidentally stops the zone
@@ -65,10 +65,6 @@ You can see all controller information, schedules and sensors. It is also possib
 ### 1.0.3 (2025-12-05)
 
 - (SentiQ) updated dependencies
-
-### 1.0.2 (2024-09-24)
-
-- (SentiQ) fixed issues detected by repository checker
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
