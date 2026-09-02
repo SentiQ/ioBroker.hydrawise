@@ -23,12 +23,35 @@
 Integrate your Hydrawise controller into iobroker.
 You can see all controller information, schedules and sensors. It is also possible to suspend planned watering by x seconds.
 
+The adapter can use either API, or both:
+
+- **v1** (optional, API key, `schedule.*` / `customer.*`) — status, sensors configuration, run/stop/suspend.
+- **v2** (optional, Hydrawise login, `zones.*` / `water.*` / `sensors.*` / `weather.*` / `controller.*`) — measured water usage, live sensor values, weather, leak indicator, and zone commands via GraphQL.
+
 ## Documentation
 
 - log into https://app.hydrawise.com/config/account-details
 - generate API Key by clicking "Generate API Key" under "Account Settings"
 - paste key into adapter settings
 - API documentation: https://support.hydrawise.com/hc/en-us/articles/360008965753-Hydrawise-API-Information
+
+### v2 API (optional)
+
+v2 is the unofficial GraphQL API used by the Hydrawise app (`app.hydrawise.com/api/v2/graph`). Enable it in instance settings and enter the same email/password as the app. v1 can be disabled independently if you only want GraphQL.
+
+| Object tree | Source | Controls irrigation? |
+| --- | --- | --- |
+| `schedule.*` | v1 REST | yes (`setzone.php`) |
+| `zones.*` | v2 GraphQL | yes (GraphQL mutations), only if v2 is enabled |
+| `water.*`, `sensors.*`, `weather.*`, `controller.*` | v2 GraphQL | read-only |
+| `info.connection` | v1 | — |
+| `info.connectionV2` | v2 | — |
+
+v1 `schedule.sensors.*` only contains sensor *configuration*. Measured flow, rainfall and leak suspicion come from v2 `sensors.*` / `water.leakSuspected`.
+
+Default v2 poll interval is **300 seconds** (minimum 120). GraphQL is rate-limited per account (including the official app). Do not lower this without a reason.
+
+`customerdetails.php` is polled on its own 5-minute timer with backoff after HTTP 429. Commands never call that endpoint.
 
 > **Note**  
 > After updating from 0.0.15 you have to re-enter your API key
@@ -39,6 +62,11 @@ You can see all controller information, schedules and sensors. It is also possib
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+* (SentiQ) **NEW**: Optional Hydrawise v2 GraphQL API (water usage, live sensors, weather, leak indicator, zone commands)
+* (SentiQ) **ENHANCED**: customerdetails.php polls on its own 5-minute timer with backoff after rate limits
+
 ### 1.1.0 (2026-09-01)
 
 * (SentiQ) **FIXED**: Relay ID mapping no longer writes onto the Object constructor
@@ -50,7 +78,7 @@ You can see all controller information, schedules and sensors. It is also possib
 ### 1.0.6 (2026-08-09)
 
 - (SentiQ) updated dependencies
-- (copilot) Adapter requires node.js >= 22 now
+- (SentiQ) Adapter requires node.js >= 22 now
 
 ### 1.0.5 (2025-12-05)
 

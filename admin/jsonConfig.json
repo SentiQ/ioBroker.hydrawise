@@ -1,19 +1,460 @@
 {
-    "i18n": true,
-    "type": "panel",
-    "items": {
-        "apiKey": {
-            "type": "text",
-            "label": "api key",
-            "newLine": true,
-            "help": "how to get token",
-            "helpLink": "https://github.com/SentiQ/ioBroker.hydrawise/blob/main/README.md#documentation",
-            "xs": 12,
-            "sm": 12,
-            "md": 6,
-            "lg": 4,
-            "xl": 4
+    "i18n": {
+        "Home": {
+            "en": "Home",
+            "de": "Home",
+            "ru": "Home",
+            "pt": "Home",
+            "nl": "Home",
+            "fr": "Home",
+            "it": "Home",
+            "es": "Home",
+            "pl": "Home",
+            "uk": "Home",
+            "zh-cn": "Home"
         },
-        "apiInterval": { "type": "number", "label": "api interval", "newLine": true, "default": 60, "min": 15, "xs": 12, "sm": 12, "md": 6, "lg": 4, "xl": 4 }
+        "v1 API": {
+            "en": "v1 API",
+            "de": "v1 API",
+            "ru": "v1 API",
+            "pt": "v1 API",
+            "nl": "v1 API",
+            "fr": "v1 API",
+            "it": "v1 API",
+            "es": "v1 API",
+            "pl": "v1 API",
+            "uk": "v1 API",
+            "zh-cn": "v1 API"
+        },
+        "v2 API": {
+            "en": "v2 API",
+            "de": "v2 API",
+            "ru": "v2 API",
+            "pt": "v2 API",
+            "nl": "v2 API",
+            "fr": "v2 API",
+            "it": "v2 API",
+            "es": "v2 API",
+            "pl": "v2 API",
+            "uk": "v2 API",
+            "zh-cn": "v2 API"
+        },
+        "Use GraphQL; REST is a fallback": {
+            "en": "Use GraphQL; REST is a fallback",
+            "de": "GraphQL nutzen, REST nur als Fallback",
+            "ru": "Используйте GraphQL; REST — запасной вариант",
+            "pt": "Usar GraphQL; REST é o recurso",
+            "nl": "GraphQL gebruiken; REST is fallback",
+            "fr": "Utiliser GraphQL ; REST en secours",
+            "it": "Usa GraphQL; REST è il ripiego",
+            "es": "Usar GraphQL; REST es el respaldo",
+            "pl": "Używaj GraphQL; REST to zapas",
+            "uk": "Використовуйте GraphQL; REST — запасний варіант",
+            "zh-cn": "使用 GraphQL；REST 仅作备用"
+        },
+        "Both APIs provide zones and schedules. v2 (GraphQL) is recommended: same login as the Hydrawise app, plus weather and sensors. v1 (REST) is a fallback via API key if GraphQL is unavailable. At least one API must be on.": {
+            "en": "Both APIs provide zones and schedules. v2 (GraphQL) is recommended: same login as the Hydrawise app, plus weather and sensors. v1 (REST) is a fallback via API key if GraphQL is unavailable. At least one API must be on.",
+            "de": "Beide APIs liefern Zonen und Zeitplan. v2 (GraphQL) ist empfohlen: Login wie in der Hydrawise-App, plus Wetter und Sensoren. v1 (REST) ist der Fallback per API-Schlüssel, falls GraphQL nicht geht. Mindestens eine API muss an sein.",
+            "ru": "Оба API дают зоны и расписание. v2 (GraphQL) рекомендуется: тот же вход, что в приложении Hydrawise, плюс погода и датчики. v1 (REST) — запасной вариант по API-ключу, если GraphQL недоступен. Должен быть включён хотя бы один API.",
+            "pt": "Ambas as APIs fornecem zonas e agenda. v2 (GraphQL) é recomendada: mesmo login da app Hydrawise, mais clima e sensores. v1 (REST) é o recurso via chave API se GraphQL não estiver disponível. Pelo menos uma API tem de estar ligada.",
+            "nl": "Beide API’s leveren zones en schema. v2 (GraphQL) is aanbevolen: dezelfde login als de Hydrawise-app, plus weer en sensoren. v1 (REST) is de fallback via API-sleutel als GraphQL niet beschikbaar is. Minstens één API moet aan staan.",
+            "fr": "Les deux API fournissent zones et planning. v2 (GraphQL) est recommandée : mêmes identifiants que l’app Hydrawise, plus météo et capteurs. v1 (REST) est le secours via clé API si GraphQL est indisponible. Au moins une API doit être activée.",
+            "it": "Entrambe le API forniscono zone e programmi. v2 (GraphQL) è consigliata: stesso login dell’app Hydrawise, più meteo e sensori. v1 (REST) è il ripiego con chiave API se GraphQL non è disponibile. Almeno un’API deve essere attiva.",
+            "es": "Ambas API ofrecen zonas y programación. v2 (GraphQL) es la recomendada: mismo inicio de sesión que la app Hydrawise, más clima y sensores. v1 (REST) es el respaldo con clave API si GraphQL no está disponible. Debe estar activa al menos una API.",
+            "pl": "Oba API dają strefy i harmonogram. v2 (GraphQL) jest zalecane: to samo logowanie co w aplikacji Hydrawise, plus pogoda i czujniki. v1 (REST) to zapas przez klucz API, gdy GraphQL jest niedostępne. Musi być włączone co najmniej jedno API.",
+            "uk": "Обидва API дають зони й розклад. v2 (GraphQL) рекомендовано: той самий вхід, що в програмі Hydrawise, плюс погода й датчики. v1 (REST) — запасний варіант за API-ключем, якщо GraphQL недоступний. Має бути ввімкнено принаймні один API.",
+            "zh-cn": "两个 API 都提供区域和计划。推荐 v2（GraphQL）：与 Hydrawise 应用相同的登录，另加天气和传感器。v1（REST）是 GraphQL 不可用时通过 API 密钥的备用方案。至少启用一个 API。"
+        },
+        "open hydrawise app": {
+            "en": "Open Hydrawise dashboard",
+            "de": "Hydrawise-Dashboard öffnen",
+            "ru": "Открыть панель Hydrawise",
+            "pt": "Abrir painel Hydrawise",
+            "nl": "Hydrawise-dashboard openen",
+            "fr": "Ouvrir le tableau de bord Hydrawise",
+            "it": "Apri dashboard Hydrawise",
+            "es": "Abrir el panel de Hydrawise",
+            "pl": "Otwórz pulpit Hydrawise",
+            "uk": "Відкрити панель Hydrawise",
+            "zh-cn": "打开 Hydrawise 仪表板"
+        },
+        "open account details": {
+            "en": "Account / API key",
+            "de": "Konto / API-Schlüssel",
+            "ru": "Аккаунт / API-ключ",
+            "pt": "Conta / chave API",
+            "nl": "Account / API-sleutel",
+            "fr": "Compte / clé API",
+            "it": "Account / chiave API",
+            "es": "Cuenta / clave API",
+            "pl": "Konto / klucz API",
+            "uk": "Обліковий запис / API-ключ",
+            "zh-cn": "账户 / API 密钥"
+        },
+        "REST API (fallback)": {
+            "en": "REST API (fallback)",
+            "de": "REST-API (Fallback)",
+            "ru": "REST API (запасной)",
+            "pt": "API REST (recurso)",
+            "nl": "REST-API (fallback)",
+            "fr": "API REST (secours)",
+            "it": "API REST (ripiego)",
+            "es": "API REST (respaldo)",
+            "pl": "API REST (zapas)",
+            "uk": "REST API (запасний)",
+            "zh-cn": "REST API（备用）"
+        },
+        "GraphQL API (recommended)": {
+            "en": "GraphQL API (recommended)",
+            "de": "GraphQL-API (empfohlen)",
+            "ru": "GraphQL API (рекомендуется)",
+            "pt": "API GraphQL (recomendada)",
+            "nl": "GraphQL-API (aanbevolen)",
+            "fr": "API GraphQL (recommandée)",
+            "it": "API GraphQL (consigliata)",
+            "es": "API GraphQL (recomendada)",
+            "pl": "API GraphQL (zalecane)",
+            "uk": "GraphQL API (рекомендовано)",
+            "zh-cn": "GraphQL API（推荐）"
+        },
+        "api interval": {
+            "en": "Poll interval",
+            "de": "Abfrageintervall",
+            "ru": "Интервал опроса",
+            "pt": "Intervalo de consulta",
+            "nl": "Poll-interval",
+            "fr": "Intervalle d’interrogation",
+            "it": "Intervallo di polling",
+            "es": "Intervalo de consulta",
+            "pl": "Interwał odpytywania",
+            "uk": "Інтервал опитування",
+            "zh-cn": "轮询间隔"
+        },
+        "api key": {
+            "en": "API key",
+            "de": "API-Schlüssel",
+            "ru": "API-ключ",
+            "pt": "Chave API",
+            "nl": "API-sleutel",
+            "fr": "Clé API",
+            "it": "Chiave API",
+            "es": "Clave API",
+            "pl": "Klucz API",
+            "uk": "API-ключ",
+            "zh-cn": "API 密钥"
+        },
+        "how to get token": {
+            "en": "Generate the key under Account Settings on hydrawise.com",
+            "de": "Schlüssel unter Kontoeinstellungen auf hydrawise.com erzeugen",
+            "ru": "Создайте ключ в настройках аккаунта на hydrawise.com",
+            "pt": "Gere a chave em Definições da conta em hydrawise.com",
+            "nl": "Genereer de sleutel onder accountinstellingen op hydrawise.com",
+            "fr": "Générez la clé dans les paramètres du compte sur hydrawise.com",
+            "it": "Genera la chiave in Impostazioni account su hydrawise.com",
+            "es": "Genere la clave en Ajustes de cuenta en hydrawise.com",
+            "pl": "Wygeneruj klucz w ustawieniach konta na hydrawise.com",
+            "uk": "Створіть ключ у параметрах облікового запису на hydrawise.com",
+            "zh-cn": "在 hydrawise.com 的账户设置中生成密钥"
+        },
+        "Enable v1 API (REST)": {
+            "en": "Enable v1 API (REST)",
+            "de": "v1-API aktivieren (REST)",
+            "ru": "Включить API v1 (REST)",
+            "pt": "Ativar API v1 (REST)",
+            "nl": "v1-API inschakelen (REST)",
+            "fr": "Activer l’API v1 (REST)",
+            "it": "Abilita API v1 (REST)",
+            "es": "Activar API v1 (REST)",
+            "pl": "Włącz API v1 (REST)",
+            "uk": "Увімкнути API v1 (REST)",
+            "zh-cn": "启用 v1 API（REST）"
+        },
+        "Only needed if GraphQL is unavailable. Same zones and schedules as v2, without weather and sensors. customerdetails is limited to 5 requests / 5 minutes.": {
+            "en": "Only needed if GraphQL is unavailable. Same zones and schedules as v2, without weather and sensors. customerdetails is limited to 5 requests / 5 minutes.",
+            "de": "Nur nötig, wenn GraphQL nicht verfügbar ist. Dieselben Zonen und Zeitpläne wie v2, ohne Wetter und Sensoren. customerdetails: max. 5 Anfragen / 5 Minuten.",
+            "ru": "Только если GraphQL недоступен. Те же зоны и расписания, что у v2, без погоды и датчиков. customerdetails: 5 запросов / 5 минут.",
+            "pt": "Só necessário se GraphQL estiver indisponível. As mesmas zonas e agendas que v2, sem clima nem sensores. customerdetails: 5 pedidos / 5 minutos.",
+            "nl": "Alleen nodig als GraphQL niet beschikbaar is. Dezelfde zones en schema’s als v2, zonder weer en sensoren. customerdetails: 5 verzoeken / 5 minuten.",
+            "fr": "Uniquement si GraphQL est indisponible. Mêmes zones et plannings que v2, sans météo ni capteurs. customerdetails : 5 requêtes / 5 minutes.",
+            "it": "Solo se GraphQL non è disponibile. Stesse zone e programmi di v2, senza meteo né sensori. customerdetails: 5 richieste / 5 minuti.",
+            "es": "Solo si GraphQL no está disponible. Las mismas zonas y programaciones que v2, sin clima ni sensores. customerdetails: 5 solicitudes / 5 minutos.",
+            "pl": "Tylko gdy GraphQL jest niedostępne. Te same strefy i harmonogramy co v2, bez pogody i czujników. customerdetails: 5 żądań / 5 minut.",
+            "uk": "Лише якщо GraphQL недоступний. Ті самі зони й розклади, що у v2, без погоди й датчиків. customerdetails: 5 запитів / 5 хвилин.",
+            "zh-cn": "仅在 GraphQL 不可用时需要。与 v2 相同的区域和计划，不含天气和传感器。customerdetails：5 次 / 5 分钟。"
+        },
+        "Enable v2 API (GraphQL)": {
+            "en": "Enable v2 API (GraphQL)",
+            "de": "v2-API aktivieren (GraphQL)",
+            "ru": "Включить API v2 (GraphQL)",
+            "pt": "Ativar API v2 (GraphQL)",
+            "nl": "v2-API inschakelen (GraphQL)",
+            "fr": "Activer l’API v2 (GraphQL)",
+            "it": "Abilita API v2 (GraphQL)",
+            "es": "Activar API v2 (GraphQL)",
+            "pl": "Włącz API v2 (GraphQL)",
+            "uk": "Увімкнути API v2 (GraphQL)",
+            "zh-cn": "启用 v2 API（GraphQL）"
+        },
+        "Same email and password as the Hydrawise app. Zones, schedules, plus sensors, weather and water use. Do not poll faster than every 2 minutes.": {
+            "en": "Same email and password as the Hydrawise app. Zones, schedules, plus sensors, weather and water use. Do not poll faster than every 2 minutes.",
+            "de": "Dieselbe E-Mail und dasselbe Passwort wie in der Hydrawise-App. Zonen, Zeitplan, plus Sensoren, Wetter und Wasserverbrauch. Nicht öfter als alle 2 Minuten pollen.",
+            "ru": "Тот же email и пароль, что в приложении Hydrawise. Зоны, расписание, плюс датчики, погода и расход воды. Не опрашивать чаще чем раз в 2 минуты.",
+            "pt": "Mesmo e-mail e senha da app Hydrawise. Zonas, agenda, mais sensores, clima e consumo de água. Não consultar mais do que a cada 2 minutos.",
+            "nl": "Zelfde e-mail en wachtwoord als de Hydrawise-app. Zones, schema, plus sensoren, weer en waterverbruik. Niet vaker dan elke 2 minuten pollen.",
+            "fr": "Même e-mail et mot de passe que l’app Hydrawise. Zones, planning, plus capteurs, météo et consommation d’eau. Pas plus souvent que toutes les 2 minutes.",
+            "it": "Stessa email e password dell’app Hydrawise. Zone, programmi, più sensori, meteo e consumo idrico. Non interrogare più spesso di ogni 2 minuti.",
+            "es": "Mismo correo y contraseña que la app Hydrawise. Zonas, programación, más sensores, clima y consumo de agua. No consultar más a menudo que cada 2 minutos.",
+            "pl": "Ten sam e-mail i hasło co w aplikacji Hydrawise. Strefy, harmonogram, plus czujniki, pogoda i zużycie wody. Nie odpytywać częściej niż co 2 minuty.",
+            "uk": "Той самий email і пароль, що в програмі Hydrawise. Зони, розклад, плюс датчики, погода й витрата води. Не опитувати частіше ніж раз на 2 хвилини.",
+            "zh-cn": "与 Hydrawise 应用相同的邮箱和密码。区域、计划，另加传感器、天气和用水量。轮询间隔不要短于 2 分钟。"
+        },
+        "v2 username": {
+            "en": "Email",
+            "de": "E-Mail",
+            "ru": "Email",
+            "pt": "E-mail",
+            "nl": "E-mail",
+            "fr": "E-mail",
+            "it": "Email",
+            "es": "Correo",
+            "pl": "E-mail",
+            "uk": "Email",
+            "zh-cn": "邮箱"
+        },
+        "v2 password": {
+            "en": "Password",
+            "de": "Passwort",
+            "ru": "Пароль",
+            "pt": "Senha",
+            "nl": "Wachtwoord",
+            "fr": "Mot de passe",
+            "it": "Password",
+            "es": "Contraseña",
+            "pl": "Hasło",
+            "uk": "Пароль",
+            "zh-cn": "密码"
+        },
+        "v2 interval": {
+            "en": "Poll interval",
+            "de": "Abfrageintervall",
+            "ru": "Интервал опроса",
+            "pt": "Intervalo de consulta",
+            "nl": "Poll-interval",
+            "fr": "Intervalle d’interrogation",
+            "it": "Intervallo di polling",
+            "es": "Intervalo de consulta",
+            "pl": "Interwał odpytywania",
+            "uk": "Інтервал опитування",
+            "zh-cn": "轮询间隔"
+        },
+        "v2 interval help": {
+            "en": "Default 300 s, minimum 120 s (GraphQL rate limits, shared with the official app).",
+            "de": "Standard 300 s, Minimum 120 s (GraphQL-Limit, geteilt mit der offiziellen App).",
+            "ru": "По умолчанию 300 с, минимум 120 с (лимиты GraphQL, общие с официальным приложением).",
+            "pt": "Padrão 300 s, mínimo 120 s (limites GraphQL, partilhados com o app oficial).",
+            "nl": "Standaard 300 s, minimum 120 s (GraphQL-limieten, gedeeld met de officiële app).",
+            "fr": "300 s par défaut, minimum 120 s (limites GraphQL, partagées avec l’app officielle).",
+            "it": "Predefinito 300 s, minimo 120 s (limiti GraphQL, condivisi con l’app ufficiale).",
+            "es": "300 s por defecto, mínimo 120 s (límites GraphQL, compartidos con la app oficial).",
+            "pl": "Domyślnie 300 s, minimum 120 s (limity GraphQL, wspólne z oficjalną aplikacją).",
+            "uk": "За замовчуванням 300 с, мінімум 120 с (ліміти GraphQL, спільні з офіційною програмою).",
+            "zh-cn": "默认 300 秒，最小 120 秒（GraphQL 限速，与官方应用共享）。"
+        }
+    },
+    "type": "tabs",
+    "iconPosition": "start",
+    "items": {
+        "tabHome": {
+            "type": "panel",
+            "label": "Home",
+            "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMTU2NUMwIj48cGF0aCBkPSJNMTAgMjB2LTZoNHY2aDV2LThoM0wxMiAzIDIgMTJoM3Y4eiIvPjwvc3ZnPg==",
+            "items": {
+                "_logo": {
+                    "type": "staticImage",
+                    "src": "hydrawise.jpg",
+                    "xs": 12,
+                    "sm": 3,
+                    "md": 2,
+                    "lg": 2,
+                    "xl": 2
+                },
+                "_title": {
+                    "type": "header",
+                    "text": "Use GraphQL; REST is a fallback",
+                    "size": 3,
+                    "xs": 12,
+                    "sm": 9,
+                    "md": 10,
+                    "lg": 10,
+                    "xl": 10
+                },
+                "_intro": {
+                    "type": "staticText",
+                    "text": "Both APIs provide zones and schedules. v2 (GraphQL) is recommended: same login as the Hydrawise app, plus weather and sensors. v1 (REST) is a fallback via API key if GraphQL is unavailable. At least one API must be on.",
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12
+                },
+                "_div1": {
+                    "type": "divider",
+                    "newLine": true,
+                    "color": "primary",
+                    "xs": 12
+                },
+                "_openApp": {
+                    "type": "staticLink",
+                    "label": "open hydrawise app",
+                    "href": "https://app.hydrawise.com/config/dashboard",
+                    "button": true,
+                    "variant": "contained",
+                    "color": "primary",
+                    "icon": "web",
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 6,
+                    "md": 4,
+                    "lg": 3
+                },
+                "_openAccount": {
+                    "type": "staticLink",
+                    "label": "open account details",
+                    "href": "https://app.hydrawise.com/config/account-details",
+                    "button": true,
+                    "variant": "outlined",
+                    "color": "primary",
+                    "icon": "auth",
+                    "xs": 12,
+                    "sm": 6,
+                    "md": 4,
+                    "lg": 3
+                }
+            }
+        },
+        "tabV1": {
+            "type": "panel",
+            "label": "v1 API",
+            "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMTU2NUMwIj48cGF0aCBkPSJNMTIuNjUgMTBBNS45OSA1Ljk5IDAgMCAwIDcgNmMtMy4zMSAwLTYgMi42OS02IDZzMi42OSA2IDYgNmMyLjYxIDAgNC44My0xLjY3IDUuNjUtNEgxN3Y0aDR2LTRoMnYtNEgxMi42NXpNNyAxNGMtMS4xIDAtMi0uOS0yLTJzLjktMiAyLTIgMiAuOSAyIDItLjkgMi0yIDJ6Ii8+PC9zdmc+",
+            "items": {
+                "_v1Header": {
+                    "type": "header",
+                    "text": "REST API (fallback)",
+                    "size": 4,
+                    "xs": 12
+                },
+                "_v1Intro": {
+                    "type": "staticText",
+                    "text": "Only needed if GraphQL is unavailable. Same zones and schedules as v2, without weather and sensors. customerdetails is limited to 5 requests / 5 minutes.",
+                    "newLine": true,
+                    "xs": 12
+                },
+                "enableV1": {
+                    "type": "checkbox",
+                    "label": "Enable v1 API (REST)",
+                    "newLine": true,
+                    "default": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12
+                },
+                "apiKey": {
+                    "type": "password",
+                    "label": "api key",
+                    "newLine": true,
+                    "hidden": "!enableV1",
+                    "help": "how to get token",
+                    "helpLink": "https://github.com/SentiQ/ioBroker.hydrawise/blob/main/README.md#documentation",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 8,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "apiInterval": {
+                    "type": "number",
+                    "label": "api interval",
+                    "newLine": true,
+                    "default": 60,
+                    "min": 15,
+                    "unit": "s",
+                    "hidden": "!enableV1",
+                    "xs": 12,
+                    "sm": 6,
+                    "md": 4,
+                    "lg": 3,
+                    "xl": 3
+                }
+            }
+        },
+        "tabV2": {
+            "type": "panel",
+            "label": "v2 API",
+            "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjNDNBMDQ3Ij48cGF0aCBkPSJNMTkuMzUgMTAuMDRBNy40OSA3LjQ5IDAgMCAwIDEyIDRDOS4xMSA0IDYuNiA1LjY0IDUuMzUgOC4wNEE1Ljk5NCA1Ljk5NCAwIDAgMCAwIDE0YzAgMy4zMSAyLjY5IDYgNiA2aDEzYzIuNzYgMCA1LTIuMjQgNS01IDAtMi42NC0yLjA1LTQuNzgtNC42NS00Ljk2eiIvPjwvc3ZnPg==",
+            "items": {
+                "_v2Header": {
+                    "type": "header",
+                    "text": "GraphQL API (recommended)",
+                    "size": 4,
+                    "xs": 12
+                },
+                "_v2Intro": {
+                    "type": "staticText",
+                    "text": "Same email and password as the Hydrawise app. Zones, schedules, plus sensors, weather and water use. Do not poll faster than every 2 minutes.",
+                    "newLine": true,
+                    "xs": 12
+                },
+                "enableV2": {
+                    "type": "checkbox",
+                    "label": "Enable v2 API (GraphQL)",
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12
+                },
+                "v2Username": {
+                    "type": "text",
+                    "label": "v2 username",
+                    "newLine": true,
+                    "hidden": "!enableV2",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 5,
+                    "xl": 5
+                },
+                "v2Password": {
+                    "type": "password",
+                    "label": "v2 password",
+                    "newLine": true,
+                    "hidden": "!enableV2",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 5,
+                    "xl": 5
+                },
+                "apiIntervalV2": {
+                    "type": "number",
+                    "label": "v2 interval",
+                    "newLine": true,
+                    "default": 300,
+                    "min": 120,
+                    "unit": "s",
+                    "hidden": "!enableV2",
+                    "help": "v2 interval help",
+                    "xs": 12,
+                    "sm": 6,
+                    "md": 4,
+                    "lg": 3,
+                    "xl": 3
+                }
+            }
+        }
     }
 }

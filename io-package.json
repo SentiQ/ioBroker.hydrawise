@@ -162,14 +162,21 @@
     ]
   },
   "native": {
+    "enableV1": true,
     "apiKey": "",
-    "apiInterval": 60
+    "apiInterval": 60,
+    "enableV2": false,
+    "v2Username": "",
+    "v2Password": "",
+    "apiIntervalV2": 300
   },
   "encryptedNative": [
-    "apiKey"
+    "apiKey",
+    "v2Password"
   ],
   "protectedNative": [
-    "apiKey"
+    "apiKey",
+    "v2Password"
   ],
   "objects": [],
   "instanceObjects": [
@@ -191,6 +198,77 @@
         "read": true,
         "write": false,
         "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connectionV2",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": {
+          "en": "v2 API connected",
+          "de": "v2-API verbunden"
+        },
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "controller",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Controller (v2)",
+          "de": "Controller (v2)"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "zones",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Zones (v2)",
+          "de": "Zonen (v2)"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "sensors",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Sensors (v2)",
+          "de": "Sensoren (v2)"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "weather",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Weather (v2)",
+          "de": "Wetter (v2)"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "water",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Water usage (v2)",
+          "de": "Wasserverbrauch (v2)"
+        }
       },
       "native": {}
     },

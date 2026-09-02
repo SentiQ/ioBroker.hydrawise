@@ -1,10 +1,15 @@
 import { expect } from 'chai';
 import {
+    CUSTOMER_INTERVAL_MS,
     CUSTOMER_SKIP_KEYS,
     SCHEDULE_SKIP_KEYS,
     buildHydrawiseUrl,
+    isRateLimitError,
+    isRateLimited,
     isScalarKey,
     name2id,
+    nextBackoffMs,
+    parseRetryAfter,
     structureSignature,
 } from './lib/helpers';
 
@@ -82,5 +87,42 @@ describe('relay mapping', () => {
         expect(relays[1]).to.equal(1001);
         expect(relays[2]).to.equal(1002);
         expect(relays[3]).to.equal(undefined);
+    });
+});
+
+describe('helpers => rate limit', () => {
+    const noJitter = (): number => 0.5;
+
+    it('should detect HTTP 429 and body text', () => {
+        expect(isRateLimited(429, 'ok')).to.equal(true);
+        expect(
+            isRateLimited(
+                200,
+                'Exceeded maximum number of requests. You cannot make more than 5 requests in any 5 minute period to this endpoint.',
+            ),
+        ).to.equal(true);
+        expect(isRateLimited(200, { message: 'ok' })).to.equal(false);
+    });
+
+    it('should detect thrown rate-limit errors', () => {
+        const err = Object.assign(new Error('HTTP 429'), {
+            code: 429,
+            response: { status: 429, data: 'Exceeded maximum number of requests' },
+        });
+        expect(isRateLimitError(err)).to.equal(true);
+        expect(isRateLimitError(new Error('network'))).to.equal(false);
+    });
+
+    it('should parse Retry-After seconds', () => {
+        expect(parseRetryAfter('120')).to.equal(120);
+        expect(parseRetryAfter(null)).to.equal(undefined);
+    });
+
+    it('should compute exponential backoff with cap', () => {
+        expect(nextBackoffMs(1, undefined, noJitter)).to.equal(CUSTOMER_INTERVAL_MS);
+        expect(nextBackoffMs(2, undefined, noJitter)).to.equal(CUSTOMER_INTERVAL_MS * 2);
+        expect(nextBackoffMs(3, undefined, noJitter)).to.equal(CUSTOMER_INTERVAL_MS * 4);
+        expect(nextBackoffMs(10, undefined, noJitter)).to.equal(30 * 60 * 1000);
+        expect(nextBackoffMs(1, 600, noJitter)).to.equal(600_000);
     });
 });

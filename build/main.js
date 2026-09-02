@@ -23,9 +23,13 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var utils = __toESM(require("@iobroker/adapter-core"));
 var import_helpers = require("./lib/helpers");
+var import_auth = require("./lib/v2/auth");
+var import_mapper = require("./lib/v2/mapper");
+var import_queries = require("./lib/v2/queries");
 class Hydrawise extends utils.Adapter {
   pollScheduleTimer;
   pollCustomerTimer;
+  pollV2Timer;
   resetSwitchTimer;
   relays = {};
   lastErrorCode = 0;
@@ -35,6 +39,18 @@ class Hydrawise extends utils.Adapter {
   customerStructureKey = "";
   scheduleObjectsReady = false;
   customerObjectsReady = false;
+  customerBackoffFails = 0;
+  lastCustomerCallAt = 0;
+  v1ControllerId;
+  v2Token = null;
+  v2PollRunning = false;
+  v2BackoffFails = 0;
+  v2LongPeriodIndex = 0;
+  v2ControllerId;
+  v2ZoneIds = {};
+  v2LastRetryAfter;
+  v2StructureSig = "";
+  v2ObjectsReady = false;
   constructor(options = {}) {
     super({
       ...options,
@@ -44,30 +60,38 @@ class Hydrawise extends utils.Adapter {
     this.on("stateChange", this.onStateChange.bind(this));
     this.on("unload", this.onUnload.bind(this));
   }
+  isV1Enabled() {
+    return this.config.enableV1 !== false;
+  }
   async onReady() {
-    if (!this.config.apiKey) {
-      this.log.error("No API-Key defined!");
+    const v1 = this.isV1Enabled();
+    const v2 = !!this.config.enableV2;
+    if (!v1 && !v2) {
+      this.log.error("Neither v1 nor v2 API is enabled");
       return;
     }
     void this.setStateChangedAsync("info.connection", false, true);
-    await this.GetStatusSchedule();
-    this.pollScheduleTimer = this.setInterval(() => {
-      void this.GetStatusSchedule();
-    }, this.config.apiInterval * 1e3);
-    await this.GetCustomerDetails();
-    this.pollCustomerTimer = this.setInterval(
-      () => {
-        void this.GetCustomerDetails();
-      },
-      5 * 60 * 1e3
-    );
-    await this.subscribeStatesAsync("schedule.stopall");
-    await this.subscribeStatesAsync("schedule.runall");
-    await this.subscribeStatesAsync("schedule.suspendall");
-    await this.subscribeStatesAsync("schedule.*.stopZone");
-    await this.subscribeStatesAsync("schedule.*.runZone");
-    await this.subscribeStatesAsync("schedule.*.suspendZone");
-    await this.subscribeStatesAsync("schedule.*.runDefault");
+    if (v1) {
+      if (!this.config.apiKey) {
+        this.log.error("No API-Key defined!");
+      } else {
+        await this.GetStatusSchedule();
+        this.pollScheduleTimer = this.setInterval(() => {
+          void this.GetStatusSchedule();
+        }, this.config.apiInterval * 1e3);
+        this.scheduleCustomerPoll(import_helpers.CUSTOMER_STAGGER_MS);
+        await this.subscribeV1Commands();
+      }
+    }
+    if (v2) {
+      if (!this.config.v2Username || !this.config.v2Password) {
+        this.log.error("v2 API enabled but username or password is missing");
+      } else {
+        await this.subscribeV2Commands();
+        void this.setStateChangedAsync("info.connectionV2", false, true);
+        this.scheduleV2Poll(0);
+      }
+    }
   }
   async GetStatusSchedule() {
     if (this.schedulePollRunning) {
@@ -377,19 +401,44 @@ class Hydrawise extends utils.Adapter {
       }
     }
   }
+  scheduleCustomerPoll(delayMs) {
+    if (this.pollCustomerTimer) {
+      this.clearTimeout(this.pollCustomerTimer);
+    }
+    this.pollCustomerTimer = this.setTimeout(
+      () => {
+        this.pollCustomerTimer = void 0;
+        void this.runCustomerPoll();
+      },
+      Math.max(0, delayMs)
+    );
+  }
+  async runCustomerPoll() {
+    const delay = await this.GetCustomerDetails();
+    this.scheduleCustomerPoll(delay);
+  }
   async GetCustomerDetails() {
     if (this.customerPollRunning) {
       this.log.debug("Skipping overlapping customer details poll");
-      return;
+      return import_helpers.CUSTOMER_INTERVAL_MS;
+    }
+    const elapsed = this.lastCustomerCallAt ? Date.now() - this.lastCustomerCallAt : import_helpers.CUSTOMER_INTERVAL_MS;
+    if (this.lastCustomerCallAt && elapsed < import_helpers.CUSTOMER_INTERVAL_MS) {
+      this.log.debug("Skipping customer details poll (inside 5 minute window)");
+      return import_helpers.CUSTOMER_INTERVAL_MS - elapsed;
     }
     this.customerPollRunning = true;
+    this.lastCustomerCallAt = Date.now();
     try {
       const response = await this.buildRequest("customerdetails.php", { api_key: this.config.apiKey });
       if (response.status !== 200) {
-        return;
+        return import_helpers.CUSTOMER_INTERVAL_MS;
       }
       const content = response.data;
-      void this.setStateChangedAsync("info.connection", true, true);
+      this.customerBackoffFails = 0;
+      if ((content == null ? void 0 : content.controller_id) != null) {
+        this.v1ControllerId = Number(content.controller_id);
+      }
       const controllerNames = (content.controllers || []).map((c) => this.name2id(c.name));
       const nextStructureKey = (0, import_helpers.structureSignature)([], [], controllerNames);
       const needObjects = !this.customerObjectsReady || this.customerStructureKey !== nextStructureKey;
@@ -399,9 +448,18 @@ class Hydrawise extends utils.Adapter {
         this.customerObjectsReady = true;
       }
       this.updateCustomerStates(content);
+      return import_helpers.CUSTOMER_INTERVAL_MS;
     } catch (error) {
-      this.log.debug(`(customer) received error - API is now offline: ${(error == null ? void 0 : error.message) || error}`);
-      void this.setStateChangedAsync("info.connection", false, true);
+      if ((0, import_helpers.isRateLimitError)(error)) {
+        this.customerBackoffFails += 1;
+        const delay = (0, import_helpers.nextBackoffMs)(this.customerBackoffFails, (0, import_helpers.getRetryAfterSec)(error));
+        this.log.warn(
+          `customerdetails rate limited, next poll in ${Math.round(delay / 1e3)}s (attempt ${this.customerBackoffFails})`
+        );
+        return delay;
+      }
+      this.log.debug(`(customer) received error: ${(error == null ? void 0 : error.message) || error}`);
+      return import_helpers.CUSTOMER_INTERVAL_MS;
     } finally {
       this.customerPollRunning = false;
     }
@@ -506,6 +564,7 @@ class Hydrawise extends utils.Adapter {
         );
         throw Object.assign(new Error(`HTTP ${response.status}`), {
           code: response.status,
+          retryAfter: (0, import_helpers.parseRetryAfter)(response.headers.get("Retry-After")),
           response: { status: response.status, data }
         });
       }
@@ -549,8 +608,12 @@ class Hydrawise extends utils.Adapter {
         this.pollScheduleTimer = void 0;
       }
       if (this.pollCustomerTimer) {
-        this.clearInterval(this.pollCustomerTimer);
+        this.clearTimeout(this.pollCustomerTimer);
         this.pollCustomerTimer = void 0;
+      }
+      if (this.pollV2Timer) {
+        this.clearTimeout(this.pollV2Timer);
+        this.pollV2Timer = void 0;
       }
       if (this.resetSwitchTimer) {
         this.clearTimeout(this.resetSwitchTimer);
@@ -568,12 +631,23 @@ class Hydrawise extends utils.Adapter {
    * @param state state object
    */
   onStateChange(id, state) {
-    if (state && !state.ack) {
-      void this.handleStateChange(id, state);
+    if (!state) {
+      return;
     }
+    if (state.ack && state.from === `system.adapter.${this.namespace}`) {
+      return;
+    }
+    void this.handleStateChange(id, state);
   }
   async handleStateChange(id, state) {
     try {
+      if (id.includes(".zones.")) {
+        await this.handleV2Command(id, state);
+        return;
+      }
+      if (!this.isV1Enabled() || !id.includes(".schedule.")) {
+        return;
+      }
       let commandSent = false;
       if (id.includes("stopall")) {
         await this.buildRequest("setzone.php", { api_key: this.config.apiKey, action: "stopall" });
@@ -666,6 +740,280 @@ class Hydrawise extends utils.Adapter {
       } else {
         void this.setState(`${relay[1]}stopZone`, true, false);
       }
+    }
+  }
+  async subscribeV1Commands() {
+    await this.subscribeStatesAsync("schedule.stopall");
+    await this.subscribeStatesAsync("schedule.runall");
+    await this.subscribeStatesAsync("schedule.suspendall");
+    await this.subscribeStatesAsync("schedule.*.stopZone");
+    await this.subscribeStatesAsync("schedule.*.runZone");
+    await this.subscribeStatesAsync("schedule.*.suspendZone");
+    await this.subscribeStatesAsync("schedule.*.runDefault");
+  }
+  async subscribeV2Commands() {
+    await this.subscribeStatesAsync("zones.stopall");
+    await this.subscribeStatesAsync("zones.runall");
+    await this.subscribeStatesAsync("zones.suspendall");
+    await this.subscribeStatesAsync("zones.*.stopZone");
+    await this.subscribeStatesAsync("zones.*.runZone");
+    await this.subscribeStatesAsync("zones.*.suspendZone");
+    await this.subscribeStatesAsync("zones.*.runDefault");
+  }
+  v2IntervalMs() {
+    return Math.max(120, Number(this.config.apiIntervalV2) || 300) * 1e3;
+  }
+  scheduleV2Poll(delayMs) {
+    if (this.pollV2Timer) {
+      this.clearTimeout(this.pollV2Timer);
+    }
+    this.pollV2Timer = this.setTimeout(
+      () => {
+        this.pollV2Timer = void 0;
+        void this.runV2Poll();
+      },
+      Math.max(0, delayMs)
+    );
+  }
+  async runV2Poll(statusOnly = false) {
+    if (this.v2PollRunning) {
+      this.log.debug("Skipping overlapping v2 poll");
+      return;
+    }
+    this.v2PollRunning = true;
+    let delay = this.v2IntervalMs();
+    try {
+      const statusResult = await this.pollV2Status();
+      if (statusResult === "rate-limit") {
+        this.v2BackoffFails += 1;
+        delay = (0, import_helpers.nextBackoffMs)(this.v2BackoffFails, this.v2LastRetryAfter);
+        this.log.warn(`v2 rate limited, next poll in ${Math.round(delay / 1e3)}s`);
+        return;
+      }
+      if (statusOnly || !this.v2ControllerId) {
+        return;
+      }
+      const weatherResult = await this.pollV2Weather();
+      if (weatherResult === "rate-limit") {
+        this.v2BackoffFails += 1;
+        delay = (0, import_helpers.nextBackoffMs)(this.v2BackoffFails, this.v2LastRetryAfter);
+        this.log.warn(`v2 rate limited, next poll in ${Math.round(delay / 1e3)}s`);
+        return;
+      }
+      const todayResult = await this.pollV2Water("today");
+      if (todayResult === "rate-limit") {
+        this.v2BackoffFails += 1;
+        delay = (0, import_helpers.nextBackoffMs)(this.v2BackoffFails, this.v2LastRetryAfter);
+        this.log.warn(`v2 rate limited, next poll in ${Math.round(delay / 1e3)}s`);
+        return;
+      }
+      const { period, nextIndex } = (0, import_queries.nextLongPeriod)(this.v2LongPeriodIndex);
+      const longResult = await this.pollV2Water(period);
+      if (longResult === "rate-limit") {
+        this.v2BackoffFails += 1;
+        delay = (0, import_helpers.nextBackoffMs)(this.v2BackoffFails, this.v2LastRetryAfter);
+        this.log.warn(`v2 rate limited, next poll in ${Math.round(delay / 1e3)}s`);
+        return;
+      }
+      this.v2LongPeriodIndex = nextIndex;
+      this.v2BackoffFails = 0;
+    } finally {
+      this.v2PollRunning = false;
+      if (!statusOnly) {
+        this.scheduleV2Poll(delay);
+      }
+    }
+  }
+  async ensureV2Token() {
+    var _a;
+    if ((0, import_auth.tokenNeedsRefresh)(this.v2Token)) {
+      if ((_a = this.v2Token) == null ? void 0 : _a.refreshToken) {
+        try {
+          this.v2Token = await (0, import_auth.refreshAccessToken)(this.v2Token.refreshToken);
+        } catch {
+          this.v2Token = await (0, import_auth.fetchAccessToken)(this.config.v2Username, this.config.v2Password);
+        }
+      } else {
+        this.v2Token = await (0, import_auth.fetchAccessToken)(this.config.v2Username, this.config.v2Password);
+      }
+    }
+    if (!this.v2Token) {
+      throw new import_auth.HydrawiseV2Error("No v2 token", "unauthorized");
+    }
+    return this.v2Token;
+  }
+  async v2Graphql(request) {
+    const token = await this.ensureV2Token();
+    try {
+      return await (0, import_auth.graphqlRequest)(token, request);
+    } catch (error) {
+      if (error instanceof import_auth.HydrawiseV2Error && error.code === 401) {
+        this.v2Token = await (0, import_auth.fetchAccessToken)(this.config.v2Username, this.config.v2Password);
+        return await (0, import_auth.graphqlRequest)(this.v2Token, request);
+      }
+      throw error;
+    }
+  }
+  async v2Mutate(request) {
+    const data = await this.v2Graphql(request);
+    const failed = (0, import_queries.mutationErrorSummary)(data);
+    if (failed) {
+      throw new import_auth.HydrawiseV2Error(failed, "mutation", data);
+    }
+    return data;
+  }
+  async applyMappedNodes(nodes, createObjects) {
+    for (const node of nodes) {
+      if (createObjects) {
+        await this.setObjectNotExistsAsync(node.id, {
+          type: node.type,
+          common: node.common,
+          native: {}
+        });
+      }
+      if (node.type === "state" && node.value !== void 0) {
+        void this.setStateChangedAsync(node.id, node.value, true);
+      }
+    }
+  }
+  async pollV2Status() {
+    var _a, _b, _c, _d;
+    try {
+      const data = await this.v2Graphql({ query: import_queries.STATUS_QUERY });
+      const controller = (0, import_mapper.pickController)(
+        (_a = data == null ? void 0 : data.me) == null ? void 0 : _a.controllers,
+        (_c = (_b = data == null ? void 0 : data.me) == null ? void 0 : _b.currentController) == null ? void 0 : _c.id,
+        this.v1ControllerId
+      );
+      if (!controller) {
+        this.log.warn("v2 status: no controller in response");
+        void this.setStateChangedAsync("info.connectionV2", false, true);
+        return "error";
+      }
+      this.v2ControllerId = Number(controller.id);
+      this.v2ZoneIds = (0, import_mapper.zoneIdMap)(controller);
+      const nextKey = (0, import_mapper.v2StructureKey)(controller);
+      const needObjects = !this.v2ObjectsReady || this.v2StructureSig !== nextKey;
+      if (needObjects) {
+        await this.applyMappedNodes((0, import_mapper.mapAllZoneCommandObjects)(), true);
+        for (const zone of controller.zones || []) {
+          const n = (_d = zone == null ? void 0 : zone.number) == null ? void 0 : _d.value;
+          if (n !== void 0 && n !== null) {
+            await this.applyMappedNodes((0, import_mapper.mapZoneCommandObjects)(n), true);
+          }
+        }
+        this.v2StructureSig = nextKey;
+        this.v2ObjectsReady = true;
+        await this.subscribeV2Commands();
+      }
+      await this.applyMappedNodes((0, import_mapper.mapControllerStates)(controller), needObjects);
+      for (const zone of controller.zones || []) {
+        await this.applyMappedNodes((0, import_mapper.mapZoneStates)(zone), needObjects);
+      }
+      for (const sensor of controller.sensors || []) {
+        await this.applyMappedNodes((0, import_mapper.mapSensorStates)(sensor), needObjects);
+      }
+      void this.setStateChangedAsync("info.connectionV2", true, true);
+      return "ok";
+    } catch (error) {
+      this.v2LastRetryAfter = (0, import_helpers.getRetryAfterSec)(error);
+      this.log.debug(`v2 status: ${(error == null ? void 0 : error.message) || error}`);
+      void this.setStateChangedAsync("info.connectionV2", false, true);
+      return (0, import_helpers.isRateLimitError)(error) ? "rate-limit" : "error";
+    }
+  }
+  async pollV2Weather() {
+    var _a, _b;
+    if (!this.v2ControllerId) {
+      return "error";
+    }
+    try {
+      const data = await this.v2Graphql((0, import_queries.weatherRequest)(this.v2ControllerId));
+      await this.applyMappedNodes((0, import_mapper.mapWeatherStates)((_b = (_a = data == null ? void 0 : data.controller) == null ? void 0 : _a.location) == null ? void 0 : _b.forecast), true);
+      return "ok";
+    } catch (error) {
+      this.v2LastRetryAfter = (0, import_helpers.getRetryAfterSec)(error);
+      this.log.debug(`v2 weather: ${(error == null ? void 0 : error.message) || error}`);
+      return (0, import_helpers.isRateLimitError)(error) ? "rate-limit" : "error";
+    }
+  }
+  async pollV2Water(period) {
+    if (!this.v2ControllerId) {
+      return "error";
+    }
+    try {
+      const request = (0, import_queries.waterRequest)(this.v2ControllerId, period);
+      const data = await this.v2Graphql(request);
+      const summary = (0, import_mapper.computeWaterSummary)(data == null ? void 0 : data.controller);
+      await this.applyMappedNodes((0, import_mapper.mapWaterStates)(period, summary), true);
+      return "ok";
+    } catch (error) {
+      this.v2LastRetryAfter = (0, import_helpers.getRetryAfterSec)(error);
+      this.log.debug(`v2 water (${period}): ${(error == null ? void 0 : error.message) || error}`);
+      return (0, import_helpers.isRateLimitError)(error) ? "rate-limit" : "error";
+    }
+  }
+  async handleV2Command(id, state) {
+    if (!this.config.enableV2) {
+      return;
+    }
+    if (!this.v2ControllerId) {
+      this.log.warn("v2 command ignored: controller id is unknown");
+      return;
+    }
+    try {
+      let sent = false;
+      const zoneMatch = id.match(/\.zones\.(\d+)\.(stopZone|runZone|suspendZone|runDefault)$/);
+      if (id.endsWith(".zones.stopall")) {
+        await this.v2Mutate((0, import_queries.stopAllZonesMutation)(this.v2ControllerId));
+        sent = true;
+      } else if (id.endsWith(".zones.runall") && (state.val || state.val === 0)) {
+        await this.v2Mutate((0, import_queries.startAllZonesMutation)(this.v2ControllerId, Number(state.val)));
+        sent = true;
+      } else if (id.endsWith(".zones.suspendall") && (state.val || state.val === 0)) {
+        const until = new Date(state.ts + Number(state.val) * 1e3);
+        await this.v2Mutate((0, import_queries.suspendAllZonesMutation)(this.v2ControllerId, until));
+        sent = true;
+      } else if (zoneMatch) {
+        const zoneId = this.v2ZoneIds[zoneMatch[1]];
+        if (!zoneId) {
+          this.log.warn(`v2 command ignored: unknown zone ${zoneMatch[1]}`);
+          return;
+        }
+        const action = zoneMatch[2];
+        if (action === "stopZone") {
+          await this.v2Mutate((0, import_queries.stopZoneMutation)(zoneId));
+          sent = true;
+        } else if (action === "runZone" && (state.val || state.val === 0)) {
+          this.log.info(`v2 start zone ${zoneMatch[1]} for ${Number(state.val)}s`);
+          await this.v2Mutate((0, import_queries.startZoneMutation)(zoneId, Number(state.val)));
+          sent = true;
+        } else if (action === "runDefault" && state.val) {
+          this.log.info(`v2 start zone ${zoneMatch[1]} with default duration`);
+          await this.v2Mutate((0, import_queries.startZoneMutation)(zoneId));
+          void this.setState(id, false, true);
+          sent = true;
+        } else if (action === "suspendZone" && (state.val || state.val === 0)) {
+          const until = new Date(state.ts + Number(state.val) * 1e3);
+          await this.v2Mutate((0, import_queries.suspendZoneMutation)(zoneId, until));
+          sent = true;
+        }
+      }
+      if (sent) {
+        if ((zoneMatch == null ? void 0 : zoneMatch[2]) !== "runDefault") {
+          void this.setState(id, state.val, true);
+        }
+        await this.pollV2Status();
+      }
+    } catch (error) {
+      if ((0, import_helpers.isRateLimitError)(error)) {
+        this.v2BackoffFails += 1;
+        const delay = (0, import_helpers.nextBackoffMs)(this.v2BackoffFails, (0, import_helpers.getRetryAfterSec)(error));
+        this.log.warn(`v2 command rate limited, delaying poll by ${Math.round(delay / 1e3)}s`);
+        this.scheduleV2Poll(delay);
+        return;
+      }
+      this.log.error(`v2 command failed for ${id}: ${(error == null ? void 0 : error.message) || error}`);
     }
   }
   name2id(pName) {
