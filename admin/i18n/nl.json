@@ -1,5 +1,22 @@
 {
-    "api interval": "API-interval (in seconden)",
-    "api key": "API sleutel",
-    "how to get token": "Hoe een token te verkrijgen"
+    "Home": "Home",
+    "v1 API": "v1 API",
+    "v2 API": "v2 API",
+    "Use GraphQL; REST is a fallback": "GraphQL gebruiken; REST is fallback",
+    "Both APIs provide zones and schedules. v2 (GraphQL) is recommended: same login as the Hydrawise app, plus weather and sensors. v1 (REST) is a fallback via API key if GraphQL is unavailable. At least one API must be on.": "Beide API’s leveren zones en schema. v2 (GraphQL) is aanbevolen: dezelfde login als de Hydrawise-app, plus weer en sensoren. v1 (REST) is de fallback via API-sleutel als GraphQL niet beschikbaar is. Minstens één API moet aan staan.",
+    "open hydrawise app": "Hydrawise-dashboard openen",
+    "open account details": "Account / API-sleutel",
+    "REST API (fallback)": "REST-API (fallback)",
+    "GraphQL API (recommended)": "GraphQL-API (aanbevolen)",
+    "api interval": "Poll-interval",
+    "api key": "API-sleutel",
+    "how to get token": "Genereer de sleutel onder accountinstellingen op hydrawise.com",
+    "Enable v1 API (REST)": "v1-API inschakelen (REST)",
+    "Only needed if GraphQL is unavailable. Same zones and schedules as v2, without weather and sensors. customerdetails is limited to 5 requests / 5 minutes.": "Alleen nodig als GraphQL niet beschikbaar is. Dezelfde zones en schema’s als v2, zonder weer en sensoren. customerdetails: 5 verzoeken / 5 minuten.",
+    "Enable v2 API (GraphQL)": "v2-API inschakelen (GraphQL)",
+    "Same email and password as the Hydrawise app. Zones, schedules, plus sensors, weather and water use. Do not poll faster than every 2 minutes.": "Zelfde e-mail en wachtwoord als de Hydrawise-app. Zones, schema, plus sensoren, weer en waterverbruik. Niet vaker dan elke 2 minuten pollen.",
+    "v2 username": "E-mail",
+    "v2 password": "Wachtwoord",
+    "v2 interval": "Poll-interval",
+    "v2 interval help": "Standaard 300 s, minimum 120 s (GraphQL-limieten, gedeeld met de officiële app)."
 }

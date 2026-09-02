@@ -1,5 +1,22 @@
 {
-    "api interval": "API 间隔（以秒为单位）",
-    "api key": "API密钥",
-    "how to get token": "如何获取代币"
+    "Home": "Home",
+    "v1 API": "v1 API",
+    "v2 API": "v2 API",
+    "Use GraphQL; REST is a fallback": "使用 GraphQL；REST 仅作备用",
+    "Both APIs provide zones and schedules. v2 (GraphQL) is recommended: same login as the Hydrawise app, plus weather and sensors. v1 (REST) is a fallback via API key if GraphQL is unavailable. At least one API must be on.": "两个 API 都提供区域和计划。推荐 v2（GraphQL）：与 Hydrawise 应用相同的登录，另加天气和传感器。v1（REST）是 GraphQL 不可用时通过 API 密钥的备用方案。至少启用一个 API。",
+    "open hydrawise app": "打开 Hydrawise 仪表板",
+    "open account details": "账户 / API 密钥",
+    "REST API (fallback)": "REST API（备用）",
+    "GraphQL API (recommended)": "GraphQL API（推荐）",
+    "api interval": "轮询间隔",
+    "api key": "API 密钥",
+    "how to get token": "在 hydrawise.com 的账户设置中生成密钥",
+    "Enable v1 API (REST)": "启用 v1 API（REST）",
+    "Only needed if GraphQL is unavailable. Same zones and schedules as v2, without weather and sensors. customerdetails is limited to 5 requests / 5 minutes.": "仅在 GraphQL 不可用时需要。与 v2 相同的区域和计划，不含天气和传感器。customerdetails：5 次 / 5 分钟。",
+    "Enable v2 API (GraphQL)": "启用 v2 API（GraphQL）",
+    "Same email and password as the Hydrawise app. Zones, schedules, plus sensors, weather and water use. Do not poll faster than every 2 minutes.": "与 Hydrawise 应用相同的邮箱和密码。区域、计划，另加传感器、天气和用水量。轮询间隔不要短于 2 分钟。",
+    "v2 username": "邮箱",
+    "v2 password": "密码",
+    "v2 interval": "轮询间隔",
+    "v2 interval help": "默认 300 秒，最小 120 秒（GraphQL 限速，与官方应用共享）。"
 }

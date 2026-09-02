@@ -1,5 +1,22 @@
 {
-    "api interval": "Intervalle API (en secondes)",
+    "Home": "Home",
+    "v1 API": "v1 API",
+    "v2 API": "v2 API",
+    "Use GraphQL; REST is a fallback": "Utiliser GraphQL ; REST en secours",
+    "Both APIs provide zones and schedules. v2 (GraphQL) is recommended: same login as the Hydrawise app, plus weather and sensors. v1 (REST) is a fallback via API key if GraphQL is unavailable. At least one API must be on.": "Les deux API fournissent zones et planning. v2 (GraphQL) est recommandée : mêmes identifiants que l’app Hydrawise, plus météo et capteurs. v1 (REST) est le secours via clé API si GraphQL est indisponible. Au moins une API doit être activée.",
+    "open hydrawise app": "Ouvrir le tableau de bord Hydrawise",
+    "open account details": "Compte / clé API",
+    "REST API (fallback)": "API REST (secours)",
+    "GraphQL API (recommended)": "API GraphQL (recommandée)",
+    "api interval": "Intervalle d’interrogation",
     "api key": "Clé API",
-    "how to get token": "Comment obtenir un jeton"
+    "how to get token": "Générez la clé dans les paramètres du compte sur hydrawise.com",
+    "Enable v1 API (REST)": "Activer l’API v1 (REST)",
+    "Only needed if GraphQL is unavailable. Same zones and schedules as v2, without weather and sensors. customerdetails is limited to 5 requests / 5 minutes.": "Uniquement si GraphQL est indisponible. Mêmes zones et plannings que v2, sans météo ni capteurs. customerdetails : 5 requêtes / 5 minutes.",
+    "Enable v2 API (GraphQL)": "Activer l’API v2 (GraphQL)",
+    "Same email and password as the Hydrawise app. Zones, schedules, plus sensors, weather and water use. Do not poll faster than every 2 minutes.": "Même e-mail et mot de passe que l’app Hydrawise. Zones, planning, plus capteurs, météo et consommation d’eau. Pas plus souvent que toutes les 2 minutes.",
+    "v2 username": "E-mail",
+    "v2 password": "Mot de passe",
+    "v2 interval": "Intervalle d’interrogation",
+    "v2 interval help": "300 s par défaut, minimum 120 s (limites GraphQL, partagées avec l’app officielle)."
 }

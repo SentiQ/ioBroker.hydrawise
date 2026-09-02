@@ -1,5 +1,22 @@
 {
-    "api interval": "API interval (in seconds)",
-    "api key": "API-Key",
-    "how to get token": "How to get a token"
+    "Home": "Home",
+    "v1 API": "v1 API",
+    "v2 API": "v2 API",
+    "Use GraphQL; REST is a fallback": "Use GraphQL; REST is a fallback",
+    "Both APIs provide zones and schedules. v2 (GraphQL) is recommended: same login as the Hydrawise app, plus weather and sensors. v1 (REST) is a fallback via API key if GraphQL is unavailable. At least one API must be on.": "Both APIs provide zones and schedules. v2 (GraphQL) is recommended: same login as the Hydrawise app, plus weather and sensors. v1 (REST) is a fallback via API key if GraphQL is unavailable. At least one API must be on.",
+    "open hydrawise app": "Open Hydrawise dashboard",
+    "open account details": "Account / API key",
+    "REST API (fallback)": "REST API (fallback)",
+    "GraphQL API (recommended)": "GraphQL API (recommended)",
+    "api interval": "Poll interval",
+    "api key": "API key",
+    "how to get token": "Generate the key under Account Settings on hydrawise.com",
+    "Enable v1 API (REST)": "Enable v1 API (REST)",
+    "Only needed if GraphQL is unavailable. Same zones and schedules as v2, without weather and sensors. customerdetails is limited to 5 requests / 5 minutes.": "Only needed if GraphQL is unavailable. Same zones and schedules as v2, without weather and sensors. customerdetails is limited to 5 requests / 5 minutes.",
+    "Enable v2 API (GraphQL)": "Enable v2 API (GraphQL)",
+    "Same email and password as the Hydrawise app. Zones, schedules, plus sensors, weather and water use. Do not poll faster than every 2 minutes.": "Same email and password as the Hydrawise app. Zones, schedules, plus sensors, weather and water use. Do not poll faster than every 2 minutes.",
+    "v2 username": "Email",
+    "v2 password": "Password",
+    "v2 interval": "Poll interval",
+    "v2 interval help": "Default 300 s, minimum 120 s (GraphQL rate limits, shared with the official app)."
 }

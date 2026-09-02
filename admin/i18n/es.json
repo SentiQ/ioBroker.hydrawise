@@ -1,5 +1,22 @@
 {
-    "api interval": "Intervalo API (en segundos)",
+    "Home": "Home",
+    "v1 API": "v1 API",
+    "v2 API": "v2 API",
+    "Use GraphQL; REST is a fallback": "Usar GraphQL; REST es el respaldo",
+    "Both APIs provide zones and schedules. v2 (GraphQL) is recommended: same login as the Hydrawise app, plus weather and sensors. v1 (REST) is a fallback via API key if GraphQL is unavailable. At least one API must be on.": "Ambas API ofrecen zonas y programación. v2 (GraphQL) es la recomendada: mismo inicio de sesión que la app Hydrawise, más clima y sensores. v1 (REST) es el respaldo con clave API si GraphQL no está disponible. Debe estar activa al menos una API.",
+    "open hydrawise app": "Abrir el panel de Hydrawise",
+    "open account details": "Cuenta / clave API",
+    "REST API (fallback)": "API REST (respaldo)",
+    "GraphQL API (recommended)": "API GraphQL (recomendada)",
+    "api interval": "Intervalo de consulta",
     "api key": "Clave API",
-    "how to get token": "Como conseguir ficha"
+    "how to get token": "Genere la clave en Ajustes de cuenta en hydrawise.com",
+    "Enable v1 API (REST)": "Activar API v1 (REST)",
+    "Only needed if GraphQL is unavailable. Same zones and schedules as v2, without weather and sensors. customerdetails is limited to 5 requests / 5 minutes.": "Solo si GraphQL no está disponible. Las mismas zonas y programaciones que v2, sin clima ni sensores. customerdetails: 5 solicitudes / 5 minutos.",
+    "Enable v2 API (GraphQL)": "Activar API v2 (GraphQL)",
+    "Same email and password as the Hydrawise app. Zones, schedules, plus sensors, weather and water use. Do not poll faster than every 2 minutes.": "Mismo correo y contraseña que la app Hydrawise. Zonas, programación, más sensores, clima y consumo de agua. No consultar más a menudo que cada 2 minutos.",
+    "v2 username": "Correo",
+    "v2 password": "Contraseña",
+    "v2 interval": "Intervalo de consulta",
+    "v2 interval help": "300 s por defecto, mínimo 120 s (límites GraphQL, compartidos con la app oficial)."
 }

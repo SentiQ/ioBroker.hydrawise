@@ -4,14 +4,56 @@
 
 import * as utils from '@iobroker/adapter-core';
 import {
+    CUSTOMER_INTERVAL_MS,
     CUSTOMER_SKIP_KEYS,
+    CUSTOMER_STAGGER_MS,
     HYDRAWISE_BASE_URL,
     SCHEDULE_SKIP_KEYS,
     buildHydrawiseUrl,
+    getRetryAfterSec,
+    isRateLimitError,
     isScalarKey,
     name2id as sanitizeId,
+    nextBackoffMs,
+    parseRetryAfter,
     structureSignature,
 } from './lib/helpers';
+import {
+    HydrawiseV2Error,
+    type V2Token,
+    fetchAccessToken,
+    graphqlRequest,
+    refreshAccessToken,
+    tokenNeedsRefresh,
+} from './lib/v2/auth';
+import {
+    type MappedNode,
+    computeWaterSummary,
+    mapAllZoneCommandObjects,
+    mapControllerStates,
+    mapSensorStates,
+    mapWaterStates,
+    mapWeatherStates,
+    mapZoneCommandObjects,
+    mapZoneStates,
+    pickController,
+    v2StructureKey,
+    zoneIdMap,
+} from './lib/v2/mapper';
+import {
+    STATUS_QUERY,
+    type WaterPeriod,
+    nextLongPeriod,
+    startAllZonesMutation,
+    mutationErrorSummary,
+    startZoneMutation,
+    stopAllZonesMutation,
+    stopZoneMutation,
+    suspendAllZonesMutation,
+    suspendZoneMutation,
+    waterRequest,
+    weatherRequest,
+} from './lib/v2/queries';
 
 interface ApiResponse {
     status: number;
@@ -20,7 +62,8 @@ interface ApiResponse {
 
 class Hydrawise extends utils.Adapter {
     private pollScheduleTimer?: ioBroker.Interval;
-    private pollCustomerTimer?: ioBroker.Interval;
+    private pollCustomerTimer?: ioBroker.Timeout;
+    private pollV2Timer?: ioBroker.Timeout;
     private resetSwitchTimer?: ioBroker.Timeout;
     private relays: Record<string, number> = {};
     private lastErrorCode: string | number = 0;
@@ -30,6 +73,18 @@ class Hydrawise extends utils.Adapter {
     private customerStructureKey = '';
     private scheduleObjectsReady = false;
     private customerObjectsReady = false;
+    private customerBackoffFails = 0;
+    private lastCustomerCallAt = 0;
+    private v1ControllerId?: number;
+    private v2Token: V2Token | null = null;
+    private v2PollRunning = false;
+    private v2BackoffFails = 0;
+    private v2LongPeriodIndex = 0;
+    private v2ControllerId?: number;
+    private v2ZoneIds: Record<string, number> = {};
+    private v2LastRetryAfter?: number;
+    private v2StructureSig = '';
+    private v2ObjectsReady = false;
 
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
         super({
@@ -42,34 +97,44 @@ class Hydrawise extends utils.Adapter {
         this.on('unload', this.onUnload.bind(this));
     }
 
+    private isV1Enabled(): boolean {
+        return this.config.enableV1 !== false;
+    }
+
     private async onReady(): Promise<void> {
-        if (!this.config.apiKey) {
-            this.log.error('No API-Key defined!');
+        const v1 = this.isV1Enabled();
+        const v2 = !!this.config.enableV2;
+
+        if (!v1 && !v2) {
+            this.log.error('Neither v1 nor v2 API is enabled');
             return;
         }
 
         void this.setStateChangedAsync('info.connection', false, true);
 
-        await this.GetStatusSchedule();
-        this.pollScheduleTimer = this.setInterval(() => {
-            void this.GetStatusSchedule();
-        }, this.config.apiInterval * 1000);
+        if (v1) {
+            if (!this.config.apiKey) {
+                this.log.error('No API-Key defined!');
+            } else {
+                await this.GetStatusSchedule();
+                this.pollScheduleTimer = this.setInterval(() => {
+                    void this.GetStatusSchedule();
+                }, this.config.apiInterval * 1000);
 
-        await this.GetCustomerDetails();
-        this.pollCustomerTimer = this.setInterval(
-            () => {
-                void this.GetCustomerDetails();
-            },
-            5 * 60 * 1000,
-        );
+                this.scheduleCustomerPoll(CUSTOMER_STAGGER_MS);
+                await this.subscribeV1Commands();
+            }
+        }
 
-        await this.subscribeStatesAsync('schedule.stopall');
-        await this.subscribeStatesAsync('schedule.runall');
-        await this.subscribeStatesAsync('schedule.suspendall');
-        await this.subscribeStatesAsync('schedule.*.stopZone');
-        await this.subscribeStatesAsync('schedule.*.runZone');
-        await this.subscribeStatesAsync('schedule.*.suspendZone');
-        await this.subscribeStatesAsync('schedule.*.runDefault');
+        if (v2) {
+            if (!this.config.v2Username || !this.config.v2Password) {
+                this.log.error('v2 API enabled but username or password is missing');
+            } else {
+                await this.subscribeV2Commands();
+                void this.setStateChangedAsync('info.connectionV2', false, true);
+                this.scheduleV2Poll(0);
+            }
+        }
     }
 
     private async GetStatusSchedule(): Promise<void> {
@@ -408,21 +473,49 @@ class Hydrawise extends utils.Adapter {
         }
     }
 
-    private async GetCustomerDetails(): Promise<void> {
+    private scheduleCustomerPoll(delayMs: number): void {
+        if (this.pollCustomerTimer) {
+            this.clearTimeout(this.pollCustomerTimer);
+        }
+        this.pollCustomerTimer = this.setTimeout(
+            () => {
+                this.pollCustomerTimer = undefined;
+                void this.runCustomerPoll();
+            },
+            Math.max(0, delayMs),
+        );
+    }
+
+    private async runCustomerPoll(): Promise<void> {
+        const delay = await this.GetCustomerDetails();
+        this.scheduleCustomerPoll(delay);
+    }
+
+    private async GetCustomerDetails(): Promise<number> {
         if (this.customerPollRunning) {
             this.log.debug('Skipping overlapping customer details poll');
-            return;
+            return CUSTOMER_INTERVAL_MS;
+        }
+
+        const elapsed = this.lastCustomerCallAt ? Date.now() - this.lastCustomerCallAt : CUSTOMER_INTERVAL_MS;
+        if (this.lastCustomerCallAt && elapsed < CUSTOMER_INTERVAL_MS) {
+            this.log.debug('Skipping customer details poll (inside 5 minute window)');
+            return CUSTOMER_INTERVAL_MS - elapsed;
         }
 
         this.customerPollRunning = true;
+        this.lastCustomerCallAt = Date.now();
         try {
             const response = await this.buildRequest('customerdetails.php', { api_key: this.config.apiKey });
             if (response.status !== 200) {
-                return;
+                return CUSTOMER_INTERVAL_MS;
             }
 
             const content = response.data;
-            void this.setStateChangedAsync('info.connection', true, true);
+            this.customerBackoffFails = 0;
+            if (content?.controller_id != null) {
+                this.v1ControllerId = Number(content.controller_id);
+            }
 
             const controllerNames = (content.controllers || []).map((c: any) => this.name2id(c.name));
             const nextStructureKey = structureSignature([], [], controllerNames);
@@ -435,9 +528,19 @@ class Hydrawise extends utils.Adapter {
             }
 
             this.updateCustomerStates(content);
+            return CUSTOMER_INTERVAL_MS;
         } catch (error: any) {
-            this.log.debug(`(customer) received error - API is now offline: ${error?.message || error}`);
-            void this.setStateChangedAsync('info.connection', false, true);
+            if (isRateLimitError(error)) {
+                this.customerBackoffFails += 1;
+                const delay = nextBackoffMs(this.customerBackoffFails, getRetryAfterSec(error));
+                this.log.warn(
+                    `customerdetails rate limited, next poll in ${Math.round(delay / 1000)}s (attempt ${this.customerBackoffFails})`,
+                );
+                return delay;
+            }
+
+            this.log.debug(`(customer) received error: ${error?.message || error}`);
+            return CUSTOMER_INTERVAL_MS;
         } finally {
             this.customerPollRunning = false;
         }
@@ -556,6 +659,7 @@ class Hydrawise extends utils.Adapter {
                 );
                 throw Object.assign(new Error(`HTTP ${response.status}`), {
                     code: response.status,
+                    retryAfter: parseRetryAfter(response.headers.get('Retry-After')),
                     response: { status: response.status, data },
                 });
             }
@@ -603,8 +707,12 @@ class Hydrawise extends utils.Adapter {
                 this.pollScheduleTimer = undefined;
             }
             if (this.pollCustomerTimer) {
-                this.clearInterval(this.pollCustomerTimer);
+                this.clearTimeout(this.pollCustomerTimer);
                 this.pollCustomerTimer = undefined;
+            }
+            if (this.pollV2Timer) {
+                this.clearTimeout(this.pollV2Timer);
+                this.pollV2Timer = undefined;
             }
             if (this.resetSwitchTimer) {
                 this.clearTimeout(this.resetSwitchTimer);
@@ -624,13 +732,25 @@ class Hydrawise extends utils.Adapter {
      * @param state state object
      */
     private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
-        if (state && !state.ack) {
-            void this.handleStateChange(id, state);
+        if (!state) {
+            return;
         }
+        if (state.ack && state.from === `system.adapter.${this.namespace}`) {
+            return;
+        }
+        void this.handleStateChange(id, state);
     }
 
     private async handleStateChange(id: string, state: ioBroker.State): Promise<void> {
         try {
+            if (id.includes('.zones.')) {
+                await this.handleV2Command(id, state);
+                return;
+            }
+            if (!this.isV1Enabled() || !id.includes('.schedule.')) {
+                return;
+            }
+
             let commandSent = false;
 
             if (id.includes('stopall')) {
@@ -731,6 +851,302 @@ class Hydrawise extends utils.Adapter {
             } else {
                 void this.setState(`${relay[1]}stopZone`, true, false);
             }
+        }
+    }
+
+    private async subscribeV1Commands(): Promise<void> {
+        await this.subscribeStatesAsync('schedule.stopall');
+        await this.subscribeStatesAsync('schedule.runall');
+        await this.subscribeStatesAsync('schedule.suspendall');
+        await this.subscribeStatesAsync('schedule.*.stopZone');
+        await this.subscribeStatesAsync('schedule.*.runZone');
+        await this.subscribeStatesAsync('schedule.*.suspendZone');
+        await this.subscribeStatesAsync('schedule.*.runDefault');
+    }
+
+    private async subscribeV2Commands(): Promise<void> {
+        await this.subscribeStatesAsync('zones.stopall');
+        await this.subscribeStatesAsync('zones.runall');
+        await this.subscribeStatesAsync('zones.suspendall');
+        await this.subscribeStatesAsync('zones.*.stopZone');
+        await this.subscribeStatesAsync('zones.*.runZone');
+        await this.subscribeStatesAsync('zones.*.suspendZone');
+        await this.subscribeStatesAsync('zones.*.runDefault');
+    }
+
+    private v2IntervalMs(): number {
+        return Math.max(120, Number(this.config.apiIntervalV2) || 300) * 1000;
+    }
+
+    private scheduleV2Poll(delayMs: number): void {
+        if (this.pollV2Timer) {
+            this.clearTimeout(this.pollV2Timer);
+        }
+        this.pollV2Timer = this.setTimeout(
+            () => {
+                this.pollV2Timer = undefined;
+                void this.runV2Poll();
+            },
+            Math.max(0, delayMs),
+        );
+    }
+
+    private async runV2Poll(statusOnly = false): Promise<void> {
+        if (this.v2PollRunning) {
+            this.log.debug('Skipping overlapping v2 poll');
+            return;
+        }
+
+        this.v2PollRunning = true;
+        let delay = this.v2IntervalMs();
+        try {
+            const statusResult = await this.pollV2Status();
+            if (statusResult === 'rate-limit') {
+                this.v2BackoffFails += 1;
+                delay = nextBackoffMs(this.v2BackoffFails, this.v2LastRetryAfter);
+                this.log.warn(`v2 rate limited, next poll in ${Math.round(delay / 1000)}s`);
+                return;
+            }
+
+            if (statusOnly || !this.v2ControllerId) {
+                return;
+            }
+
+            const weatherResult = await this.pollV2Weather();
+            if (weatherResult === 'rate-limit') {
+                this.v2BackoffFails += 1;
+                delay = nextBackoffMs(this.v2BackoffFails, this.v2LastRetryAfter);
+                this.log.warn(`v2 rate limited, next poll in ${Math.round(delay / 1000)}s`);
+                return;
+            }
+
+            const todayResult = await this.pollV2Water('today');
+            if (todayResult === 'rate-limit') {
+                this.v2BackoffFails += 1;
+                delay = nextBackoffMs(this.v2BackoffFails, this.v2LastRetryAfter);
+                this.log.warn(`v2 rate limited, next poll in ${Math.round(delay / 1000)}s`);
+                return;
+            }
+
+            const { period, nextIndex } = nextLongPeriod(this.v2LongPeriodIndex);
+            const longResult = await this.pollV2Water(period);
+            if (longResult === 'rate-limit') {
+                this.v2BackoffFails += 1;
+                delay = nextBackoffMs(this.v2BackoffFails, this.v2LastRetryAfter);
+                this.log.warn(`v2 rate limited, next poll in ${Math.round(delay / 1000)}s`);
+                return;
+            }
+            this.v2LongPeriodIndex = nextIndex;
+            this.v2BackoffFails = 0;
+        } finally {
+            this.v2PollRunning = false;
+            if (!statusOnly) {
+                this.scheduleV2Poll(delay);
+            }
+        }
+    }
+
+    private async ensureV2Token(): Promise<V2Token> {
+        if (tokenNeedsRefresh(this.v2Token)) {
+            if (this.v2Token?.refreshToken) {
+                try {
+                    this.v2Token = await refreshAccessToken(this.v2Token.refreshToken);
+                } catch {
+                    this.v2Token = await fetchAccessToken(this.config.v2Username, this.config.v2Password);
+                }
+            } else {
+                this.v2Token = await fetchAccessToken(this.config.v2Username, this.config.v2Password);
+            }
+        }
+        if (!this.v2Token) {
+            throw new HydrawiseV2Error('No v2 token', 'unauthorized');
+        }
+        return this.v2Token;
+    }
+
+    private async v2Graphql(request: { query: string; variables?: Record<string, unknown> }): Promise<any> {
+        const token = await this.ensureV2Token();
+        try {
+            return await graphqlRequest(token, request);
+        } catch (error) {
+            if (error instanceof HydrawiseV2Error && error.code === 401) {
+                this.v2Token = await fetchAccessToken(this.config.v2Username, this.config.v2Password);
+                return await graphqlRequest(this.v2Token, request);
+            }
+            throw error;
+        }
+    }
+
+    private async v2Mutate(request: { query: string; variables?: Record<string, unknown> }): Promise<any> {
+        const data = await this.v2Graphql(request);
+        const failed = mutationErrorSummary(data);
+        if (failed) {
+            throw new HydrawiseV2Error(failed, 'mutation', data);
+        }
+        return data;
+    }
+
+    private async applyMappedNodes(nodes: MappedNode[], createObjects: boolean): Promise<void> {
+        for (const node of nodes) {
+            if (createObjects) {
+                await this.setObjectNotExistsAsync(node.id, {
+                    type: node.type,
+                    common: node.common as any,
+                    native: {},
+                });
+            }
+            if (node.type === 'state' && node.value !== undefined) {
+                void this.setStateChangedAsync(node.id, node.value, true);
+            }
+        }
+    }
+
+    private async pollV2Status(): Promise<'ok' | 'rate-limit' | 'error'> {
+        try {
+            const data = await this.v2Graphql({ query: STATUS_QUERY });
+            const controller = pickController(
+                data?.me?.controllers,
+                data?.me?.currentController?.id,
+                this.v1ControllerId,
+            );
+            if (!controller) {
+                this.log.warn('v2 status: no controller in response');
+                void this.setStateChangedAsync('info.connectionV2', false, true);
+                return 'error';
+            }
+
+            this.v2ControllerId = Number(controller.id);
+            this.v2ZoneIds = zoneIdMap(controller);
+
+            const nextKey = v2StructureKey(controller);
+            const needObjects = !this.v2ObjectsReady || this.v2StructureSig !== nextKey;
+            if (needObjects) {
+                await this.applyMappedNodes(mapAllZoneCommandObjects(), true);
+                for (const zone of controller.zones || []) {
+                    const n = zone?.number?.value;
+                    if (n !== undefined && n !== null) {
+                        await this.applyMappedNodes(mapZoneCommandObjects(n), true);
+                    }
+                }
+                this.v2StructureSig = nextKey;
+                this.v2ObjectsReady = true;
+                await this.subscribeV2Commands();
+            }
+
+            await this.applyMappedNodes(mapControllerStates(controller), needObjects);
+            for (const zone of controller.zones || []) {
+                await this.applyMappedNodes(mapZoneStates(zone), needObjects);
+            }
+            for (const sensor of controller.sensors || []) {
+                await this.applyMappedNodes(mapSensorStates(sensor), needObjects);
+            }
+
+            void this.setStateChangedAsync('info.connectionV2', true, true);
+            return 'ok';
+        } catch (error: any) {
+            this.v2LastRetryAfter = getRetryAfterSec(error);
+            this.log.debug(`v2 status: ${error?.message || error}`);
+            void this.setStateChangedAsync('info.connectionV2', false, true);
+            return isRateLimitError(error) ? 'rate-limit' : 'error';
+        }
+    }
+
+    private async pollV2Weather(): Promise<'ok' | 'rate-limit' | 'error'> {
+        if (!this.v2ControllerId) {
+            return 'error';
+        }
+        try {
+            const data = await this.v2Graphql(weatherRequest(this.v2ControllerId));
+            await this.applyMappedNodes(mapWeatherStates(data?.controller?.location?.forecast), true);
+            return 'ok';
+        } catch (error: any) {
+            this.v2LastRetryAfter = getRetryAfterSec(error);
+            this.log.debug(`v2 weather: ${error?.message || error}`);
+            return isRateLimitError(error) ? 'rate-limit' : 'error';
+        }
+    }
+
+    private async pollV2Water(period: WaterPeriod): Promise<'ok' | 'rate-limit' | 'error'> {
+        if (!this.v2ControllerId) {
+            return 'error';
+        }
+        try {
+            const request = waterRequest(this.v2ControllerId, period);
+            const data = await this.v2Graphql(request);
+            const summary = computeWaterSummary(data?.controller);
+            await this.applyMappedNodes(mapWaterStates(period, summary), true);
+            return 'ok';
+        } catch (error: any) {
+            this.v2LastRetryAfter = getRetryAfterSec(error);
+            this.log.debug(`v2 water (${period}): ${error?.message || error}`);
+            return isRateLimitError(error) ? 'rate-limit' : 'error';
+        }
+    }
+
+    private async handleV2Command(id: string, state: ioBroker.State): Promise<void> {
+        if (!this.config.enableV2) {
+            return;
+        }
+        if (!this.v2ControllerId) {
+            this.log.warn('v2 command ignored: controller id is unknown');
+            return;
+        }
+
+        try {
+            let sent = false;
+            const zoneMatch = id.match(/\.zones\.(\d+)\.(stopZone|runZone|suspendZone|runDefault)$/);
+
+            if (id.endsWith('.zones.stopall')) {
+                await this.v2Mutate(stopAllZonesMutation(this.v2ControllerId));
+                sent = true;
+            } else if (id.endsWith('.zones.runall') && (state.val || state.val === 0)) {
+                await this.v2Mutate(startAllZonesMutation(this.v2ControllerId, Number(state.val)));
+                sent = true;
+            } else if (id.endsWith('.zones.suspendall') && (state.val || state.val === 0)) {
+                const until = new Date(state.ts + Number(state.val) * 1000);
+                await this.v2Mutate(suspendAllZonesMutation(this.v2ControllerId, until));
+                sent = true;
+            } else if (zoneMatch) {
+                const zoneId = this.v2ZoneIds[zoneMatch[1]];
+                if (!zoneId) {
+                    this.log.warn(`v2 command ignored: unknown zone ${zoneMatch[1]}`);
+                    return;
+                }
+                const action = zoneMatch[2];
+                if (action === 'stopZone') {
+                    await this.v2Mutate(stopZoneMutation(zoneId));
+                    sent = true;
+                } else if (action === 'runZone' && (state.val || state.val === 0)) {
+                    this.log.info(`v2 start zone ${zoneMatch[1]} for ${Number(state.val)}s`);
+                    await this.v2Mutate(startZoneMutation(zoneId, Number(state.val)));
+                    sent = true;
+                } else if (action === 'runDefault' && state.val) {
+                    this.log.info(`v2 start zone ${zoneMatch[1]} with default duration`);
+                    await this.v2Mutate(startZoneMutation(zoneId));
+                    void this.setState(id, false, true);
+                    sent = true;
+                } else if (action === 'suspendZone' && (state.val || state.val === 0)) {
+                    const until = new Date(state.ts + Number(state.val) * 1000);
+                    await this.v2Mutate(suspendZoneMutation(zoneId, until));
+                    sent = true;
+                }
+            }
+
+            if (sent) {
+                if (zoneMatch?.[2] !== 'runDefault') {
+                    void this.setState(id, state.val, true);
+                }
+                await this.pollV2Status();
+            }
+        } catch (error: any) {
+            if (isRateLimitError(error)) {
+                this.v2BackoffFails += 1;
+                const delay = nextBackoffMs(this.v2BackoffFails, getRetryAfterSec(error));
+                this.log.warn(`v2 command rate limited, delaying poll by ${Math.round(delay / 1000)}s`);
+                this.scheduleV2Poll(delay);
+                return;
+            }
+            this.log.error(`v2 command failed for ${id}: ${error?.message || error}`);
         }
     }
 
