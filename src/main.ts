@@ -1134,7 +1134,7 @@ class Hydrawise extends utils.Adapter {
 
             if (sent) {
                 if (zoneMatch?.[2] !== 'runDefault') {
-                    void this.setState(id, state.val as ioBroker.StateValue, true);
+                    void this.setState(id, state.val, true);
                 }
                 await this.pollV2Status();
             }
