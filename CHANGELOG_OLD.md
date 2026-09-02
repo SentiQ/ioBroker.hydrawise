@@ -1,4 +1,8 @@
 # Older changes
+## 1.0.3 (2025-12-05)
+
+- (SentiQ) updated dependencies
+
 ## 1.0.2 (2024-09-24)
 
 - (SentiQ) fixed issues detected by repository checker

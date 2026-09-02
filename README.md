@@ -62,7 +62,7 @@ Default v2 poll interval is **300 seconds** (minimum 120). GraphQL is rate-limit
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 2.0.0 (2026-09-02)
 
 * (SentiQ) **NEW**: Optional Hydrawise v2 GraphQL API (water usage, live sensors, weather, leak indicator, zone commands)
 * (SentiQ) **ENHANCED**: customerdetails.php polls on its own 5-minute timer with backoff after rate limits
@@ -89,10 +89,6 @@ Default v2 poll interval is **300 seconds** (minimum 120). GraphQL is rate-limit
 
 - (SentiQ) fixed dependencies
 - (SentiQ) fixed schema URLs
-
-### 1.0.3 (2025-12-05)
-
-- (SentiQ) updated dependencies
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

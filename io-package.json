@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "news": {
+      "2.0.0": {
+        "en": "**NEW**: Optional Hydrawise v2 GraphQL API (water usage, live sensors, weather, leak indicator, zone commands)\n**ENHANCED**: customerdetails.php polls on its own 5-minute timer with backoff after rate limits",
+        "de": "**NEU**: Optionale Hydrawise v2 GraphQL API (Wasserverbrauch, Livesensoren, Wetter, Zonenbefehle)\n**VERBESSERT**: customerdetails.php fragt im eigenen 5-Minuten-Timer ab, nach Ratenlimit",
+        "ru": "**НОВОЕ**: Дополнительный API-интерфейс Hydrawise v2 GraphQL (использование воды, датчики в реальном времени, погода, индикатор утечек, зональные команды)\n**УЛУЧШЕНО**: customerdetails.php опрашивает на собственном 5-минутном таймере с задержкой после ограничения скорости",
+        "pt": "**NOVO**: API Hydrawise v2 GraphQL opcional (uso de água, sensores ativos, clima, vazamento, zona)\n**MELHORADO**: customerdetails.php vota sozinho de 5 minutos com recuo após limites",
+        "nl": "**NIEUW**: Optionele Hydrawise v2 GraphQL-API (waterverbruik, actieve sensoren, weer, lekindicator, zoneopdrachten)\n**VERBETERD**: customerdetails.php peilt op zijn eigen timer van 5 minuten met terugslag na de snelheidslimieten",
+        "fr": "**NOUVEAU** : API GraphQL Hydrawise v2 en option (consommation d'eau, capteurs en temps réel, météo, indicateurs de zone)\n**AMÉLIORÉ** : customerdetails.php interroge son propre compte à 5 minutes après les limites de débit",
+        "it": "**NOVITÀ**: API GraphQL Hydrawise v2 opzionale (uso acqua, sensori live, meteo, perdite, comandi di zona)\n**MIGLIORATO**: customerdetails.php fa sondaggi da solo di 5 minuti con backoff dopo i limiti",
+        "es": "**NOVEDO**: API GraphQL Hydrawise v2 opcional (uso del agua, sensores en vivo, clima, indicador de fugas, comandos de zona)\n**MEJORADO**: customerdetails.php sondea con su propio temporizador de 5 minutos y retrasa tras los límites",
+        "pl": "** NOWOŚĆ**: Opcjonalny interfejs API Hydrawise v2 GraphQL (zużycie wody, czujniki na żywo, pogoda, wskaźnik wycieku, polecenia strefy)\n**ULEPSZONEJ**: customerdetails.php ankiety na własnym 5-minutowym zegarze z backoff po limitach szybkości",
+        "uk": "**НОВИЙ**: Додатковий API GraphQL Hydrawise v2 (використання води, датчики в реальному часі, погода, індикатор витоку, команди зон)\n**ПОСИЛЕНО**: опитування customerdetails.php за власним 5-хвилинним таймером із зворотним боком після лімітів ставок",
+        "zh-cn": "**新增**：可选的 Hydrawise v2 GraphQL API（用水量、实时传感器、天气、泄漏指示器、区域命令）\n**增强**：customerdetails.php 使用自己的 5 分钟计时器进行投票，在限速后退一步"
+      },
       "1.1.0": {
         "en": "**FIXED**: Relay ID mapping no longer writes onto the Object constructor\n**FIXED**: runDefault reset no longer accidentally stops the zone\n**ENHANCED**: Object creation only on structure change; poll overlap protection\n**ENHANCED**: Replaced axios with native fetch; timers cleaned up on unload\n**TESTING**: Unit tests for helpers (name2id, URL builder, structure signature)",
         "de": "**BEHOBEN**: Die Relay-ID-Zuordnung schreibt nicht mehr in den Objektkonstruktor.\n**BEHOBEN**: runDefault reset stoppt die Zone nicht mehr versehentlich.\n**VERBESSERT**: Objekterstellung nur bei Strukturänderung; Schutz vor Abfrageüberlappungen\n**VERBESSERT**: Axios wurde durch natives Fetch ersetzt; Timer wurden beim Entladen bereinigt.\n**TESTEN**: Unit-Tests für Hilfsfunktionen (name2id, URL-Builder, Struktursignatur)",
@@ -80,19 +93,6 @@
         "pl": "stałe problemy wykryte przez kontroler repozytorium",
         "uk": "виправлені питання, виявлені репозиторійним чекером",
         "zh-cn": "仓库检查器检测到的固定问题"
-      },
-      "1.0.1": {
-        "en": "added compatibility check and testing for node.js 22",
-        "de": "kompatibilitätsprüfung und test für node.js 22",
-        "ru": "проверка совместимости и тестирование для node.js 22",
-        "pt": "verificação de compatibilidade adicionada e teste para node.js 22",
-        "nl": "toegevoegde compatibiliteitscontrole en testen voor node.js 22",
-        "fr": "vérification et essais de compatibilité pour node.js 22",
-        "it": "controllo della compatibilità aggiunto e test per node.js 22",
-        "es": "comprobación de compatibilidad añadido y pruebas para node.js 22",
-        "pl": "dodane sprawdzenie zgodności i testowanie na node.js 22",
-        "uk": "додано перевірку сумісності та тестування для node.js 22",
-        "zh-cn": "为节点.js 22 添加兼容性检查和测试"
       }
     },
     "titleLang": {
