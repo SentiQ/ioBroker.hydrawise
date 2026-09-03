@@ -7,6 +7,7 @@ import {
     isRateLimitError,
     isRateLimited,
     isScalarKey,
+    instanceConnected,
     name2id,
     nextBackoffMs,
     parseRetryAfter,
@@ -124,5 +125,23 @@ describe('helpers => rate limit', () => {
         expect(nextBackoffMs(3, undefined, noJitter)).to.equal(CUSTOMER_INTERVAL_MS * 4);
         expect(nextBackoffMs(10, undefined, noJitter)).to.equal(30 * 60 * 1000);
         expect(nextBackoffMs(1, 600, noJitter)).to.equal(600_000);
+    });
+});
+
+describe('helpers => instanceConnected', () => {
+    it('should be true when only v2 is enabled and online', () => {
+        expect(instanceConnected(false, true, false, true)).to.equal(true);
+    });
+
+    it('should be false when only v2 is enabled and offline', () => {
+        expect(instanceConnected(false, true, false, false)).to.equal(false);
+    });
+
+    it('should require every enabled API to be online', () => {
+        expect(instanceConnected(true, true, true, true)).to.equal(true);
+        expect(instanceConnected(true, true, true, false)).to.equal(false);
+        expect(instanceConnected(true, true, false, true)).to.equal(false);
+        expect(instanceConnected(true, false, true, false)).to.equal(true);
+        expect(instanceConnected(false, false, false, false)).to.equal(false);
     });
 });

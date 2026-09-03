@@ -143,3 +143,15 @@ export function nextBackoffMs(failCount: number, retryAfterSec?: number, random:
     const jitter = 1 + (random() * 0.2 - 0.1);
     return Math.round(capped * jitter);
 }
+
+export function instanceConnected(
+    v1Enabled: boolean,
+    v2Enabled: boolean,
+    v1Online: boolean,
+    v2Online: boolean,
+): boolean {
+    if (!v1Enabled && !v2Enabled) {
+        return false;
+    }
+    return (!v1Enabled || v1Online) && (!v2Enabled || v2Online);
+}

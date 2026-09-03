@@ -20,32 +20,37 @@
 ![Stable](http://iobroker.live/badges/hydrawise-stable.svg)
 ![Installed](http://iobroker.live/badges/hydrawise-installed.svg)
 
-Integrate your Hydrawise controller into iobroker.
-You can see all controller information, schedules and sensors. It is also possible to suspend planned watering by x seconds.
+Integrate your Hydrawise controller into ioBroker.
 
-The adapter can use either API, or both:
+Both APIs provide zones and schedules. Use **v2 (GraphQL)** by default (same login as the Hydrawise app). **v1 (REST)** is a fallback via API key if GraphQL is unavailable. Enable one or both.
 
-- **v1** (optional, API key, `schedule.*` / `customer.*`) — status, sensors configuration, run/stop/suspend.
-- **v2** (optional, Hydrawise login, `zones.*` / `water.*` / `sensors.*` / `weather.*` / `controller.*`) — measured water usage, live sensor values, weather, leak indicator, and zone commands via GraphQL.
+- **v2** (recommended): email/password like the app — `zones.*`, `sensors.*`, `weather.*`, `water.*`, `controller.*` (plus weather, measured sensors, leak indicator, GraphQL zone commands).
+- **v1** (fallback): API key — `schedule.*` / `customer.*` (same zones and schedules, no weather or measured sensors).
 
 ## Documentation
 
+### v2 API (recommended)
+
+v2 is the unofficial GraphQL API used by the Hydrawise app (`app.hydrawise.com/api/v2/graph`). Enable **v2 API (GraphQL)** in instance settings and enter the same email/password as on hydrawise.com.
+
+### v1 API (fallback)
+
+Only needed if GraphQL is unavailable:
+
 - log into https://app.hydrawise.com/config/account-details
 - generate API Key by clicking "Generate API Key" under "Account Settings"
-- paste key into adapter settings
+- paste the key into the v1 tab
 - API documentation: https://support.hydrawise.com/hc/en-us/articles/360008965753-Hydrawise-API-Information
-
-### v2 API (optional)
-
-v2 is the unofficial GraphQL API used by the Hydrawise app (`app.hydrawise.com/api/v2/graph`). Enable it in instance settings and enter the same email/password as the app. v1 can be disabled independently if you only want GraphQL.
 
 | Object tree | Source | Controls irrigation? |
 | --- | --- | --- |
 | `schedule.*` | v1 REST | yes (`setzone.php`) |
 | `zones.*` | v2 GraphQL | yes (GraphQL mutations), only if v2 is enabled |
 | `water.*`, `sensors.*`, `weather.*`, `controller.*` | v2 GraphQL | read-only |
-| `info.connection` | v1 | — |
-| `info.connectionV2` | v2 | — |
+| `info.connection` | instance (all enabled APIs) | — |
+| `info.connectionV2` | v2 GraphQL only | — |
+
+The Admin traffic light (`info.connection`) is green only if **every enabled API** is online. v1 enabled but failing and v2 OK → yellow/red. v2-only and connected → green. `info.connectionV2` stays true whenever GraphQL works.
 
 v1 `schedule.sensors.*` only contains sensor *configuration*. Measured flow, rainfall and leak suspicion come from v2 `sensors.*` / `water.leakSuspected`.
 
@@ -62,6 +67,10 @@ Default v2 poll interval is **300 seconds** (minimum 120). GraphQL is rate-limit
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+* (SentiQ) **FIXED**: Instance `info.connection` follows every enabled API (v2-only no longer stays red)
+
 ### 2.0.0 (2026-09-02)
 
 * (SentiQ) **NEW**: Optional Hydrawise v2 GraphQL API (water usage, live sensors, weather, leak indicator, zone commands)
