@@ -144,6 +144,14 @@ export function nextBackoffMs(failCount: number, retryAfterSec?: number, random:
     return Math.round(capped * jitter);
 }
 
+/**
+ * True when every enabled API is online. Admin uses this for `info.connection`.
+ *
+ * @param v1Enabled whether v1 REST is enabled
+ * @param v2Enabled whether v2 GraphQL is enabled
+ * @param v1Online whether v1 last poll succeeded
+ * @param v2Online whether v2 last poll succeeded
+ */
 export function instanceConnected(
     v1Enabled: boolean,
     v2Enabled: boolean,
