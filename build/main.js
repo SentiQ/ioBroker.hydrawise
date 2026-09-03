@@ -51,6 +51,8 @@ class Hydrawise extends utils.Adapter {
   v2LastRetryAfter;
   v2StructureSig = "";
   v2ObjectsReady = false;
+  v1Online = false;
+  v2Online = false;
   constructor(options = {}) {
     super({
       ...options,
@@ -63,6 +65,19 @@ class Hydrawise extends utils.Adapter {
   isV1Enabled() {
     return this.config.enableV1 !== false;
   }
+  setV1Online(online) {
+    this.v1Online = online;
+    this.syncInstanceConnection();
+  }
+  setV2Online(online) {
+    this.v2Online = online;
+    void this.setStateChangedAsync("info.connectionV2", online, true);
+    this.syncInstanceConnection();
+  }
+  syncInstanceConnection() {
+    const connected = (0, import_helpers.instanceConnected)(this.isV1Enabled(), !!this.config.enableV2, this.v1Online, this.v2Online);
+    void this.setStateChangedAsync("info.connection", connected, true);
+  }
   async onReady() {
     const v1 = this.isV1Enabled();
     const v2 = !!this.config.enableV2;
@@ -70,7 +85,9 @@ class Hydrawise extends utils.Adapter {
       this.log.error("Neither v1 nor v2 API is enabled");
       return;
     }
-    void this.setStateChangedAsync("info.connection", false, true);
+    this.v1Online = false;
+    this.v2Online = false;
+    this.syncInstanceConnection();
     if (v1) {
       if (!this.config.apiKey) {
         this.log.error("No API-Key defined!");
@@ -88,7 +105,7 @@ class Hydrawise extends utils.Adapter {
         this.log.error("v2 API enabled but username or password is missing");
       } else {
         await this.subscribeV2Commands();
-        void this.setStateChangedAsync("info.connectionV2", false, true);
+        this.setV2Online(false);
         this.scheduleV2Poll(0);
       }
     }
@@ -105,7 +122,7 @@ class Hydrawise extends utils.Adapter {
         return;
       }
       const content = response.data;
-      void this.setStateChangedAsync("info.connection", true, true);
+      this.setV1Online(true);
       const relayIds = (content.relays || []).map((r) => r.relay);
       const sensorInputs = (content.sensors || []).map((s) => s.input);
       const nextStructureKey = (0, import_helpers.structureSignature)(relayIds, sensorInputs);
@@ -118,7 +135,7 @@ class Hydrawise extends utils.Adapter {
       this.updateScheduleStates(content);
     } catch (error) {
       this.log.debug(`(schedule) received error - API is now offline: ${(error == null ? void 0 : error.message) || error}`);
-      void this.setStateChangedAsync("info.connection", false, true);
+      this.setV1Online(false);
     } finally {
       this.schedulePollRunning = false;
     }
@@ -887,7 +904,7 @@ class Hydrawise extends utils.Adapter {
       );
       if (!controller) {
         this.log.warn("v2 status: no controller in response");
-        void this.setStateChangedAsync("info.connectionV2", false, true);
+        this.setV2Online(false);
         return "error";
       }
       this.v2ControllerId = Number(controller.id);
@@ -913,12 +930,12 @@ class Hydrawise extends utils.Adapter {
       for (const sensor of controller.sensors || []) {
         await this.applyMappedNodes((0, import_mapper.mapSensorStates)(sensor), needObjects);
       }
-      void this.setStateChangedAsync("info.connectionV2", true, true);
+      this.setV2Online(true);
       return "ok";
     } catch (error) {
       this.v2LastRetryAfter = (0, import_helpers.getRetryAfterSec)(error);
       this.log.debug(`v2 status: ${(error == null ? void 0 : error.message) || error}`);
-      void this.setStateChangedAsync("info.connectionV2", false, true);
+      this.setV2Online(false);
       return (0, import_helpers.isRateLimitError)(error) ? "rate-limit" : "error";
     }
   }

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "news": {
+      "2.0.1": {
+        "en": "**FIXED**: Instance `info.connection` follows every enabled API (v2-only no longer stays red)",
+        "de": "**REPARIERT**: Instanz `info.connection` folgt jeder API (nur v2 bleibt nicht mehr rot)",
+        "ru": "**ИСПРАВЛЕНО**: экземпляр `info.connection` следует за всеми включенными API (только версия 2 больше не отображается красным цветом)",
+        "pt": "**CORRIGIDO**: A instância `info.connection` segue cada API (a v2 não fica mais vermelha)",
+        "nl": "**FIXED**: De instantie `info.connection` volgt elke ingeschakelde API (alleen v2 blijft niet langer rood)",
+        "fr": "**CORRIGÉ** : L'instance « info.connection » suit toutes les API activées (la v2 seule ne reste plus rouge)",
+        "it": "**FISSO**: L'istanza `info.connection` segue ogni API abilitata (solo v2 non è più rossa)",
+        "es": "**FIJO**: La instancia `info.connection` sigue todas las API habilitadas (solo la v2 ya no está en rojo)",
+        "pl": "**NAPRAWIONO**: Instancja `info.connection` podąża za każdym włączonym interfejsem API (tylko v2 nie pozostaje już czerwony)",
+        "uk": "** ВИПРАВЛЕНО**: Екземпляр `info.connection` слідує за кожним увімкненим API (лише v2 більше не залишається червоним)",
+        "zh-cn": "**已修复**：实例 “info.connection” 遵循每个已启用的 API（仅限 v2 不再保持红色）"
+      },
       "2.0.0": {
         "en": "**NEW**: Optional Hydrawise v2 GraphQL API (water usage, live sensors, weather, leak indicator, zone commands)\n**ENHANCED**: customerdetails.php polls on its own 5-minute timer with backoff after rate limits",
         "de": "**NEU**: Optionale Hydrawise v2 GraphQL API (Wasserverbrauch, Livesensoren, Wetter, Zonenbefehle)\n**VERBESSERT**: customerdetails.php fragt im eigenen 5-Minuten-Timer ab, nach Ratenlimit",
@@ -80,19 +93,6 @@
         "pl": "zaktualizowane zależności",
         "uk": "оновлені залежності",
         "zh-cn": "更新的依赖关系"
-      },
-      "1.0.2": {
-        "en": "fixed issues detected by repository checker",
-        "de": "von repository checker erkannte probleme",
-        "ru": "фиксированные проблемы, выявленные регистратором",
-        "pt": "problemas corrigidos detectados pelo verificador de repositório",
-        "nl": "vaste problemen gedetecteerd door repository checker",
-        "fr": "problèmes corrigés détectés par le vérificateur du dépôt",
-        "it": "problemi fissi rilevati da repository checker",
-        "es": "problemas fijos detectados por el repositorio",
-        "pl": "stałe problemy wykryte przez kontroler repozytorium",
-        "uk": "виправлені питання, виявлені репозиторійним чекером",
-        "zh-cn": "仓库检查器检测到的固定问题"
       }
     },
     "titleLang": {

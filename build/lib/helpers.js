@@ -27,6 +27,7 @@ __export(helpers_exports, {
   SCHEDULE_SKIP_KEYS: () => SCHEDULE_SKIP_KEYS,
   buildHydrawiseUrl: () => buildHydrawiseUrl,
   getRetryAfterSec: () => getRetryAfterSec,
+  instanceConnected: () => instanceConnected,
   isRateLimitError: () => isRateLimitError,
   isRateLimited: () => isRateLimited,
   isScalarKey: () => isScalarKey,
@@ -109,6 +110,12 @@ function nextBackoffMs(failCount, retryAfterSec, random = Math.random) {
   const jitter = 1 + (random() * 0.2 - 0.1);
   return Math.round(capped * jitter);
 }
+function instanceConnected(v1Enabled, v2Enabled, v1Online, v2Online) {
+  if (!v1Enabled && !v2Enabled) {
+    return false;
+  }
+  return (!v1Enabled || v1Online) && (!v2Enabled || v2Online);
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   BACKOFF_CAP_MS,
@@ -120,6 +127,7 @@ function nextBackoffMs(failCount, retryAfterSec, random = Math.random) {
   SCHEDULE_SKIP_KEYS,
   buildHydrawiseUrl,
   getRetryAfterSec,
+  instanceConnected,
   isRateLimitError,
   isRateLimited,
   isScalarKey,

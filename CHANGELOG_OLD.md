@@ -1,4 +1,9 @@
 # Older changes
+## 1.0.4 (2025-12-05)
+
+- (SentiQ) fixed dependencies
+- (SentiQ) fixed schema URLs
+
 ## 1.0.3 (2025-12-05)
 
 - (SentiQ) updated dependencies

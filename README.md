@@ -67,7 +67,7 @@ Default v2 poll interval is **300 seconds** (minimum 120). GraphQL is rate-limit
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 2.0.1 (2026-09-03)
 
 * (SentiQ) **FIXED**: Instance `info.connection` follows every enabled API (v2-only no longer stays red)
 
@@ -93,11 +93,6 @@ Default v2 poll interval is **300 seconds** (minimum 120). GraphQL is rate-limit
 
 - (SentiQ) updated js-controller dependency
 - (SentiQ) updated @iobroker/adapter-dev dependency
-
-### 1.0.4 (2025-12-05)
-
-- (SentiQ) fixed dependencies
-- (SentiQ) fixed schema URLs
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
