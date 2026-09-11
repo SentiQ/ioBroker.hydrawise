@@ -67,6 +67,12 @@ Default v2 poll interval is **300 seconds** (minimum 120). GraphQL is rate-limit
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+* (SentiQ) **FIXED**: Admin jsonConfig responsive sizes for repository checker
+* (SentiQ) **FIXED**: Admin jsonConfig uses `i18n: true` with translation files
+* (SentiQ) **FIXED**: HTTP request timeouts via AbortSignal.timeout instead of global setTimeout
+
 ### 2.0.1 (2026-09-03)
 
 * (SentiQ) **FIXED**: Instance `info.connection` follows every enabled API (v2-only no longer stays red)

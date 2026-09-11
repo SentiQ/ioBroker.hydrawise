@@ -557,12 +557,10 @@ class Hydrawise extends utils.Adapter {
       throw new Error("API key is not configured");
     }
     const url = (0, import_helpers.buildHydrawiseUrl)(service, params);
-    const abort = new AbortController();
-    const timeout = setTimeout(() => abort.abort(), 3e4);
     try {
       const response = await fetch(url, {
         method: "GET",
-        signal: abort.signal,
+        signal: AbortSignal.timeout(3e4),
         headers: { Accept: "application/json" }
       });
       this.lastErrorCode = 0;
@@ -588,7 +586,7 @@ class Hydrawise extends utils.Adapter {
       return { status: response.status, data };
     } catch (error) {
       if (error == null ? void 0 : error.response) {
-      } else if ((error == null ? void 0 : error.name) === "AbortError") {
+      } else if ((error == null ? void 0 : error.name) === "AbortError" || (error == null ? void 0 : error.name) === "TimeoutError") {
         const code = "ECONNABORTED";
         if (code === this.lastErrorCode) {
           this.log.debug(`timeout from ${import_helpers.HYDRAWISE_BASE_URL}/api/v1/${service}`);
@@ -609,8 +607,6 @@ class Hydrawise extends utils.Adapter {
         this.log.error(String(error));
       }
       throw error instanceof Error ? error : new Error(String(error));
-    } finally {
-      clearTimeout(timeout);
     }
   }
   /**

@@ -69,12 +69,10 @@ function parseTokenResponse(json: Record<string, any>): V2Token {
 }
 
 async function postForm(url: string, params: Record<string, string>): Promise<V2Token> {
-    const abort = new AbortController();
-    const timeout = setTimeout(() => abort.abort(), V2_REQUEST_TIMEOUT_MS);
     try {
         const response = await fetch(url, {
             method: 'POST',
-            signal: abort.signal,
+            signal: AbortSignal.timeout(V2_REQUEST_TIMEOUT_MS),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' },
             body: new URLSearchParams(params),
         });
@@ -92,12 +90,10 @@ async function postForm(url: string, params: Record<string, string>): Promise<V2
         if (error instanceof HydrawiseV2Error) {
             throw error;
         }
-        if (error?.name === 'AbortError') {
+        if (error?.name === 'AbortError' || error?.name === 'TimeoutError') {
             throw new HydrawiseV2Error('request timed out', 'ECONNABORTED');
         }
         throw new HydrawiseV2Error(error?.message || String(error), error?.code || 'ENOTFOUND');
-    } finally {
-        clearTimeout(timeout);
     }
 }
 
@@ -147,12 +143,10 @@ export interface GraphQlRequest {
  * @param request query and optional variables
  */
 export async function graphqlRequest(token: V2Token, request: GraphQlRequest): Promise<any> {
-    const abort = new AbortController();
-    const timeout = setTimeout(() => abort.abort(), V2_REQUEST_TIMEOUT_MS);
     try {
         const response = await fetch(V2_GRAPH_URL, {
             method: 'POST',
-            signal: abort.signal,
+            signal: AbortSignal.timeout(V2_REQUEST_TIMEOUT_MS),
             headers: {
                 Authorization: `${token.tokenType} ${token.accessToken}`,
                 'Content-Type': 'application/json',
@@ -193,11 +187,9 @@ export async function graphqlRequest(token: V2Token, request: GraphQlRequest): P
         if (error instanceof HydrawiseV2Error) {
             throw error;
         }
-        if (error?.name === 'AbortError') {
+        if (error?.name === 'AbortError' || error?.name === 'TimeoutError') {
             throw new HydrawiseV2Error('request timed out', 'ECONNABORTED');
         }
         throw new HydrawiseV2Error(error?.message || String(error), error?.code || 'ENOTFOUND');
-    } finally {
-        clearTimeout(timeout);
     }
 }

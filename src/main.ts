@@ -652,13 +652,11 @@ class Hydrawise extends utils.Adapter {
         }
 
         const url = buildHydrawiseUrl(service, params);
-        const abort = new AbortController();
-        const timeout = setTimeout(() => abort.abort(), 30_000);
 
         try {
             const response = await fetch(url, {
                 method: 'GET',
-                signal: abort.signal,
+                signal: AbortSignal.timeout(30_000),
                 headers: { Accept: 'application/json' },
             });
 
@@ -689,7 +687,7 @@ class Hydrawise extends utils.Adapter {
         } catch (error: any) {
             if (error?.response) {
                 // already logged above for HTTP errors
-            } else if (error?.name === 'AbortError') {
+            } else if (error?.name === 'AbortError' || error?.name === 'TimeoutError') {
                 const code = 'ECONNABORTED';
                 if (code === this.lastErrorCode) {
                     this.log.debug(`timeout from ${HYDRAWISE_BASE_URL}/api/v1/${service}`);
@@ -711,8 +709,6 @@ class Hydrawise extends utils.Adapter {
             }
 
             throw error instanceof Error ? error : new Error(String(error));
-        } finally {
-            clearTimeout(timeout);
         }
     }
 

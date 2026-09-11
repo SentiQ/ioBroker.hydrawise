@@ -77,12 +77,10 @@ function parseTokenResponse(json) {
   };
 }
 async function postForm(url, params) {
-  const abort = new AbortController();
-  const timeout = setTimeout(() => abort.abort(), V2_REQUEST_TIMEOUT_MS);
   try {
     const response = await fetch(url, {
       method: "POST",
-      signal: abort.signal,
+      signal: AbortSignal.timeout(V2_REQUEST_TIMEOUT_MS),
       headers: { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json" },
       body: new URLSearchParams(params)
     });
@@ -100,12 +98,10 @@ async function postForm(url, params) {
     if (error instanceof HydrawiseV2Error) {
       throw error;
     }
-    if ((error == null ? void 0 : error.name) === "AbortError") {
+    if ((error == null ? void 0 : error.name) === "AbortError" || (error == null ? void 0 : error.name) === "TimeoutError") {
       throw new HydrawiseV2Error("request timed out", "ECONNABORTED");
     }
     throw new HydrawiseV2Error((error == null ? void 0 : error.message) || String(error), (error == null ? void 0 : error.code) || "ENOTFOUND");
-  } finally {
-    clearTimeout(timeout);
   }
 }
 async function fetchAccessToken(username, password) {
@@ -128,12 +124,10 @@ async function refreshAccessToken(refreshToken) {
 }
 async function graphqlRequest(token, request) {
   var _a;
-  const abort = new AbortController();
-  const timeout = setTimeout(() => abort.abort(), V2_REQUEST_TIMEOUT_MS);
   try {
     const response = await fetch(V2_GRAPH_URL, {
       method: "POST",
-      signal: abort.signal,
+      signal: AbortSignal.timeout(V2_REQUEST_TIMEOUT_MS),
       headers: {
         Authorization: `${token.tokenType} ${token.accessToken}`,
         "Content-Type": "application/json",
@@ -170,12 +164,10 @@ async function graphqlRequest(token, request) {
     if (error instanceof HydrawiseV2Error) {
       throw error;
     }
-    if ((error == null ? void 0 : error.name) === "AbortError") {
+    if ((error == null ? void 0 : error.name) === "AbortError" || (error == null ? void 0 : error.name) === "TimeoutError") {
       throw new HydrawiseV2Error("request timed out", "ECONNABORTED");
     }
     throw new HydrawiseV2Error((error == null ? void 0 : error.message) || String(error), (error == null ? void 0 : error.code) || "ENOTFOUND");
-  } finally {
-    clearTimeout(timeout);
   }
 }
 // Annotate the CommonJS export names for ESM import in node:
