@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "hydrawise",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "news": {
+      "2.0.2": {
+        "en": "**FIXED**: Admin jsonConfig responsive sizes for repository checker\n**FIXED**: Admin jsonConfig uses `i18n: true` with translation files\n**FIXED**: HTTP request timeouts via AbortSignal.timeout instead of global setTimeout",
+        "de": "**REPARIERT**: Admin-JSONConfig-Größen für Repository-Checker\n**REPARIERT**: Admin JSONConfig benutzt `i18n: true` bei Übersetzungen\n**REPARIERT**: HTTP-Abfrage-Timeout über AbortSignal.Timeout statt global setTimeout",
+        "ru": "**ИСПРАВЛЕНО**: адаптивные размеры администратора JSONConfig для средства проверки репозитория\n**ИСПРАВЛЕНО**: администратор JSONConfig использует `i18n: true` с файлами переводов\n**ИСПРАВЛЕНО**: тайм-ауты HTTP-запроса через AbortSignal.Timeout вместо глобального setTimeout",
+        "pt": "**CORRIGIDO**: Admin JSONConfig responsivo para repositório\n**CORRIGIDO**: Admin JSONConfig usa `i18n: true` com tradução\n**CORRIGIDO**: Tempo limite de requisição HTTP via abortSignal.timeout em vez de setTimeout",
+        "nl": "**FIXED**: responsieve groottes van Admin JSONConfig voor de repository-checker\n**FIXED**: Admin JSONConfig gebruikt `i18n: true` voor vertaalbestanden\n**FIXED**: time-outs voor HTTP-aanvragen via AbortSignal.Timeout in plaats van globale setTimeout",
+        "fr": "**CORRIGÉ** : Admin JSONConfig responsive sizes for Repository Checker\n**CORRIGÉ** : Admin JSONConfig utilise « i18n : true » pour les traductions\n**CORRIGÉ** : délai d'attente des requêtes HTTP via AbortSignal.Timeout au lieu du setTimeout global",
+        "it": "**FISSO**: Admin JsonConfig reattivo per Repository Checker\n**FISSO**: Admin JSONConfig usa `i18n: true` con i file di traduzione\n**FISSO**: timeout delle richieste HTTP via AbortSignal.timeout anziché globale",
+        "es": "**FIJO**: Tamaños de respuesta de Admin JsonConfig para el comprobador de repositorios\n**CORREGIDO**: Admin JSONConfig usa `i18n: true` con los archivos de traducción\n**FIJO**: La solicitud HTTP se agota mediante AbortSignal.Timeout en lugar de setTimeout global",
+        "pl": "**NAPRAWIONO**: Responsywne rozmiary administratora JSONConfig dla narzędzia sprawdzającego repozytorium\n**NAPRAWIONO**: Administrator JSONConfig używa `i18n: true` z plikami tłumaczenia\n**NAPRAWIONO**: limity czasu żądania HTTP za pośrednictwem AbortSignal.Timeout zamiast globalnego setTimeout",
+        "uk": "** ВИПРАВЛЕНО**: Адаптивні розміри адміністратора JSONConfig для перевірки сховища\n** ВИПРАВЛЕНО**: Адміністратор JSONConfig використовує `i18n: true` з файлами перекладу\n** ВИПРАВЛЕНО**: таймаути запиту HTTP через abortSignal.timeout замість глобального setTimeout",
+        "zh-cn": "**已修复**：管理员 JsonConfig 存储库检查器的响应式大小\n**已修复**：管理员 JsonConfig 在翻译文件中使用 `i18n: true`\n**已修复**：通过 abortSignal.Timeout 而不是全局 setTimeout 实现 HTTP 请求超时"
+      },
       "2.0.1": {
         "en": "**FIXED**: Instance `info.connection` follows every enabled API (v2-only no longer stays red)",
         "de": "**REPARIERT**: Instanz `info.connection` folgt jeder API (nur v2 bleibt nicht mehr rot)",
@@ -80,19 +93,6 @@
         "pl": "stałe zależności\nstałe schematy URL",
         "uk": "фіксовані залежності\nфіксована схема Контакти",
         "zh-cn": "固定依赖关系\n固定计划 URL( URL)"
-      },
-      "1.0.3": {
-        "en": "updated dependencies",
-        "de": "aktualisierte abhängigkeiten",
-        "ru": "обновленные зависимости",
-        "pt": "dependências atualizadas",
-        "nl": "bijgewerkte afhankelijkheden",
-        "fr": "dépendances actualisées",
-        "it": "dipendenze aggiornate",
-        "es": "dependencias actualizadas",
-        "pl": "zaktualizowane zależności",
-        "uk": "оновлені залежності",
-        "zh-cn": "更新的依赖关系"
       }
     },
     "titleLang": {

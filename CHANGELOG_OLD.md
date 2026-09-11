@@ -1,4 +1,9 @@
 # Older changes
+## 1.0.5 (2025-12-05)
+
+- (SentiQ) updated js-controller dependency
+- (SentiQ) updated @iobroker/adapter-dev dependency
+
 ## 1.0.4 (2025-12-05)
 
 - (SentiQ) fixed dependencies

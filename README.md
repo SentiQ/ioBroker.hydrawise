@@ -67,7 +67,7 @@ Default v2 poll interval is **300 seconds** (minimum 120). GraphQL is rate-limit
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 2.0.2 (2026-09-11)
 
 * (SentiQ) **FIXED**: Admin jsonConfig responsive sizes for repository checker
 * (SentiQ) **FIXED**: Admin jsonConfig uses `i18n: true` with translation files
@@ -94,11 +94,6 @@ Default v2 poll interval is **300 seconds** (minimum 120). GraphQL is rate-limit
 
 - (SentiQ) updated dependencies
 - (SentiQ) Adapter requires node.js >= 22 now
-
-### 1.0.5 (2025-12-05)
-
-- (SentiQ) updated js-controller dependency
-- (SentiQ) updated @iobroker/adapter-dev dependency
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
